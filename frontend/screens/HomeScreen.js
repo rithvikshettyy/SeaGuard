@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, ActivityIndicator, Linking } from 'react-native';
 import * as Location from 'expo-location';
 import { COLORS } from '../constants/colors';
 
 const HomeScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [weather, setWeather] = useState(null);
+  const [news, setNews] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const NEWS_API_KEY = 'aa70f66da1284be183ee26d5f604fcff';
 
   const fetchWeather = async (latitude, longitude) => {
     try {
@@ -16,16 +19,28 @@ const HomeScreen = ({ navigation }) => {
       setWeather(data);
     } catch (error) {
       setErrorMsg('Error fetching weather data');
-    } finally {
-      setLoading(false);
     }
   };
 
-  const refreshWeather = async () => {
+  const fetchNews = async () => {
+    try {
+      const response = await fetch(`https://newsapi.org/v2/everything?q=fishing%20OR%20ocean&apiKey=${NEWS_API_KEY}`);
+      const data = await response.json();
+      if (data.articles) {
+        setNews(data.articles);
+      }
+    } catch (error) {
+      console.error('Error fetching news data', error);
+    }
+  };
+
+  const refreshData = async () => {
+    setLoading(true);
     if (location) {
-      setLoading(true);
       await fetchWeather(location.coords.latitude, location.coords.longitude);
     }
+    await fetchNews();
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -40,6 +55,8 @@ const HomeScreen = ({ navigation }) => {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
       await fetchWeather(location.coords.latitude, location.coords.longitude);
+      await fetchNews();
+      setLoading(false);
     })();
   }, []);
 
@@ -95,7 +112,7 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.locationIcon}>⊙</Text>
               <Text style={styles.locationTitle}>Current Location</Text>
             </View>
-            <TouchableOpacity style={styles.refreshButton} onPress={refreshWeather}>
+            <TouchableOpacity style={styles.refreshButton} onPress={refreshData}>
               <Text style={styles.refreshIcon}>⟲</Text>
             </TouchableOpacity>
           </View>
@@ -176,17 +193,15 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.updatesList}>
-            <View style={styles.updateItem}>
-              <Text style={styles.updateBullet}>•</Text>
-              <Text style={styles.updateText}>Chance of High Tides on Mumbai Coast - TOI</Text>
-            </View>
-            <View style={styles.updateItem}>
-              <Text style={styles.updateBullet}>•</Text>
-              <Text style={styles.updateText}>Tuna Fish scarcity near West Bengal - HT</Text>
-            </View>
+            {news.slice(0, 2).map((item, index) => (
+              <TouchableOpacity key={index} style={styles.updateItem} onPress={() => Linking.openURL(item.url)}>
+                <Text style={styles.updateBullet}>•</Text>
+                <Text style={styles.updateText}>{item.title}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
 
-          <TouchableOpacity style={styles.viewMoreContainer}>
+          <TouchableOpacity style={styles.viewMoreContainer} onPress={() => navigation.navigate('NewsScreen', { articles: news })}>
             <Text style={styles.viewMoreText}>View More ∨</Text>
           </TouchableOpacity>
         </View>

@@ -1,14 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-const NewsCard = ({ item }) => (
-  <View style={[styles.card, item.type === 'alert' && styles.alertCard]}>
-    <Text style={styles.title}>{item.title}</Text>
-    <Text style={styles.date}>{item.date}</Text>
-    <Text style={styles.summary}>{item.summary}</Text>
-  </View>
-);
+const NewsCard = ({ item }) => {
+  const { title, publishedAt, description, url, source } = item;
+
+  const formattedDate = publishedAt ? new Date(publishedAt).toLocaleDateString() : 'No Date';
+
+  return (
+    <TouchableOpacity style={styles.card} onPress={() => Linking.openURL(url)}>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.date}>{formattedDate} - {source.name}</Text>
+      <Text style={styles.summary}>{description || 'No description available.'}</Text>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   card: {
@@ -18,10 +24,6 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderWidth: 1,
     borderColor: COLORS.border,
-  },
-  alertCard: {
-    backgroundColor: COLORS.warning,
-    borderColor: COLORS.warning,
   },
   title: {
     color: COLORS.text,
