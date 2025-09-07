@@ -92,7 +92,7 @@ const ProfileScreen = ({ navigation, route }) => {
           <Text style={styles.cardTitle}>Account Settings</Text>
           <TouchableOpacity 
             style={styles.optionRow} 
-            onPress={() => navigation.navigate('EditProfile', { name: name })}
+            onPress={() => navigation.navigate('HomeTab', { screen: 'EditProfile', params: { name: name } })}
           >
             <View style={styles.optionLeft}>
               <Ionicons name="person-outline" size={22} color="#666666" />

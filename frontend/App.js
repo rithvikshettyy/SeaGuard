@@ -64,6 +64,8 @@ const HomeStack = ({ navigation }) => (
     <Stack.Screen name="Settings" component={SettingsScreen} />
     <Stack.Screen name="About" component={AboutScreen} />
     <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+    <Stack.Screen name="SOS" component={SOSScreen} />
+    <Stack.Screen name="Tracker" component={TrackerScreen} />
   </Stack.Navigator>
 );
 
@@ -111,6 +113,7 @@ const App = () => (
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Main" component={MainTabs} />
+      <Stack.Screen name="SOS" component={SOSScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
