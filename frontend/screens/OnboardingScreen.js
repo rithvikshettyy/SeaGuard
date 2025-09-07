@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import React from 'react';import { View, Text, StyleSheet, SafeAreaView, Image } from 'react-native';
+
 import { COLORS } from '../constants/colors';
 import BigButton from '../components/BigButton';
 import LanguagePicker from '../components/LanguagePicker';
@@ -7,7 +7,7 @@ import LanguagePicker from '../components/LanguagePicker';
 const OnboardingScreen = ({ navigation }) => (
   <SafeAreaView style={styles.container}>
     <View style={styles.content}>
-      <Text style={styles.logo}>LOGO</Text>
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Text style={styles.tagline}>Your Fishing Companion</Text>
       <LanguagePicker />
       <BigButton title="Get Started" onPress={() => navigation.replace('Login')} />
@@ -29,7 +29,10 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: 48,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 0,
+    height: 150,
+    width: 150,
+    resizeMode: 'contain',
   },
   tagline: {
     color: COLORS.text,
