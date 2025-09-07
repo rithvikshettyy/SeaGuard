@@ -1,111 +1,199 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import * as Location from 'expo-location';
 import { COLORS } from '../constants/colors';
-import WeatherWidget from '../components/WeatherWidget';
 
-const HomeScreen = ({ navigation }) => (
-  <SafeAreaView style={styles.container}>
-    <ScrollView showsVerticalScrollIndicator={false}>
-      {/* Emergency SOS Button */}
-      <TouchableOpacity 
-        style={styles.sosButton}
-        onPress={() => navigation.navigate('SOS')}
-      >
-        <Text style={styles.sosText}>Emergency SOS</Text>
-      </TouchableOpacity>
+const HomeScreen = ({ navigation }) => {
+  const [location, setLocation] = useState(null);
+  const [weather, setWeather] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-      {/* Current Location Section */}
-      <View style={styles.locationContainer}>
-        <View style={styles.locationHeader}>
-          <View style={styles.locationTitleRow}>
-            <Text style={styles.locationIcon}>⊙</Text>
-            <Text style={styles.locationTitle}>Current Location</Text>
+  const fetchWeather = async (latitude, longitude) => {
+    try {
+      const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation_probability,weathercode,pressure_msl,windspeed_10m`);
+      const data = await response.json();
+      setWeather(data);
+    } catch (error) {
+      setErrorMsg('Error fetching weather data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const refreshWeather = async () => {
+    if (location) {
+      setLoading(true);
+      await fetchWeather(location.coords.latitude, location.coords.longitude);
+    }
+  }
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        setLoading(false);
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      await fetchWeather(location.coords.latitude, location.coords.longitude);
+    })();
+  }, []);
+
+  const getWeatherDescription = (code) => {
+    switch (code) {
+      case 0: return { desc: 'Clear sky', emoji: '☀️' };
+      case 1:
+      case 2:
+      case 3: return { desc: 'Partly cloudy', emoji: '☁️' };
+      case 45:
+      case 48: return { desc: 'Fog', emoji: '🌫️' };
+      case 51:
+      case 53:
+      case 55: return { desc: 'Drizzle', emoji: '💧' };
+      case 56:
+      case 57: return { desc: 'Freezing Drizzle', emoji: '💧❄️' };
+      case 61:
+      case 63:
+      case 65: return { desc: 'Rain', emoji: '🌧️' };
+      case 66:
+      case 67: return { desc: 'Freezing Rain', emoji: '🌧️❄️' };
+      case 71:
+      case 73:
+      case 75: return { desc: 'Snow fall', emoji: '❄️' };
+      case 77: return { desc: 'Snow grains', emoji: '❄️' };
+      case 80:
+      case 81:
+      case 82: return { desc: 'Rain showers', emoji: '🌦️' };
+      case 85:
+      case 86: return { desc: 'Snow showers', emoji: '🌨️' };
+      case 95: return { desc: 'Thunderstorm', emoji: '⛈️' };
+      case 96:
+      case 99: return { desc: 'Thunderstorm with hail', emoji: '⛈️🧊' };
+      default: return { desc: 'Unknown', emoji: '🤷' };
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Emergency SOS Button */}
+        <TouchableOpacity
+          style={styles.sosButton}
+          onPress={() => navigation.navigate('SOS')}
+        >
+          <Text style={styles.sosText}>Emergency SOS</Text>
+        </TouchableOpacity>
+
+        {/* Current Location Section */}
+        <View style={styles.locationContainer}>
+          <View style={styles.locationHeader}>
+            <View style={styles.locationTitleRow}>
+              <Text style={styles.locationIcon}>⊙</Text>
+              <Text style={styles.locationTitle}>Current Location</Text>
+            </View>
+            <TouchableOpacity style={styles.refreshButton} onPress={refreshWeather}>
+              <Text style={styles.refreshIcon}>⟲</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.refreshButton}>
-            <Text style={styles.refreshIcon}>⟲</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <View style={styles.coordinatesRow}>
-          <View style={styles.coordinateGroup}>
-            <Text style={styles.coordinateLabel}>Latitude:</Text>
-            <Text style={styles.coordinateValue}>40.80773585</Text>
-          </View>
-          <View style={styles.coordinateGroup}>
-            <Text style={styles.coordinateLabel}>Longitude:</Text>
-            <Text style={styles.coordinateValue}>-73.96164115567529</Text>
-          </View>
+
+          {location ? (
+            <>
+              <View style={styles.coordinatesRow}>
+                <View style={styles.coordinateGroup}>
+                  <Text style={styles.coordinateLabel}>Latitude:</Text>
+                  <Text style={styles.coordinateValue}>{location.coords.latitude.toFixed(8)}</Text>
+                </View>
+                <View style={styles.coordinateGroup}>
+                  <Text style={styles.coordinateLabel}>Longitude:</Text>
+                  <Text style={styles.coordinateValue}>{location.coords.longitude.toFixed(8)}</Text>
+                </View>
+              </View>
+              <View style={styles.locationDetails}>
+                <Text style={styles.locationDetail}>Last Update: {new Date(location.timestamp).toLocaleTimeString()}</Text>
+                <Text style={styles.locationDetail}>Accuracy: +-{location.coords.accuracy.toFixed(0)}m</Text>
+              </View>
+            </>
+          ) : (
+            <Text>{errorMsg || 'Fetching location...'}</Text>
+          )}
         </View>
 
-        <View style={styles.locationDetails}>
-          <Text style={styles.locationDetail}>Last Update: 11:23:16 Hrs</Text>
-          <Text style={styles.locationDetail}>Accuracy: +-50m</Text>
-        </View>
-      </View>
+        {/* Weather Section */}
+        <View style={styles.weatherSection}>
+          <Text style={styles.weatherTitle}>Weather Conditions</Text>
 
-      {/* Weather Section */}
-      <View style={styles.weatherSection}>
-        <Text style={styles.weatherTitle}>Weather Conditions</Text>
-        
-        <View style={styles.weatherMainContainer}>
-          <View style={styles.temperatureContainer}>
-            <Text style={styles.temperature}>27°</Text>
-            <View style={styles.cloudIcon}>
-              <Text style={styles.cloudEmoji}>☁️</Text>
+          {loading ? (
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          ) : weather ? (
+            <>
+              <View style={styles.weatherMainContainer}>
+                <View style={styles.temperatureContainer}>
+                  <Text style={styles.temperature}>{Math.round(weather.current_weather.temperature)}°</Text>
+                  <View style={styles.cloudIcon}>
+                    <Text style={styles.cloudEmoji}>{getWeatherDescription(weather.current_weather.weathercode).emoji}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.weatherDetailsContainer}>
+                  <Text style={styles.weatherDescription}>{getWeatherDescription(weather.current_weather.weathercode).desc}</Text>
+                  <Text style={styles.windSpeed}>Wind Speed: {weather.current_weather.windspeed}km/h</Text>
+                </View>
+              </View>
+
+              <View style={styles.weatherStatsRow}>
+                <View style={styles.weatherStat}>
+                  <Text style={styles.statLabel}>Feels Like</Text>
+                  <Text style={styles.statValue}>{Math.round(weather.hourly.apparent_temperature[0])}°C</Text>
+                </View>
+                <View style={styles.weatherStat}>
+                  <Text style={styles.statLabel}>Humidity</Text>
+                  <Text style={styles.statValue}>{weather.hourly.relativehumidity_2m[0]}%</Text>
+                </View>
+                <View style={styles.weatherStat}>
+                  <Text style={styles.statLabel}>Chance of Rain</Text>
+                  <Text style={styles.statValue}>{weather.hourly.precipitation_probability[0]}%</Text>
+                </View>
+                <View style={styles.weatherStat}>
+                  <Text style={styles.statLabel}>Pressure</Text>
+                  <Text style={styles.statValue}>{Math.round(weather.hourly.pressure_msl[0])}mbar</Text>
+                </View>
+              </View>
+            </>
+          ) : (
+            <Text>{errorMsg || 'No weather data'}</Text>
+          )}
+        </View>
+
+        {/* Updates Section */}
+        <View style={styles.updatesContainer}>
+          <View style={styles.updatesHeader}>
+            <Text style={styles.updatesIcon}>📊</Text>
+            <Text style={styles.updatesTitle}>Updates</Text>
+          </View>
+
+          <View style={styles.updatesList}>
+            <View style={styles.updateItem}>
+              <Text style={styles.updateBullet}>•</Text>
+              <Text style={styles.updateText}>Chance of High Tides on Mumbai Coast - TOI</Text>
+            </View>
+            <View style={styles.updateItem}>
+              <Text style={styles.updateBullet}>•</Text>
+              <Text style={styles.updateText}>Tuna Fish scarcity near West Bengal - HT</Text>
             </View>
           </View>
-          
-          <View style={styles.weatherDetailsContainer}>
-            <Text style={styles.weatherDescription}>Partly Cloudy</Text>
-            <Text style={styles.windSpeed}>Wind Speed: 10.9km/h</Text>
-          </View>
-        </View>
 
-        <View style={styles.weatherStatsRow}>
-          <View style={styles.weatherStat}>
-            <Text style={styles.statLabel}>Feels Like</Text>
-            <Text style={styles.statValue}>31°C</Text>
-          </View>
-          <View style={styles.weatherStat}>
-            <Text style={styles.statLabel}>Humidity</Text>
-            <Text style={styles.statValue}>69%</Text>
-          </View>
-          <View style={styles.weatherStat}>
-            <Text style={styles.statLabel}>Chance of Rain</Text>
-            <Text style={styles.statValue}>96%</Text>
-          </View>
-          <View style={styles.weatherStat}>
-            <Text style={styles.statLabel}>Pressure</Text>
-            <Text style={styles.statValue}>1000mbar</Text>
-          </View>
+          <TouchableOpacity style={styles.viewMoreContainer}>
+            <Text style={styles.viewMoreText}>View More ∨</Text>
+          </TouchableOpacity>
         </View>
-      </View>
-
-      {/* Updates Section */}
-      <View style={styles.updatesContainer}>
-        <View style={styles.updatesHeader}>
-          <Text style={styles.updatesIcon}>📊</Text>
-          <Text style={styles.updatesTitle}>Updates</Text>
-        </View>
-        
-        <View style={styles.updatesList}>
-          <View style={styles.updateItem}>
-            <Text style={styles.updateBullet}>•</Text>
-            <Text style={styles.updateText}>Chance of High Tides on Mumbai Coast - TOI</Text>
-          </View>
-          <View style={styles.updateItem}>
-            <Text style={styles.updateBullet}>•</Text>
-            <Text style={styles.updateText}>Tuna Fish scarcity near West Bengal - HT</Text>
-          </View>
-        </View>
-        
-        <TouchableOpacity style={styles.viewMoreContainer}>
-          <Text style={styles.viewMoreText}>View More ∨</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-  </SafeAreaView>
-);
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
