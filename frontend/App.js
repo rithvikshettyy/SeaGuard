@@ -30,6 +30,7 @@ import SeaSafetyLivelihoodScreen from './screens/SeaSafetyLivelihoodScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import AboutScreen from './screens/AboutScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
+import MapsScreen from './screens/Maps';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,6 +67,7 @@ const HomeStack = ({ navigation }) => (
     <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     <Stack.Screen name="SOS" component={SOSScreen} />
     <Stack.Screen name="Tracker" component={TrackerScreen} />
+    <Stack.Screen name="Maps" component={MapsScreen} />
   </Stack.Navigator>
 );
 
@@ -84,7 +86,7 @@ const MainTabs = () => (
 
         if (route.name === 'HomeTab') {
           iconName = focused ? 'home' : 'home-outline';
-        } else if (route.name === 'Heatmap') {
+        } else if (route.name === 'Maps') {
           iconName = focused ? 'map' : 'map-outline';
         } else if (route.name === 'Compass') {
           iconName = focused ? 'compass' : 'compass-outline';
@@ -101,7 +103,7 @@ const MainTabs = () => (
     <Tab.Screen name="HomeTab" options={{ title: 'Home', headerShown: false }}>
       {(props) => <HomeStack {...props} />}
     </Tab.Screen>
-    <Tab.Screen name="Heatmap" component={HeatmapScreen} />
+    <Tab.Screen name="Maps" component={MapsScreen} />
     <Tab.Screen name="Compass" component={CompassScreen} />
     <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>

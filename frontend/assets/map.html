@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { height: 100vh; width: 100vw; }
+ 
+    .location-marker {
+        position: relative;
+        width: 44px;
+        height: 44px;
+    }
+    .accuracy-circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        background-color: #4285F4;
+        opacity: 0.2;
+        border-radius: 50%;
+        transform: translate(-50%, -50%); /* Center it */
+    }
+    .dot {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        background-color: #4285F4;
+        border-radius: 50%;
+        border: 2px solid white;
+        transform: translate(-50%, -50%); /* Center it */
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([15.4989, 73.8278], 13);
+ 
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: ''
+    }).addTo(map);
+ 
+    let userMarker;
+    let pfzLayer;
+ 
+    const locationIcon = L.divIcon({
+        className: 'location-marker',
+        html: '<div class="accuracy-circle"></div><div class="dot"></div>',
+        iconSize: [44, 44],
+    });
+ 
+    document.addEventListener('message', function (event) {
+      const data = JSON.parse(event.data);
+ 
+      if (data.type === 'location') {
+        const { latitude, longitude } = data.payload;
+        if (userMarker) {
+          userMarker.setLatLng([latitude, longitude]);
+        } else {
+          userMarker = L.marker([latitude, longitude], {
+            icon: locationIcon,
+          }).addTo(map);
+        }
+      }
+ 
+      if (data.type === 'recenter') {
+        const { latitude, longitude } = data.payload;
+        map.setView([latitude, longitude], 15);
+      }
+ 
+      if (data.type === 'pfz-data') {
+        if (pfzLayer) {
+          map.removeLayer(pfzLayer);
+        }
+        pfzLayer = L.geoJSON(data.payload, {
+          style: { color: 'blue', weight: 2 }
+        });
+      }
+ 
+      if (data.type === 'toggle-pfz') {
+        if (data.payload && pfzLayer) {
+          pfzLayer.addTo(map);
+        } else if (pfzLayer) {
+          pfzLayer.removeFrom(map);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
