@@ -6,6 +6,7 @@ import { COLORS } from '../constants/colors';
 const HomeScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [weather, setWeather] = useState(null);
+  const [ocean, setOcean] = useState(null);
   const [news, setNews] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,17 @@ const HomeScreen = ({ navigation }) => {
       setWeather(data);
     } catch (error) {
       setErrorMsg('Error fetching weather data');
+    }
+  };
+
+  const fetchOcean = async (latitude, longitude) => {
+    try {
+      const response = await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${latitude}&longitude=${longitude}&hourly=wave_height,wave_direction,wind_wave_period`);
+      const data = await response.json();
+      console.log('Ocean API Response:', data); // Log the entire response
+      setOcean(data);
+    } catch (error) {
+      console.error('Error fetching ocean data', error);
     }
   };
 
@@ -38,6 +50,7 @@ const HomeScreen = ({ navigation }) => {
     setLoading(true);
     if (location) {
       await fetchWeather(location.coords.latitude, location.coords.longitude);
+      await fetchOcean(location.coords.latitude, location.coords.longitude);
     }
     await fetchNews();
     setLoading(false);
@@ -55,6 +68,7 @@ const HomeScreen = ({ navigation }) => {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
       await fetchWeather(location.coords.latitude, location.coords.longitude);
+      await fetchOcean(location.coords.latitude, location.coords.longitude);
       await fetchNews();
       setLoading(false);
     })();
@@ -182,6 +196,31 @@ const HomeScreen = ({ navigation }) => {
             </>
           ) : (
             <Text>{errorMsg || 'No weather data'}</Text>
+          )}
+        </View>
+
+        {/* Ocean Section */}
+        <View style={styles.weatherSection}>
+          <Text style={styles.weatherTitle}>Ocean Conditions</Text>
+          {loading ? (
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          ) : ocean ? (
+            <View style={styles.weatherStatsRow}>
+              <View style={styles.weatherStat}>
+                <Text style={styles.statLabel}>Wave Height</Text>
+                <Text style={styles.statValue}>{ocean.hourly.wave_height[0]}m</Text>
+              </View>
+              <View style={styles.weatherStat}>
+                <Text style={styles.statLabel}>Wave Direction</Text>
+                <Text style={styles.statValue}>{ocean.hourly.wave_direction[0]}°</Text>
+              </View>
+              <View style={styles.weatherStat}>
+                <Text style={styles.statLabel}>Wind Wave Period</Text>
+                <Text style={styles.statValue}>{ocean.hourly.wind_wave_period[0]}s</Text>
+              </View>
+            </View>
+          ) : (
+            <Text>{errorMsg || 'No ocean data'}</Text>
           )}
         </View>
 
