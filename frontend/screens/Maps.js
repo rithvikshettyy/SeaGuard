@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, ActivityIndicator, Alert, TouchableOpacity, Text, Modal } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { WebView } from 'react-native-webview';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
@@ -42,10 +43,34 @@ const MapsScreen = () => {
         }
       );
  
+      const fetchWithRetry = async (url, retries = 10) => {
+        for (let i = 0; i < retries; i++) {
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+          } catch (error) {
+            console.error(`Attempt ${i + 1} failed:`, error);
+            if (i < retries - 1) {
+              await new Promise(res => setTimeout(res, 1000)); // wait 1 second before retrying
+            } else {
+              throw error;
+            }
+          }
+        }
+      };
+ 
       try {
-        const response = await fetch('https://incois.gov.in/geoserver/PFZ_Automation/ows?service=WFS&version=1.1.0&request=GetFeature&typeName=PFZ_Automation:pfzlines&outputFormat=application/json%27');
-        const pfzData = await response.json();
-        sendMessageToWebView({ type: 'pfz-data', payload: pfzData });
+        const cachedData = await AsyncStorage.getItem('pfzData');
+        if (cachedData) {
+          sendMessageToWebView({ type: 'pfz-data', payload: JSON.parse(cachedData) });
+        } else {
+          const pfzData = await fetchWithRetry('https://incois.gov.in/geoserver/PFZ_Automation/ows?service=WFS&version=1.1.0&request=GetFeature&typeName=PFZ_Automation:pfzlines&outputFormat=application/json');
+          await AsyncStorage.setItem('pfzData', JSON.stringify(pfzData));
+          sendMessageToWebView({ type: 'pfz-data', payload: pfzData });
+        }
       } catch (error) {
         console.error('Error fetching PFZ data:', error);
         Alert.alert('Error', 'Could not fetch Potential Fishing Zones data.');
