@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { Image, View, TouchableOpacity, Text } from 'react-native';
 import { COLORS } from './constants/colors';
 
 // Screens
@@ -18,7 +19,6 @@ import NewsScreen from './screens/NewsScreen';
 import CatchRecordScreen from './screens/CatchRecordScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import CompassScreen from './screens/CompassScreen';
-import HamburgerMenu from './components/HamburgerMenu';
 import NoFishingZoneScreen from './screens/NoFishingZoneScreen';
 import PotentialFishingZoneScreen from './screens/PotentialFishingZoneScreen';
 import GpsNavigationScreen from './screens/GpsNavigationScreen';
@@ -31,80 +31,108 @@ import SettingsScreen from './screens/SettingsScreen';
 import AboutScreen from './screens/AboutScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import MapsScreen from './screens/Maps';
+import FeaturesScreen from './screens/FeaturesScreen';
+import LanguagePicker from './components/LanguagePicker';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const HomeStack = ({ navigation }) => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: true,
-      headerStyle: { backgroundColor: COLORS.primary },
-      headerTintColor: COLORS.white,
-      headerTitleStyle: { fontWeight: 'bold' },
-    }}
-  >
+const HomeStack = () => (
+  <Stack.Navigator>
     <Stack.Screen
       name="Home"
       component={HomeScreen}
       options={({ navigation }) => ({
-        headerRight: () => <HamburgerMenu navigation={navigation} />,
+        headerTransparent: true,
+        headerTitle: () => <Image source={require('./assets/logo.png')} style={{ width: 120, height: 40, resizeMode: 'contain' }} />,
+        headerRight: () => (
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 15 }}>
+            <LanguagePicker />
+            <TouchableOpacity onPress={() => navigation.navigate('Compass')} style={{ marginLeft: 15 }}>
+              <Ionicons name="compass-outline" size={28} color={COLORS.white} />
+            </TouchableOpacity>
+          </View>
+        ),
       })}
     />
-    <Stack.Screen name="TripPlanning" component={TripPlanningScreen} />
-    <Stack.Screen name="News" component={NewsScreen} />
-    <Stack.Screen name="CatchRecord" component={CatchRecordScreen} />
-    <Stack.Screen name="NoFishingZone" component={NoFishingZoneScreen} />
-    <Stack.Screen name="PotentialFishingZone" component={PotentialFishingZoneScreen} />
-    <Stack.Screen name="GpsNavigation" component={GpsNavigationScreen} />
-    <Stack.Screen name="DisasterAlert" component={DisasterAlertScreen} />
-    <Stack.Screen name="ImportantContacts" component={ImportantContactsScreen} />
-    <Stack.Screen name="IBLAlerts" component={IBLAlertsScreen} />
-    <Stack.Screen name="OtherServices" component={OtherServicesScreen} />
-    <Stack.Screen name="SeaSafetyLivelihood" component={SeaSafetyLivelihoodScreen} />
-    <Stack.Screen name="Settings" component={SettingsScreen} />
-    <Stack.Screen name="About" component={AboutScreen} />
-    <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+    {/* Add other screens in HomeStack here if they need to be navigated to from HomeScreen */}
+    <Stack.Screen name="Compass" component={CompassScreen} />
     <Stack.Screen name="SOS" component={SOSScreen} />
-    <Stack.Screen name="Tracker" component={TrackerScreen} />
-    <Stack.Screen name="Maps" component={MapsScreen} />
   </Stack.Navigator>
 );
 
 const MainTabs = () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
-      headerShown: true,
-      headerStyle: { backgroundColor: COLORS.primary },
-      headerTintColor: COLORS.white,
-      headerTitleStyle: { fontWeight: 'bold' },
-      tabBarStyle: { backgroundColor: COLORS.card, borderTopWidth: 1, borderTopColor: COLORS.border },
-      tabBarActiveTintColor: COLORS.primary,
-      tabBarInactiveTintColor: COLORS.lightText,
+      headerShown: false,
+      tabBarShowLabel: false, // We handle the label manually
+      tabBarActiveTintColor: '#000', // Color for the active icon and text
+      tabBarInactiveTintColor: '#FFF', // Color for the inactive icons
+      tabBarStyle: {
+        position: 'absolute',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        bottom: 25,
+        left: 20,
+        right: 20,
+        backgroundColor: '#1C1C1E',
+        borderRadius: 35,
+        height: 70,
+        borderTopWidth: 0,
+        elevation: 10,
+        shadowColor: '#000',
+        shadowOpacity: 0.15,
+        shadowRadius: 10,
+      },
+      tabBarItemStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
       tabBarIcon: ({ focused, color, size }) => {
+        const routeNameToLabel = {
+          'HomeTab': 'Home',
+          'Maps': 'Maps',
+          'Features': 'Features',
+          'Profile': 'Profile',
+        }
         let iconName;
-
         if (route.name === 'HomeTab') {
-          iconName = focused ? 'home' : 'home-outline';
+          iconName = 'home';
         } else if (route.name === 'Maps') {
-          iconName = focused ? 'map' : 'map-outline';
-        } else if (route.name === 'Compass') {
-          iconName = focused ? 'compass' : 'compass-outline';
+          iconName = 'map-outline';
+        } else if (route.name === 'Features') {
+          iconName = 'build-outline';
         } else if (route.name === 'Profile') {
-          iconName = focused ? 'person' : 'person-outline';
-        } else if (route.name === 'Profile') {
-          iconName = focused ? 'person' : 'person-outline';
+          iconName = 'person-outline';
         }
 
-        return <Ionicons name={iconName} size={size} color={color} />;
+        if (focused) {
+          return (
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              borderRadius: 25,
+              paddingVertical: 8,
+              paddingHorizontal: 15,
+            }}>
+              <Ionicons name={iconName} size={22} color={color} />
+              <Text style={{ color: color, marginLeft: 8, fontWeight: 'bold', fontSize: 14 }}>
+                {routeNameToLabel[route.name]}
+              </Text>
+            </View>
+          )
+        }
+        return <Ionicons name={iconName} size={26} color={color} />;
       },
     })}
   >
-    <Tab.Screen name="HomeTab" options={{ title: 'Home', headerShown: false }}>
-      {(props) => <HomeStack {...props} />}
-    </Tab.Screen>
+    <Tab.Screen name="HomeTab" component={HomeStack} />
     <Tab.Screen name="Maps" component={MapsScreen} />
-    <Tab.Screen name="Compass" component={CompassScreen} />
+    <Tab.Screen name="Features" component={FeaturesScreen} />
     <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>
 );
@@ -115,7 +143,22 @@ const App = () => (
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Main" component={MainTabs} />
-      <Stack.Screen name="SOS" component={SOSScreen} />
+      {/* Screens that should be available outside the tab bar but within the main stack */}
+      <Stack.Screen name="TripPlanning" component={TripPlanningScreen} />
+      <Stack.Screen name="News" component={NewsScreen} />
+      <Stack.Screen name="CatchRecord" component={CatchRecordScreen} />
+      <Stack.Screen name="NoFishingZone" component={NoFishingZoneScreen} />
+      <Stack.Screen name="PotentialFishingZone" component={PotentialFishingZoneScreen} />
+      <Stack.Screen name="GpsNavigation" component={GpsNavigationScreen} />
+      <Stack.Screen name="DisasterAlert" component={DisasterAlertScreen} />
+      <Stack.Screen name="ImportantContacts" component={ImportantContactsScreen} />
+      <Stack.Screen name="IBLAlerts" component={IBLAlertsScreen} />
+      <Stack.Screen name="OtherServices" component={OtherServicesScreen} />
+      <Stack.Screen name="SeaSafetyLivelihood" component={SeaSafetyLivelihoodScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="About" component={AboutScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen name="Tracker" component={TrackerScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

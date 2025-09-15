@@ -11,6 +11,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Dict, Any, Optional
 from zoneinfo import ZoneInfo  # Accurate timezone handling
+import concurrent.futures
 
 
 class IndiaFishingAlerts:
@@ -27,14 +28,19 @@ class IndiaFishingAlerts:
     def get_alerts(self, lat: float, lon: float, location_name: str = "") -> Dict[str, Any]:
         """Evaluate safety probability for fishing."""
         try:
-            weather = self._fetch(
-                "https://api.open-meteo.com/v1/forecast", lat, lon,
-                current="wind_speed_10m,precipitation,visibility", daily="sunrise,sunset"
-            )
-            marine = self._fetch(
-                "https://marine-api.open-meteo.com/v1/marine", lat, lon,
-                current="wave_height,swell_wave_height,ocean_current_velocity"
-            )
+            weather_params = {
+                "current": "temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,precipitation_probability,weather_code,pressure_msl,wind_speed_10m,visibility",
+                "daily": "sunrise,sunset"
+            }
+            marine_params = {
+                "current": "wave_height,wave_direction,wind_wave_period,swell_wave_height,ocean_current_velocity"
+            }
+            
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future_weather = executor.submit(self._fetch, "https://api.open-meteo.com/v1/forecast", lat, lon, **weather_params)
+                future_marine = executor.submit(self._fetch, "https://marine-api.open-meteo.com/v1/marine", lat, lon, **marine_params)
+                weather = future_weather.result()
+                marine = future_marine.result()
 
             # Determine day/night
             is_day = self._is_daytime(weather)
@@ -58,6 +64,8 @@ class IndiaFishingAlerts:
             # If it's night, force unsafe
             safe = avg_score >= 75 and is_day
             status = "🟢 SAFE" if safe else "🔴 UNSAFE"
+
+            print("DEBUG: Marine Data:", marine.get("current", {}))
 
             return {
                 "safe": safe,

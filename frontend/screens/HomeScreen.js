@@ -1,448 +1,352 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, ActivityIndicator, Linking } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native';
 import * as Location from 'expo-location';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { COLORS } from '../constants/colors';
 
 const HomeScreen = ({ navigation }) => {
+  const headerHeight = useHeaderHeight();
   const [location, setLocation] = useState(null);
-  const [weather, setWeather] = useState(null);
-  const [ocean, setOcean] = useState(null);
-  const [news, setNews] = useState([]);
+  const [address, setAddress] = useState(null);
+  const [fishingAlert, setFishingAlert] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const NEWS_API_KEY = 'aa70f66da1284be183ee26d5f604fcff';
-
-  const fetchWeather = async (latitude, longitude) => {
+  const fetchFishingAlert = async (latitude, longitude) => {
     try {
-      const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation_probability,weathercode,pressure_msl,windspeed_10m`);
-      const data = await response.json();
-      setWeather(data);
-    } catch (error) {
-      setErrorMsg('Error fetching weather data');
-    }
-  };
-
-  const fetchOcean = async (latitude, longitude) => {
-    try {
-      const response = await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${latitude}&longitude=${longitude}&hourly=wave_height,wave_direction,wind_wave_period`);
-      const data = await response.json();
-      console.log('Ocean API Response:', data); // Log the entire response
-      setOcean(data);
-    } catch (error) {
-      console.error('Error fetching ocean data', error);
-    }
-  };
-
-  const fetchNews = async () => {
-    try {
-      const response = await fetch(`https://newsapi.org/v2/everything?q=fishing%20OR%20ocean&apiKey=${NEWS_API_KEY}`);
-      const data = await response.json();
-      if (data.articles) {
-        setNews(data.articles);
+      // NOTE: Replace with your actual backend IP/domain if not running on localhost in production
+      const response = await fetch(`http://10.0.2.2:8080/fishing-alert?lat=${latitude}&lon=${longitude}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
       }
+      const data = await response.json();
+      setFishingAlert(data);
     } catch (error) {
-      console.error('Error fetching news data', error);
+      setErrorMsg(`Failed to fetch fishing alert: ${error.message}`);
     }
   };
 
-  const refreshData = async () => {
-    setLoading(true);
-    if (location) {
-      await fetchWeather(location.coords.latitude, location.coords.longitude);
-      await fetchOcean(location.coords.latitude, location.coords.longitude);
-    }
-    await fetchNews();
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    (async () => {
+  const loadData = useCallback(async () => {
+    try {
+      setLoading(true);
+      setErrorMsg(null);
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
-        setLoading(false);
         return;
       }
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      await fetchWeather(location.coords.latitude, location.coords.longitude);
-      await fetchOcean(location.coords.latitude, location.coords.longitude);
-      await fetchNews();
+      try {
+        const reverseGeocode = await Location.reverseGeocodeAsync(currentLocation.coords);
+        if (reverseGeocode.length > 0) {
+          setAddress(`${reverseGeocode[0].city}, ${reverseGeocode[0].subregion}`);
+        }
+      } catch (geocodeError) {
+        console.warn("Reverse geocoding failed:", geocodeError);
+        setAddress(`${currentLocation.coords.latitude.toFixed(2)}°N, ${currentLocation.coords.longitude.toFixed(2)}°E`);
+      }
+
+      await fetchFishingAlert(currentLocation.coords.latitude, currentLocation.coords.longitude);
+
+    } catch (error) {
+      setErrorMsg(`An error occurred: ${error.message}`);
+      console.error(error);
+    } finally {
       setLoading(false);
-    })();
+    }
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000 * 60);
+
+    loadData();
+
+    return () => clearInterval(timer);
+  }, [loadData]);
+
   const getWeatherDescription = (code) => {
-    switch (code) {
-      case 0: return { desc: 'Clear sky', emoji: '☀️' };
-      case 1:
-      case 2:
-      case 3: return { desc: 'Partly cloudy', emoji: '☁️' };
-      case 45:
-      case 48: return { desc: 'Fog', emoji: '🌫️' };
-      case 51:
-      case 53:
-      case 55: return { desc: 'Drizzle', emoji: '💧' };
-      case 56:
-      case 57: return { desc: 'Freezing Drizzle', emoji: '💧❄️' };
-      case 61:
-      case 63:
-      case 65: return { desc: 'Rain', emoji: '🌧️' };
-      case 66:
-      case 67: return { desc: 'Freezing Rain', emoji: '🌧️❄️' };
-      case 71:
-      case 73:
-      case 75: return { desc: 'Snow fall', emoji: '❄️' };
-      case 77: return { desc: 'Snow grains', emoji: '❄️' };
-      case 80:
-      case 81:
-      case 82: return { desc: 'Rain showers', emoji: '🌦️' };
-      case 85:
-      case 86: return { desc: 'Snow showers', emoji: '🌨️' };
-      case 95: return { desc: 'Thunderstorm', emoji: '⛈️' };
-      case 96:
-      case 99: return { desc: 'Thunderstorm with hail', emoji: '⛈️🧊' };
-      default: return { desc: 'Unknown', emoji: '🤷' };
-    }
+    const descriptions = {
+      0: 'Clear sky', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
+      45: 'Fog', 48: 'Depositing rime fog',
+      51: 'Light drizzle', 53: 'Moderate drizzle', 55: 'Dense drizzle',
+      56: 'Light freezing drizzle', 57: 'Dense freezing drizzle',
+      61: 'Slight rain', 63: 'Moderate rain', 65: 'Heavy rain',
+      66: 'Light freezing rain', 67: 'Heavy freezing rain',
+      71: 'Slight snow fall', 73: 'Moderate snow fall',
+      75: 'Heavy snow fall',
+      77: 'Snow grains',
+      80: 'Slight rain showers', 81: 'Moderate rain showers', 82: 'Violent rain showers',
+      85: 'Slight snow showers', 86: 'Heavy snow showers',
+      95: 'Thunderstorm', 96: 'Thunderstorm with slight hail', 99: 'Thunderstorm with heavy hail',
+    };
+    return descriptions[code] || 'Unknown';
   };
 
+  const getFishingConditions = () => {
+    if (!fishingAlert) return { text: 'Loading...', color: '#E0E0E0' };
+    return {
+      text: fishingAlert.advice,
+      color: fishingAlert.safe ? '#6BFF8A' : '#FF6B6B',
+    };
+  };
+
+  const fishingConditions = getFishingConditions();
+  const weatherData = fishingAlert?.data?.weather;
+  const marineData = fishingAlert?.data?.marine;
+
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Emergency SOS Button */}
-        <TouchableOpacity
-          style={styles.sosButton}
-          onPress={() => navigation.navigate('SOS')}
+    <ImageBackground source={require('../assets/weatherbg.png')} style={styles.background} resizeMode="cover">
+      <SafeAreaView style={styles.container}>
+        <ScrollView 
+          showsVerticalScrollIndicator={false} 
+          contentContainerStyle={[styles.scrollView, { paddingTop: headerHeight + 16 }]}
         >
-          <Text style={styles.sosText}>Emergency SOS</Text>
-        </TouchableOpacity>
-
-        {/* Current Location Section */}
-        <View style={styles.locationContainer}>
-          <View style={styles.locationHeader}>
-            <View style={styles.locationTitleRow}>
-              <Text style={styles.locationIcon}>⊙</Text>
-              <Text style={styles.locationTitle}>Current Location</Text>
-            </View>
-            <TouchableOpacity style={styles.refreshButton} onPress={refreshData}>
-              <Text style={styles.refreshIcon}>⟲</Text>
-            </TouchableOpacity>
-          </View>
-
-          {location ? (
-            <>
-              <View style={styles.coordinatesRow}>
-                <View style={styles.coordinateGroup}>
-                  <Text style={styles.coordinateLabel}>Latitude:</Text>
-                  <Text style={styles.coordinateValue}>{location.coords.latitude.toFixed(8)}</Text>
-                </View>
-                <View style={styles.coordinateGroup}>
-                  <Text style={styles.coordinateLabel}>Longitude:</Text>
-                  <Text style={styles.coordinateValue}>{location.coords.longitude.toFixed(8)}</Text>
-                </View>
-              </View>
-              <View style={styles.locationDetails}>
-                <Text style={styles.locationDetail}>Last Update: {new Date(location.timestamp).toLocaleTimeString()}</Text>
-                <Text style={styles.locationDetail}>Accuracy: +-{location.coords.accuracy.toFixed(0)}m</Text>
-              </View>
-            </>
-          ) : (
-            <Text>{errorMsg || 'Fetching location...'}</Text>
-          )}
-        </View>
-
-        {/* Weather Section */}
-        <View style={styles.weatherSection}>
-          <Text style={styles.weatherTitle}>Weather Conditions</Text>
+          <TouchableOpacity
+            style={styles.sosButton}
+            onPress={() => navigation.navigate('SOS')}
+          >
+            <Text style={styles.sosText}>Emergency SOS</Text>
+          </TouchableOpacity>
 
           {loading ? (
-            <ActivityIndicator size="large" color={COLORS.primary} />
-          ) : weather ? (
+            <ActivityIndicator size="large" color="#FFFFFF" style={{ marginTop: 50 }}/>
+          ) : errorMsg ? (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{errorMsg}</Text>
+              <TouchableOpacity style={styles.retryButton} onPress={loadData}>
+                <Text style={styles.retryButtonText}>Retry</Text>
+              </TouchableOpacity>
+            </View>
+          ) : fishingAlert && weatherData && marineData ? (
             <>
-              <View style={styles.weatherMainContainer}>
-                <View style={styles.temperatureContainer}>
-                  <Text style={styles.temperature}>{Math.round(weather.current_weather.temperature)}°</Text>
-                  <View style={styles.cloudIcon}>
-                    <Text style={styles.cloudEmoji}>{getWeatherDescription(weather.current_weather.weathercode).emoji}</Text>
+              <View style={styles.weatherContainer}>
+                <View style={styles.timeRow}>
+                  <Text style={styles.dateText}>{currentTime.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short' })}</Text>
+                  <TouchableOpacity onPress={loadData}>
+                    <Text style={styles.refreshIcon}>⟲</Text>
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.timeText}>{currentTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}</Text>
+                
+                <View style={styles.locationContainer}>
+                  <Text style={styles.locationText}>{address || 'Loading...'}</Text>
+                  <Text style={styles.lastUpdateText}>Last Update: {fishingAlert.time.split(' ')[1]} Hrs</Text>
+                </View>
+
+                <Text style={styles.temperature}>{Math.round(weatherData.temperature_2m)}°</Text>
+                <Text style={styles.weatherDescription}>{getWeatherDescription(weatherData.weather_code)}</Text>
+                <Text style={styles.windSpeed}>Wind Speed: {weatherData.wind_speed_10m}km/h</Text>
+                
+                <View style={styles.weatherStats}>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Feels Like</Text>
+                    <Text style={styles.statValue}>{Math.round(weatherData.apparent_temperature)}°C</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Humidity</Text>
+                    <Text style={styles.statValue}>{weatherData.relative_humidity_2m}%</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Chance of Rain</Text>
+                    <Text style={styles.statValue}>{weatherData.precipitation_probability}%</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Pressure</Text>
+                    <Text style={styles.statValue}>{Math.round(weatherData.pressure_msl)}mbar</Text>
                   </View>
                 </View>
-
-                <View style={styles.weatherDetailsContainer}>
-                  <Text style={styles.weatherDescription}>{getWeatherDescription(weather.current_weather.weathercode).desc}</Text>
-                  <Text style={styles.windSpeed}>Wind Speed: {weather.current_weather.windspeed}km/h</Text>
-                </View>
               </View>
 
-              <View style={styles.weatherStatsRow}>
-                <View style={styles.weatherStat}>
-                  <Text style={styles.statLabel}>Feels Like</Text>
-                  <Text style={styles.statValue}>{Math.round(weather.hourly.apparent_temperature[0])}°C</Text>
+              <View style={styles.oceanContainer}>
+                <Text style={styles.oceanTitle}>Ocean Conditions</Text>
+                <View style={styles.oceanStats}>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Wave Height</Text>
+                    <Text style={styles.statValue}>{(marineData.wave_height ?? '--')}m</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Wave Direction</Text>
+                    <Text style={styles.statValue}>{(marineData.wave_direction ?? '--')}°</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Text style={styles.statLabel}>Wind Wave Period</Text>
+                    <Text style={styles.statValue}>{(marineData.wind_wave_period ?? '--')}s</Text>
+                  </View>
                 </View>
-                <View style={styles.weatherStat}>
-                  <Text style={styles.statLabel}>Humidity</Text>
-                  <Text style={styles.statValue}>{weather.hourly.relativehumidity_2m[0]}%</Text>
+                <View style={styles.fishingBar}>
+                  <View style={[styles.fishingIndicator, { width: `${100 - fishingAlert.risk_probability}%`, backgroundColor: fishingConditions.color }]} />
                 </View>
-                <View style={styles.weatherStat}>
-                  <Text style={styles.statLabel}>Chance of Rain</Text>
-                  <Text style={styles.statValue}>{weather.hourly.precipitation_probability[0]}%</Text>
-                </View>
-                <View style={styles.weatherStat}>
-                  <Text style={styles.statLabel}>Pressure</Text>
-                  <Text style={styles.statValue}>{Math.round(weather.hourly.pressure_msl[0])}mbar</Text>
-                </View>
+                <Text style={[styles.fishingText, { color: fishingConditions.color }]}>{fishingConditions.text}</Text>
               </View>
             </>
-          ) : (
-            <Text>{errorMsg || 'No weather data'}</Text>
-          )}
-        </View>
-
-        {/* Ocean Section */}
-        <View style={styles.weatherSection}>
-          <Text style={styles.weatherTitle}>Ocean Conditions</Text>
-          {loading ? (
-            <ActivityIndicator size="large" color={COLORS.primary} />
-          ) : ocean ? (
-            <View style={styles.weatherStatsRow}>
-              <View style={styles.weatherStat}>
-                <Text style={styles.statLabel}>Wave Height</Text>
-                <Text style={styles.statValue}>{ocean.hourly.wave_height[0]}m</Text>
-              </View>
-              <View style={styles.weatherStat}>
-                <Text style={styles.statLabel}>Wave Direction</Text>
-                <Text style={styles.statValue}>{ocean.hourly.wave_direction[0]}°</Text>
-              </View>
-              <View style={styles.weatherStat}>
-                <Text style={styles.statLabel}>Wind Wave Period</Text>
-                <Text style={styles.statValue}>{ocean.hourly.wind_wave_period[0]}s</Text>
-              </View>
-            </View>
-          ) : (
-            <Text>{errorMsg || 'No ocean data'}</Text>
-          )}
-        </View>
-
-        {/* Updates Section */}
-        <View style={styles.updatesContainer}>
-          <View style={styles.updatesHeader}>
-            <Text style={styles.updatesIcon}>📊</Text>
-            <Text style={styles.updatesTitle}>Updates</Text>
-          </View>
-
-          <View style={styles.updatesList}>
-            {news.slice(0, 2).map((item, index) => (
-              <TouchableOpacity key={index} style={styles.updateItem} onPress={() => Linking.openURL(item.url)}>
-                <Text style={styles.updateBullet}>•</Text>
-                <Text style={styles.updateText}>{item.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          <TouchableOpacity style={styles.viewMoreContainer} onPress={() => navigation.navigate('NewsScreen', { articles: news })}>
-            <Text style={styles.viewMoreText}>View More ∨</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          ) : null}
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  scrollView: {
+    paddingHorizontal: 16,
+    paddingBottom: 100, // Extra padding for tab bar
   },
   sosButton: {
-    backgroundColor: '#dc143c',
-    marginHorizontal: 16,
-    marginTop: 16,
-    marginBottom: 20,
-    borderRadius: 8,
-    height: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  sosText: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: '600',
-    letterSpacing: 0.5,
-  },
-  locationContainer: {
-    backgroundColor: '#f0f0f0',
-    marginHorizontal: 16,
-    marginBottom: 20,
-    borderRadius: 8,
-    padding: 16,
-  },
-  locationHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  locationTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  locationIcon: {
-    fontSize: 18,
-    color: '#666666',
-    marginRight: 8,
-  },
-  locationTitle: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333333',
-  },
-  refreshButton: {
-    padding: 4,
-  },
-  refreshIcon: {
-    fontSize: 18,
-    color: '#666666',
-  },
-  coordinatesRow: {
-    flexDirection: 'row',
-    marginBottom: 16,
-  },
-  coordinateGroup: {
-    flex: 1,
-  },
-  coordinateLabel: {
-    fontSize: 13,
-    color: '#666666',
-    marginBottom: 2,
-  },
-  coordinateValue: {
-    fontSize: 14,
-    color: '#333333',
-    fontWeight: '500',
-  },
-  locationDetails: {
-    gap: 4,
-  },
-  locationDetail: {
-    fontSize: 13,
-    color: '#666666',
-  },
-  weatherSection: {
-    marginHorizontal: 16,
-    marginBottom: 20,
-  },
-  weatherTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333333',
-    marginBottom: 20,
-  },
-  weatherMainContainer: {
+    backgroundColor: '#FF3B30',
+    borderRadius: 12,
+    paddingVertical: 16,
     alignItems: 'center',
     marginBottom: 24,
   },
-  temperatureContainer: {
-    flexDirection: 'row',
+  sosText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  weatherContainer: {
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 24,
   },
-  temperature: {
-    fontSize: 72,
-    fontWeight: '300',
-    color: '#333333',
-    marginRight: 16,
-  },
-  cloudIcon: {
-    marginLeft: 8,
-  },
-  cloudEmoji: {
-    fontSize: 48,
-  },
-  weatherDetailsContainer: {
-    alignItems: 'center',
-  },
-  weatherDescription: {
-    fontSize: 16,
-    color: '#666666',
-    marginBottom: 4,
-  },
-  windSpeed: {
-    fontSize: 14,
-    color: '#666666',
-  },
-  weatherStatsRow: {
+  timeRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 8,
-  },
-  weatherStat: {
+    width: '100%',
     alignItems: 'center',
-    flex: 1,
+  },
+  dateText: {
+    color: '#E0E0E0',
+    fontSize: 16,
+  },
+  refreshIcon: {
+    fontSize: 24,
+    color: '#E0E0E0',
+  },
+  timeText: {
+    color: '#E0E0E0',
+    fontSize: 16,
+    alignSelf: 'flex-start',
+    marginTop: 4,
+  },
+  locationContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  locationText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: '500',
+  },
+  lastUpdateText: {
+    color: '#A0A0A0',
+    fontSize: 12,
+    marginTop: 4,
+  },
+  temperature: {
+    color: '#FFFFFF',
+    fontSize: 120,
+    fontWeight: '200',
+    marginTop: 8,
+  },
+  weatherDescription: {
+    color: '#E0E0E0',
+    fontSize: 18,
+    marginTop: -10,
+  },
+  windSpeed: {
+    color: '#A0A0A0',
+    fontSize: 14,
+    marginTop: 4,
+  },
+  weatherStats: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginTop: 24,
+  },
+  statItem: {
+    alignItems: 'center',
   },
   statLabel: {
+    color: '#A0A0A0',
     fontSize: 12,
-    color: '#666666',
-    marginBottom: 4,
-    textAlign: 'center',
   },
   statValue: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#333333',
-    textAlign: 'center',
-  },
-  updatesContainer: {
-    marginHorizontal: 16,
-    marginBottom: 32,
-  },
-  updatesHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  updatesIcon: {
-    fontSize: 16,
-    marginRight: 8,
-  },
-  updatesTitle: {
+    color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '500',
-    color: '#333333',
+    marginTop: 4,
   },
-  updatesList: {
+  oceanContainer: {
+    borderRadius: 16,
+    padding: 16,
+    overflow: 'hidden',
+    backgroundColor: '#1C1C1E',
+  },
+  oceanBg: {
+    opacity: 0.2,
+  },
+  oceanTitle: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: '600',
     marginBottom: 16,
   },
-  updateItem: {
+  oceanStats: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 12,
-    paddingLeft: 8,
+    justifyContent: 'space-around',
+    width: '100%',
+    marginBottom: 16,
   },
-  updateBullet: {
-    fontSize: 16,
-    color: '#333333',
-    marginRight: 12,
-    marginTop: 1,
+  fishingBar: {
+    height: 4,
+    backgroundColor: '#333',
+    borderRadius: 2,
+    width: '100%',
+    marginTop: 8,
   },
-  updateText: {
+  fishingIndicator: {
+    height: 4,
+    borderRadius: 2,
+  },
+  fishingText: {
     fontSize: 14,
-    color: '#333333',
+    fontWeight: '500',
+    marginTop: 8,
+    alignSelf: 'center',
+  },
+  errorContainer: {
     flex: 1,
-    lineHeight: 20,
-  },
-  viewMoreContainer: {
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 8,
+    padding: 20,
   },
-  viewMoreText: {
-    fontSize: 14,
-    color: '#666666',
+  errorText: {
+    color: '#FF6B6B',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  retryButton: {
+    marginTop: 20,
+    backgroundColor: COLORS.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  retryButtonText: {
+    color: COLORS.white,
+    fontSize: 16,
   },
 });
 
