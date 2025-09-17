@@ -29,7 +29,7 @@ app = FastAPI(
 
 
 alerts = IndiaFishingAlerts()
-auth_service = AuthService()
+# auth_service = AuthService()
 
 @app.get("/")
 def root():
@@ -42,21 +42,21 @@ def fishing_alert(lat: float, lon: float):
         raise HTTPException(status_code=503, detail=result["message"])
     return result
 
-@app.post("/send-otp")
-async def send_otp(request: Request):
-    request = await request.json()
-    phone = request["phoneNumber"]
-    result = auth_service.send_otp(phone)
-    if "error" in result:
-        raise HTTPException(status_code=400, detail=result["error"])
-    return result
+# @app.post("/send-otp")
+# async def send_otp(request: Request):
+#     request = await request.json()
+#     phone = request["phoneNumber"]
+#     result = auth_service.send_otp(phone)
+#     if "error" in result:
+#         raise HTTPException(status_code=400, detail=result["error"])
+#     return result
 
-@app.post("/verify-otp")
-async def verify_otp(request: Request):
-    request = await request.json()
-    otp = request["otp"]
-    phone = request["phoneNumber"]
-    result = auth_service.verify_otp(phone, otp)
-    if "error" in result:
-        raise HTTPException(status_code=400, detail=result["error"])
-    return result
+# @app.post("/verify-otp")
+# async def verify_otp(request: Request):
+#     request = await request.json()
+#     otp = request["otp"]
+#     phone = request["phoneNumber"]
+#     result = auth_service.verify_otp(phone, otp)
+#     if "error" in result:
+#         raise HTTPException(status_code=400, detail=result["error"])
+#     return result

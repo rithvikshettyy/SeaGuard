@@ -20,6 +20,8 @@ const LoginScreen = ({ navigation }) => {
   const [otpSent, setOtpSent] = useState(false);
 
   const handleSendOtp = async () => {
+    navigation.replace('Main');
+    return
     console.log('Sending OTP to:', phoneNumber);
     try {
       const response = await fetch('http://10.0.2.2:8000/send-otp', {
