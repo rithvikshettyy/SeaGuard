@@ -1,6 +1,7 @@
 import os
 from supabase import create_client, Client
 from twilio.rest import Client as TwilioClient
+import logging
 
 class AuthService:
     def __init__(self):
@@ -19,6 +20,7 @@ class AuthService:
 
     def send_otp(self, phone_number: str):
         try:
+            logging.info(phone_number)
             verification = self.twilio_client.verify.v2.services(self.twilio_service_sid) \
                 .verifications \
                 .create(to=phone_number, channel='sms')

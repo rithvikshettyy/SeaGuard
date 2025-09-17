@@ -1,7 +1,7 @@
 
 from dotenv import load_dotenv
 import os
-
+import logging
 # Explicitly provide the path to the .env file
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path=dotenv_path)
@@ -17,6 +17,8 @@ from services.fishing_alerts import IndiaFishingAlerts
 from services.authentication import AuthService
 from models.alert import AlertResponse
 from models.authentication import Phone, Otp
+from pydantic import BaseModel
+from fastapi import Request
 
 # --- FastAPI Setup ---
 app = FastAPI(
@@ -24,6 +26,7 @@ app = FastAPI(
     description="Accurate Fishing Alerts with Probability & Day/Night Detection",
     version="3.2.0"
 )
+
 
 alerts = IndiaFishingAlerts()
 auth_service = AuthService()
@@ -40,15 +43,20 @@ def fishing_alert(lat: float, lon: float):
     return result
 
 @app.post("/send-otp")
-def send_otp(phone: Phone):
-    result = auth_service.send_otp(phone.phone_number)
+async def send_otp(request: Request):
+    request = await request.json()
+    phone = request["phoneNumber"]
+    result = auth_service.send_otp(phone)
     if "error" in result:
         raise HTTPException(status_code=400, detail=result["error"])
     return result
 
 @app.post("/verify-otp")
-def verify_otp(otp: Otp):
-    result = auth_service.verify_otp(otp.phone_number, otp.otp)
+async def verify_otp(request: Request):
+    request = await request.json()
+    otp = request["otp"]
+    phone = request["phoneNumber"]
+    result = auth_service.verify_otp(phone, otp)
     if "error" in result:
         raise HTTPException(status_code=400, detail=result["error"])
     return result

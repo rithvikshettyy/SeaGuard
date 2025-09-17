@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { COLORS } from '../constants/colors';
 
@@ -16,14 +17,59 @@ const { width, height } = Dimensions.get('window');
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
+
+  const handleSendOtp = async () => {
+    console.log('Sending OTP to:', phoneNumber);
+    try {
+      const response = await fetch('http://10.0.2.2:8000/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ "phoneNumber": phoneNumber }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setOtpSent(true);
+        // Alert.alert('Success', 'OTP sent successfully');
+      } else {
+        Alert.alert('Error', data.message || 'Failed to send OTP');
+      }
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      Alert.alert('Error', 'An unexpected error occurred. Please try again.');
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    try {
+      const response = await fetch('http://10.0.2.2:8000/verify-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber, otp }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        navigation.replace('Main');
+      } else {
+        Alert.alert('Error', data.message || 'Failed to verify OTP');
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      Alert.alert('Error', 'An unexpected error occurred. Please try again.');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View style={styles.topNav}>
-        <TouchableOpacity style={styles.languageButton}>
-          <Text style={styles.languageButtonText}>🌐 Choose Language (Default: English IN)</Text>
-        </TouchableOpacity>
-      </View> */}
       <Image
         source={require('../assets/fisherman.png')}
         style={styles.topImage}
@@ -39,30 +85,39 @@ const LoginScreen = ({ navigation }) => {
           keyboardType="phone-pad"
           value={phoneNumber}
           onChangeText={setPhoneNumber}
+          editable={!otpSent}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputIcon}>🔑</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter OTP"
-          placeholderTextColor="#aaa"
-          keyboardType="number-pad"
-          secureTextEntry
-          value={otp}
-          onChangeText={setOtp}
-        />
-      </View>
-      <TouchableOpacity>
-        <Text style={styles.resendOtp}>resend OTP</Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.loginButton}
-        onPress={() => navigation.replace('Main')}
-      >
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
+      {otpSent && (
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputIcon}>🔑</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter OTP"
+            placeholderTextColor="#aaa"
+            keyboardType="number-pad"
+            secureTextEntry
+            value={otp}
+            onChangeText={setOtp}
+          />
+        </View>
+      )}
+
+      {!otpSent ? (
+        <TouchableOpacity style={styles.loginButton} onPress={handleSendOtp}>
+          <Text style={styles.loginButtonText}>Send OTP</Text>
+        </TouchableOpacity>
+      ) : (
+        <>
+          <TouchableOpacity>
+            <Text style={styles.resendOtp}>resend OTP</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.loginButton} onPress={handleVerifyOtp}>
+            <Text style={styles.loginButtonText}>Verify OTP</Text>
+          </TouchableOpacity>
+        </>
+      )}
 
       <TouchableOpacity onPress={() => navigation.replace('Main')}>
         <Text style={styles.signupText}>
@@ -77,6 +132,7 @@ const LoginScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
