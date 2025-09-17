@@ -32,6 +32,7 @@ import AboutScreen from './screens/AboutScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import MapsScreen from './screens/Maps';
 import FeaturesScreen from './screens/FeaturesScreen';
+import ChatScreen from './screens/ChatScreen';
 import LanguagePicker from './components/LanguagePicker';
 
 const Stack = createStackNavigator();
@@ -159,6 +160,7 @@ const App = () => (
       <Stack.Screen name="About" component={AboutScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="Tracker" component={TrackerScreen} />
+      <Stack.Screen name="ChatScreen" component={ChatScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

@@ -91,14 +91,16 @@ const FeaturesScreen = ({ navigation }) => {
       </View>
 
       {/* Chat Assistant Card */}
-      <View style={[styles.card, styles.chatCard]}>
-        <View style={styles.chatTextContainer}>
-          <Text style={styles.cardTitle}>Chat Assistant</Text>
-          <Text style={styles.chatTitle}>Ask Seabot</Text>
-          <Text style={styles.chatSubtitle}>our very own chatbot to help you with sea related queries</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('ChatScreen')}>
+        <View style={[styles.card, styles.chatCard]}>
+          <View style={styles.chatTextContainer}>
+            <Text style={styles.cardTitle}>Chat Assistant</Text>
+            <Text style={styles.chatTitle}>Ask Seabot</Text>
+            <Text style={styles.chatSubtitle}>our very own chatbot to help you with sea related queries</Text>
+          </View>
+          <Image source={require('../assets/blob.gif')} style={[styles.gif, {}]} />
         </View>
-        <Image source={require('../assets/blob.gif')} style={[styles.gif, {}]} />
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.row}>
         <View style={styles.columnLeft}>
