@@ -1,29 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, ActivityIndicator, Alert, TouchableOpacity, Text, Modal, Switch } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View, StyleSheet, ActivityIndicator, TouchableOpacity, Text, Modal, Switch, Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
-import { isPointNearLine } from 'geolib';
+import { isPointInPolygon, getDistance } from 'geolib';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { COLORS } from '../constants/colors';
 const mapHtml = require('../assets/map.html');
+const boundariesData = require('../assets/boundary.json');
 
-const PROXIMITY_THRESHOLD_METERS = 10000; // 10 km
-const BOUNDARIES_URL = 'https://geo.vliz.be/geoserver/wfs?request=getfeature&service=wfs&version=1.1.0&typename=MarineRegions:eez&filter=%3CFilter%3E%3CPropertyIsEqualTo%3E%3CPropertyName%3Emrgid_eez%3C/PropertyName%3E%3CLiteral%3E8480%3C/Literal%3E%3C/PropertyIsEqualTo%3E%3C/Filter%3E&outputFormat=application/json';
+const PROXIMITY_THRESHOLD_METERS = 2000000000; // 20 km
 
 const MapsScreen = () => {
   const webviewRef = useRef(null);
   const [location, setLocation] = useState(null);
   const [layersModalVisible, setLayersModalVisible] = useState(false);
-  const [boundariesData, setBoundariesData] = useState(null);
+  
+  const [statusInfo, setStatusInfo] = useState({ text: 'Status: Checking...', color: '#888' });
 
   // Layer visibility states
-  const [showPfz, setShowPfz] = useState(false);
+  const [showPfz, setShowPfz] = useState(true);
   const [showBoundaries, setShowBoundaries] = useState(true);
-
-  // Alert state
-  const [isNearBoundary, setIsNearBoundary] = useState(false);
 
   const sendMessageToWebView = (message) => {
     if (webviewRef.current) {
@@ -31,70 +29,91 @@ const MapsScreen = () => {
     }
   };
 
-  const checkBoundaryProximity = (userLocation) => {
-    if (!boundariesData) return;
+  const fetchData = async (url, cacheKey, messageType) => {
+    try {
+      const cached = await AsyncStorage.getItem(cacheKey);
+      if (cached) {
+          const data = JSON.parse(cached);
+          sendMessageToWebView({ type: messageType, payload: data });
+      }
 
-    const userPoint = { latitude: userLocation.latitude, longitude: userLocation.longitude };
-    let near = false;
+      const controller = new AbortController();
+      setTimeout(() => controller.abort(), 30000); // 30s timeout
 
-    for (const feature of boundariesData.features) {
-        const polygons = feature.geometry.type === 'Polygon' 
-            ? [feature.geometry.coordinates]
-            : feature.geometry.coordinates;
+      const response = await fetch(url, { signal: controller.signal });
+      if (response.ok) {
+          const data = await response.json();
+          await AsyncStorage.setItem(cacheKey, JSON.stringify(data));
+          sendMessageToWebView({ type: messageType, payload: data });
+      }
+    } catch (error) {
+        console.log(`${cacheKey} fetch failed, using cache if available`, error);
+    }
+  }
 
-        for (const polygon of polygons) {
-            for (const ring of polygon) { 
-                for (let i = 0; i < ring.length - 1; i++) {
-                    const lineStart = { longitude: ring[i][0], latitude: ring[i][1] };
-                    const lineEnd = { longitude: ring[i+1][0], latitude: ring[i+1][1] };
-
-                    if (isPointNearLine(userPoint, lineStart, lineEnd, PROXIMITY_THRESHOLD_METERS)) {
-                        near = true;
-                        break;
-                    }
-                }
-                if (near) break;
+  const getDistanceToBoundary = (userPoint, boundaries) => {
+    let minDistance = Infinity;
+    for (const feature of boundaries.features) {
+      const polygons = feature.geometry.type === 'Polygon' ? [feature.geometry.coordinates] : feature.geometry.coordinates;
+      for (const polygon of polygons) {
+        for (const ring of polygon) {
+          for (const p of ring) {
+            const vertex = { latitude: p[1], longitude: p[0] };
+            const distance = getDistance(userPoint, vertex);
+            if (distance < minDistance) {
+              minDistance = distance;
             }
-            if (near) break;
+          }
         }
-        if (near) break;
+      }
     }
-
-    if (near && !isNearBoundary) {
-      Alert.alert(
-        'Boundary Alert',
-        'You are approaching a maritime boundary. Proceed with caution.',
-        [{ text: 'OK' }]
-      );
-      setIsNearBoundary(true);
-    } else if (!near && isNearBoundary) {
-      setIsNearBoundary(false); // Reset when user moves away
-    }
+    return minDistance;
   };
 
-  const fetchData = async (url, cacheKey, messageType) => {
-      try {
-        const cached = await AsyncStorage.getItem(cacheKey);
-        if (cached) {
-            const data = JSON.parse(cached);
-            if (messageType === 'boundary-data') setBoundariesData(data);
-            sendMessageToWebView({ type: messageType, payload: data });
-        }
+  const checkBoundaryStatus = (userLocation) => {
+    const userPoint = { latitude: userLocation.latitude, longitude: userLocation.longitude };
+    let isInside = false;
 
-        const controller = new AbortController();
-        setTimeout(() => controller.abort(), 30000); // 30s timeout
-
-        const response = await fetch(url, { signal: controller.signal, headers: { 'Accept-Encoding': 'gzip' } });
-        if (response.ok) {
-            const data = await response.json();
-            await AsyncStorage.setItem(cacheKey, JSON.stringify(data));
-            if (messageType === 'boundary-data') setBoundariesData(data);
-            sendMessageToWebView({ type: messageType, payload: data });
+    for (const feature of boundariesData.features) {
+      const polygons = feature.geometry.type === 'Polygon' ? [feature.geometry.coordinates] : feature.geometry.coordinates;
+      for (const polygon of polygons) {
+        const geolibPolygon = polygon[0].map(p => ({ latitude: p[1], longitude: p[0] }));
+        if (isPointInPolygon(userPoint, geolibPolygon)) {
+          isInside = true;
+          break;
         }
-      } catch (error) {
-          console.log(`${cacheKey} fetch failed, using cache if available`, error);
       }
-  }
+      if (isInside) break;
+    }
+
+    if (isInside) {
+      const distanceToBoundary = getDistanceToBoundary(userPoint, boundariesData);
+      if (distanceToBoundary < PROXIMITY_THRESHOLD_METERS) {
+        setStatusInfo({
+          text: `Warning: Approaching Boundary (${distanceInKm} km)`,
+          color: '#FFA500', // Orange
+        });
+      } else {
+        setStatusInfo({
+          text: `Safe (${distanceInKm} km from boundary)`,
+          color: '#4CAF50'
+        }); // Green
+      }
+    } else {
+      // When outside maritime boundaries, check if user is on land (in India)
+      const isProbablyOnLandInIndia =
+        userPoint.latitude >= 8.4 &&
+        userPoint.latitude <= 37.6 &&
+        userPoint.longitude >= 68.7 &&
+        userPoint.longitude <= 97.25;
+
+      if (isProbablyOnLandInIndia) {
+        setStatusInfo({ text: 'Status: Safe', color: '#4CAF50' });
+      } else {
+        setStatusInfo({ text: 'Alert: Outside Maritime Boundaries', color: '#F44336' }); // Red
+      }
+    }
+  };
 
   useEffect(() => {
     let subscription;
@@ -107,20 +126,20 @@ const MapsScreen = () => {
 
       const initialLocation = await Location.getCurrentPositionAsync({});
       setLocation(initialLocation);
+      checkBoundaryStatus(initialLocation.coords);
 
       subscription = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,
-          timeInterval: 5000, // Check every 5 seconds
-          distanceInterval: 10, // Or every 10 meters
+          timeInterval: 5000,
+          distanceInterval: 10,
         },
         (newLocation) => {
           setLocation(newLocation);
-          checkBoundaryProximity(newLocation.coords);
+          checkBoundaryStatus(newLocation.coords);
         }
       );
-
-      fetchData(BOUNDARIES_URL, 'boundariesData', 'boundary-data');
+      
       fetchData('https://incois.gov.in/geoserver/PFZ_Automation/ows?service=WFS&version=1.1.0&request=GetFeature&typeName=PFZ_Automation:pfzlines&outputFormat=application/json', 'pfzData', 'pfz-data');
     })();
 
@@ -159,50 +178,29 @@ const MapsScreen = () => {
 
   const injectedJavaScript = `
     let userMarker, pfzLayer, boundaryLayer;
-
-    const locationIcon = L.divIcon({
-        className: 'location-marker',
-        html: '<div class="accuracy-circle"></div><div class="dot"></div>',
-        iconSize: [44, 44],
-    });
-
     document.addEventListener('message', function(event) {
         const message = JSON.parse(event.data);
         switch (message.type) {
-            case 'location':
-                const { latitude, longitude } = message.payload;
-                if (userMarker) {
-                    userMarker.setLatLng([latitude, longitude]);
-                } else {
-                    userMarker = L.marker([latitude, longitude], { icon: locationIcon }).addTo(map);
-                }
-                break;
-            
             case 'recenter':
                 map.setView([message.payload.latitude, message.payload.longitude], 15);
                 break;
-
             case 'pfz-data':
                 if (pfzLayer) map.removeLayer(pfzLayer);
-                pfzLayer = L.geoJSON(message.payload, {
-                    style: { color: 'blue', weight: 2 }
-                });
+                // PFZ layer is added to the map by default on receiving data.
+                pfzLayer = L.geoJSON(message.payload, { style: { color: 'blue', weight: 2 } }).addTo(map);
                 break;
-
             case 'toggle-pfz':
                 if (pfzLayer) {
                     if (message.payload) map.addLayer(pfzLayer);
                     else map.removeLayer(pfzLayer);
                 }
                 break;
-
             case 'boundary-data':
                 if (boundaryLayer) map.removeLayer(boundaryLayer);
                 boundaryLayer = L.geoJSON(message.payload, {
                     style: { color: "#FF4500", weight: 2, opacity: 0.8, fillOpacity: 0.2 }
                 }).addTo(map);
                 break;
-
             case 'toggle-boundaries':
                 if (boundaryLayer) {
                     if (message.payload) map.addLayer(boundaryLayer);
@@ -232,12 +230,18 @@ const MapsScreen = () => {
         javaScriptEnabled={true}
         domStorageEnabled={true}
         injectedJavaScript={injectedJavaScript}
+        onLoadEnd={() => {
+          sendMessageToWebView({ type: 'boundary-data', payload: boundariesData });
+        }}
       />
-      <TouchableOpacity style={styles.recenterButton} onPress={handleRecenter}>
-        <Ionicons name="locate" size={32} color="white" />
-      </TouchableOpacity>
+      <View style={[styles.statusContainer, { backgroundColor: statusInfo.color }]}>
+        <Text style={styles.statusText}>{statusInfo.text}</Text>
+      </View>
       <TouchableOpacity style={styles.layersButton} onPress={() => setLayersModalVisible(true)}>
         <Ionicons name="layers" size={32} color="white" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.recenterButton} onPress={handleRecenter}>
+        <Ionicons name="locate" size={32} color="white" />
       </TouchableOpacity>
 
       <Modal
@@ -291,6 +295,21 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    statusContainer: {
+        position: 'absolute',
+        top: 50,
+        alignSelf: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 12,
+        borderRadius: 20,
+        elevation: 8,
+    },
+    statusText: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize: 16,
     },
     recenterButton: {
         position: 'absolute',
