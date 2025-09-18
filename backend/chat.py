@@ -58,7 +58,3 @@ async def chat_with_expert(request: ChatRequest):
     except Exception as e:
         print(f"Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
-
-# To run this application:
-# 1. Make sure you have a .env file with your MISTRAL_API_KEY.
-# 2. Run the command in your terminal: uvicorn chat:app --reload

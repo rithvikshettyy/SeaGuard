@@ -12,7 +12,6 @@ import OnboardingScreen from './screens/OnboardingScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import TripPlanningScreen from './screens/TripPlanningScreen';
-import HeatmapScreen from './screens/HeatmapScreen';
 import TrackerScreen from './screens/TrackerScreen';
 import SOSScreen from './screens/SOSScreen';
 import NewsScreen from './screens/NewsScreen';
