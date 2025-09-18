@@ -224,8 +224,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   gif: {
-    width: 120,
-    height: 120,
+    width: 170,
+    height: 170,
     marginLeft: 4,
   },
   row: {

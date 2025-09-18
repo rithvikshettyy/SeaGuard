@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
 
@@ -26,14 +27,14 @@ const ChatScreen = ({ navigation }) => {
     >
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color={COLORS.text} />
+          <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Chat Assistant</Text>
+        <Text style={styles.headerTitle}>SeaBot - AI Assistant</Text>
         <View style={{ width: 24 }} />
       </View>
 
       <View style={styles.chatContainer}>
-        {/* Chat messages will go here */}
+        <Image source={require('../assets/blob.gif')} style={styles.gif} contentFit="contain" />
       </View>
 
       <View style={styles.inputContainer}>
@@ -42,7 +43,7 @@ const ChatScreen = ({ navigation }) => {
           value={message}
           onChangeText={setMessage}
           placeholder="Type your message..."
-          placeholderTextColor={COLORS.lightText}
+          placeholderTextColor="#8E8E93"
         />
         <TouchableOpacity onPress={handleMic} style={styles.micButton}>
           <Ionicons name="mic" size={24} color={COLORS.primary} />
@@ -58,7 +59,7 @@ const ChatScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E9EFF1',
+    backgroundColor: '#000000',
   },
   header: {
     flexDirection: 'row',
@@ -67,35 +68,40 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 50,
     paddingBottom: 20,
-    backgroundColor: COLORS.card,
+    backgroundColor: '#1C1C1E',
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: '#38383A',
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: '#FFFFFF',
   },
   chatContainer: {
     flex: 1,
-    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gif: {
+    width: 350,
+    height: 350,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: COLORS.card,
+    backgroundColor: '#1C1C1E',
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: '#38383A',
   },
   input: {
     flex: 1,
     height: 40,
-    backgroundColor: '#F0F2F5',
+    backgroundColor: '#2C2C2E',
     borderRadius: 20,
     paddingHorizontal: 15,
     fontSize: 16,
-    color: COLORS.text,
+    color: '#FFFFFF',
   },
   micButton: {
     padding: 10,
