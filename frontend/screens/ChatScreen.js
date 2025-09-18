@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   gif: {
-    width: 350,
-    height: 350,
+    width: 349,
+    height: 349,
   },
   inputContainer: {
     flexDirection: 'row',
