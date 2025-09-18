@@ -10,7 +10,7 @@ import { COLORS } from '../constants/colors';
 const mapHtml = require('../assets/map.html');
 const boundariesData = require('../assets/boundary.json');
 
-const PROXIMITY_THRESHOLD_METERS = 2000000000; // 20 km
+const PROXIMITY_THRESHOLD_METERS = 20000; // 20 km
 
 const MapsScreen = () => {
   const webviewRef = useRef(null);
@@ -53,6 +53,9 @@ const MapsScreen = () => {
 
   const getDistanceToBoundary = (userPoint, boundaries) => {
     let minDistance = Infinity;
+    if (!boundaries?.features?.length) {
+        return minDistance;
+    }
     for (const feature of boundaries.features) {
       const polygons = feature.geometry.type === 'Polygon' ? [feature.geometry.coordinates] : feature.geometry.coordinates;
       for (const polygon of polygons) {
@@ -72,35 +75,36 @@ const MapsScreen = () => {
 
   const checkBoundaryStatus = (userLocation) => {
     const userPoint = { latitude: userLocation.latitude, longitude: userLocation.longitude };
-    let isInside = false;
 
-    for (const feature of boundariesData.features) {
-      const polygons = feature.geometry.type === 'Polygon' ? [feature.geometry.coordinates] : feature.geometry.coordinates;
-      for (const polygon of polygons) {
-        const geolibPolygon = polygon[0].map(p => ({ latitude: p[1], longitude: p[0] }));
-        if (isPointInPolygon(userPoint, geolibPolygon)) {
-          isInside = true;
-          break;
+    const distanceToBoundary = getDistanceToBoundary(userPoint, boundariesData);
+    const distanceInKm = distanceToBoundary !== Infinity ? (distanceToBoundary / 1000).toFixed(2) : null;
+
+    let isInside = false;
+    if (boundariesData?.features?.length) {
+        for (const feature of boundariesData.features) {
+            const polygons = feature.geometry.type === 'Polygon' ? [feature.geometry.coordinates] : feature.geometry.coordinates;
+            for (const polygon of polygons) {
+                const geolibPolygon = polygon[0].map(p => ({ latitude: p[1], longitude: p[0] }));
+                if (isPointInPolygon(userPoint, geolibPolygon)) {
+                    isInside = true;
+                    break;
+                }
+            }
+            if (isInside) break;
         }
-      }
-      if (isInside) break;
     }
 
     if (isInside) {
-      const distanceToBoundary = getDistanceToBoundary(userPoint, boundariesData);
-      if (distanceToBoundary < PROXIMITY_THRESHOLD_METERS) {
+      if (distanceInKm !== null && distanceToBoundary < PROXIMITY_THRESHOLD_METERS) {
         setStatusInfo({
           text: `Warning: Approaching Boundary (${distanceInKm} km)`,
-          color: '#FFA500', // Orange
+          color: '#FFA500',
         });
       } else {
-        setStatusInfo({
-          text: `Safe (${distanceInKm} km from boundary)`,
-          color: '#4CAF50'
-        }); // Green
+        const text = distanceInKm ? `Safe (${distanceInKm} km from boundary)` : 'Status: Safe';
+        setStatusInfo({ text, color: '#4CAF50' });
       }
     } else {
-      // When outside maritime boundaries, check if user is on land (in India)
       const isProbablyOnLandInIndia =
         userPoint.latitude >= 8.4 &&
         userPoint.latitude <= 37.6 &&
@@ -108,9 +112,11 @@ const MapsScreen = () => {
         userPoint.longitude <= 97.25;
 
       if (isProbablyOnLandInIndia) {
-        setStatusInfo({ text: 'Status: Safe', color: '#4CAF50' });
+        const text = distanceInKm ? `On Land (${distanceInKm} km from boundary)` : 'Status: Safe';
+        setStatusInfo({ text, color: '#4CAF50' });
       } else {
-        setStatusInfo({ text: 'Alert: Outside Maritime Boundaries', color: '#F44336' }); // Red
+        const text = distanceInKm ? `Alert: Outside Boundary (${distanceInKm} km away)` : 'Alert: Outside Maritime Boundaries';
+        setStatusInfo({ text, color: '#F44336' });
       }
     }
   };
@@ -177,6 +183,15 @@ const MapsScreen = () => {
   };
 
   const injectedJavaScript = `
+    if (map.stopLocate) {
+      map.stopLocate();
+    }
+    map.eachLayer(function(layer) {
+      if (layer instanceof L.Marker) {
+        map.removeLayer(layer);
+      }
+    });
+
     let userMarker, pfzLayer, boundaryLayer;
     document.addEventListener('message', function(event) {
         const message = JSON.parse(event.data);
