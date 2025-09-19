@@ -73,11 +73,11 @@ const CatchRecordScreen = ({ navigation }) => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={28} color={COLORS.text} />
+          <Ionicons name="arrow-back" size={28} color="#FFFFFF" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Your Catch Logs</Text>
         <TouchableOpacity>
-          <Ionicons name="options-outline" size={28} color={COLORS.text} />
+          <Ionicons name="options-outline" size={28} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
 
@@ -118,7 +118,7 @@ const CatchRecordScreen = ({ navigation }) => {
       </ScrollView>
 
       {/* Floating Action Button */}
-      <TouchableOpacity style={styles.fab}>
+      <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('LogNewCatch')}>
         <Ionicons name="add" size={30} color="#FFF" />
       </TouchableOpacity>
     </SafeAreaView>
@@ -138,12 +138,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#EEE',
-    backgroundColor: '#FFF',
+    backgroundColor: '#183050',
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: '#FFFFFF',
   },
   scrollViewContent: {
     paddingHorizontal: 15,
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 100, // Above bottom nav bar
     right: 20,
-    backgroundColor: COLORS.primary,
+    backgroundColor: '#183050',
     width: 60,
     height: 60,
     borderRadius: 30,

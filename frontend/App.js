@@ -18,6 +18,7 @@ import TrackerScreen from './screens/TrackerScreen';
 import SOSScreen from './screens/SOSScreen';
 import NewsScreen from './screens/NewsScreen';
 import CatchRecordScreen from './screens/CatchRecordScreen';
+import LogNewCatchScreen from './screens/LogNewCatchScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import CompassScreen from './screens/CompassScreen';
 import NoFishingZoneScreen from './screens/NoFishingZoneScreen';
@@ -123,6 +124,7 @@ const App = () => {
         <Stack.Screen name="TripPlanning" component={TripPlanningScreen} />
         <Stack.Screen name="News" component={NewsScreen} />
         <Stack.Screen name="CatchRecord" component={CatchRecordScreen} />
+        <Stack.Screen name="LogNewCatch" component={LogNewCatchScreen} />
         <Stack.Screen name="NoFishingZone" component={NoFishingZoneScreen} />
         <Stack.Screen name="PotentialFishingZone" component={PotentialFishingZoneScreen} />
         <Stack.Screen name="GpsNavigation" component={GpsNavigationScreen} />
