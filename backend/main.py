@@ -15,8 +15,10 @@ with accurate day/night detection and clean response.
 from fastapi import FastAPI, HTTPException
 from services.fishing_alerts import IndiaFishingAlerts
 from services.authentication import AuthService
+from services.chat import ChatService
 from models.alert import AlertResponse
 from models.authentication import Phone, Otp
+from models.chat import ChatRequest
 from pydantic import BaseModel
 from fastapi import Request
 
@@ -30,10 +32,18 @@ app = FastAPI(
 
 alerts = IndiaFishingAlerts()
 # auth_service = AuthService()
+chat_service = ChatService()
 
 @app.get("/")
 def root():
     return {"message": "Welcome to SeaGuard. Use /docs for API details."}
+
+@app.post("/chat")
+async def chat_with_expert(request: ChatRequest):
+    try:
+        return await chat_service.get_chat_response(request)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/fishing-alert", response_model=AlertResponse)
 def fishing_alert(lat: float, lon: float):
