@@ -77,7 +77,6 @@ const FeaturesScreen = ({ navigation }) => {
     <View style={styles.newsItem}>
         <Text style={styles.newsItemTitle} numberOfLines={2}>{item.title}</Text>
         <Text style={styles.newsItemSnippet} numberOfLines={4}>{item.snippet}</Text>
-        <Image source={item.image} style={styles.newsItemImage} contentFit="cover"/>
     </View>
   );
 
@@ -136,15 +135,18 @@ const FeaturesScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Compass Card */}
-      <View style={[styles.card, styles.compassCard]}>
+      {/* Catch Monitor Card */}
+      <View style={[styles.card, styles.catchMonitorCard]}>
         <View>
-          <Text style={styles.cardTitle}>Compass</Text>
-          <Text style={styles.compassDegrees}>167° NE</Text>
-          <Text style={styles.compassLocation}>Navi Mumbai, Maharshtra</Text>
-          <Text style={styles.compassCoords}>19.0330° N, 73.0297° E</Text>
+          <Text style={styles.cardTitle}>Monitor catch volumes</Text>
+          <Text style={styles.catchMonitorText}>Today:</Text>
+          <Text style={styles.catchMonitorText}>Monthly Avg:</Text>
+          <Text style={styles.catchMonitorText}>Trend:</Text>
         </View>
-        <Image source={require('../assets/compass.jpg')} style={styles.compassImage} contentFit="contain" />
+        <View style={styles.progressCircle}>
+          <Text style={styles.progressText}>69%</Text>
+          <Text style={styles.progressSubText}>280kg/500kg</Text>
+        </View>
       </View>
 
       {/* Latest News Card */}
@@ -190,10 +192,10 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: COLORS.card,
-    borderRadius: 24,
+    borderRadius: 5,
     padding: 20,
     marginHorizontal: cardMargin,
-    marginBottom: 15,
+    marginBottom: 6,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
@@ -329,29 +331,34 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 'bold',
   },
-  compassCard: {
+  catchMonitorCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  compassDegrees: {
-    fontSize: 40,
+  catchMonitorText: {
+    fontSize: 14,
+    color: COLORS.text,
+    marginBottom: 4,
+  },
+  progressCircle: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 10,
+    borderColor: '#E0E0E0',
+    borderTopColor: '#009688',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progressText: {
+    fontSize: 24,
     fontWeight: 'bold',
     color: COLORS.text,
   },
-  compassLocation: {
-    fontSize: 15,
-    color: COLORS.text,
-    marginTop: 4,
-  },
-  compassCoords: {
-    fontSize: 13,
+  progressSubText: {
+    fontSize: 12,
     color: COLORS.lightText,
-    marginTop: 2,
-  },
-  compassImage: {
-    width: 130,
-    height: 130,
   },
   newsCard: {
     height: 200,
@@ -360,15 +367,7 @@ const styles = StyleSheet.create({
     width: cardWidth,
     paddingRight: 20, // To avoid text touching the edge
   },
-  newsItemImage: {
-    width: 110,
-    height: 110,
-    borderRadius: 12,
-    position: 'absolute',
-    right: 0,
-    top: 20,
-    backgroundColor: '#F0F2F5',
-  },
+
   newsItemTextContainer: {
     flex: 1,
     paddingRight: 120, // Space for the image
