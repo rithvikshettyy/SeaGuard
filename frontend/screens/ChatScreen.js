@@ -1,23 +1,135 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  TextInput, 
+  TouchableOpacity, 
+  KeyboardAvoidingView, 
+  Platform, 
+  FlatList, 
+  ActivityIndicator 
+} from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
+import { Audio } from 'expo-av';
 import { COLORS } from '../constants/colors';
+
+// IMPORTANT: Storing API keys in the frontend is a security risk.
+// This should be replaced with a backend call in a production environment.
+const SARVAM_API_KEY = "sk_f9x0xata_kc6bCG9hLzrmCXwx9lS83m30";
 
 const ChatScreen = ({ navigation }) => {
   const [message, setMessage] = useState('');
+  const [chatHistory, setChatHistory] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [recording, setRecording] = useState();
+  const [isRecording, setIsRecording] = useState(false);
+  const flatListRef = useRef();
 
-  const handleSend = () => {
+  useEffect(() => {
+    setChatHistory([
+      { role: 'bot', content: 'Hello! I am SeaBot, your AI assistant. How can I help you today?' }
+    ]);
+  }, []);
+
+  const handleSend = async () => {
     if (message.trim()) {
-      console.log('Sending message:', message);
+      const newUserMessage = { role: 'user', content: message };
+      const updatedChatHistory = [...chatHistory, newUserMessage];
+      setChatHistory(updatedChatHistory);
       setMessage('');
+      setLoading(true);
+
+      try {
+        const response = await fetch('http://10.0.2.2:8000/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            history: updatedChatHistory.map(msg => ({ role: msg.role, content: msg.content })),
+          }),
+        });
+
+        const data = await response.json();
+        const botResponse = { role: 'bot', content: data.response };
+        setChatHistory(prevHistory => [...prevHistory, botResponse]);
+      } catch (error) {
+        console.error('Error fetching chat response:', error);
+        const errorResponse = { role: 'bot', content: 'Sorry, I am having trouble connecting. Please try again later.' };
+        setChatHistory(prevHistory => [...prevHistory, errorResponse]);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
-  const handleMic = () => {
-    // Implement speech-to-text functionality here
-    console.log('Mic button pressed');
+  const transcribeAudio = async (uri) => {
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', {
+        uri: uri,
+        name: `recording-${Date.now()}.m4a`,
+        type: 'audio/m4a',
+      });
+
+      const response = await fetch('https://api.sarvam.ai/speech-to-text', {
+        method: 'POST',
+        headers: {
+          'api-subscription-key': SARVAM_API_KEY,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.text) {
+        setMessage(data.text);
+      }
+    } catch (error) {
+      console.error('Error transcribing audio:', error);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const startRecording = async () => {
+    try {
+      const permission = await Audio.requestPermissionsAsync();
+      if (permission.status !== 'granted') {
+        console.error('Permission to access microphone is required!');
+        return;
+      }
+
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+      });
+
+      const { recording } = await Audio.Recording.createAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+      setRecording(recording);
+      setIsRecording(true);
+    } catch (err) {
+      console.error('Failed to start recording', err);
+    }
+  };
+
+  const stopRecording = async () => {
+    setIsRecording(false);
+    await recording.stopAndUnloadAsync();
+    const uri = recording.getURI();
+    transcribeAudio(uri);
+  };
+
+  const handleMicPress = () => {
+    recording ? stopRecording() : startRecording();
+  };
+
+  const renderChatItem = ({ item }) => (
+    <View style={[styles.messageContainer, item.role === 'user' ? styles.userMessageContainer : styles.botMessageContainer]}>
+      <Text style={styles.messageText}>{item.content}</Text>
+    </View>
+  );
 
   return (
     <KeyboardAvoidingView
@@ -34,7 +146,19 @@ const ChatScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.chatContainer}>
-        <Image source={require('../assets/blob.gif')} style={styles.gif} contentFit="contain" />
+        {chatHistory.length === 1 && !loading ? (
+          <Image source={require('../assets/blob.gif')} style={styles.gif} contentFit="contain" />
+        ) : (
+          <FlatList
+            ref={flatListRef}
+            data={chatHistory}
+            renderItem={renderChatItem}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={styles.chatList}
+            onContentSizeChange={() => flatListRef.current.scrollToEnd({ animated: true })}
+          />
+        )}
+        {loading && <ActivityIndicator size="large" color={COLORS.primary} style={styles.loading} />}
       </View>
 
       <View style={styles.inputContainer}>
@@ -45,10 +169,10 @@ const ChatScreen = ({ navigation }) => {
           placeholder="Type your message..."
           placeholderTextColor="#8E8E93"
         />
-        <TouchableOpacity onPress={handleMic} style={styles.micButton}>
-          <Ionicons name="mic" size={24} color={COLORS.primary} />
+        <TouchableOpacity onPress={handleMicPress} style={styles.micButton}>
+          <Ionicons name={isRecording ? "stop-circle-outline" : "mic"} size={24} color={isRecording ? 'red' : COLORS.primary} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+        <TouchableOpacity onPress={handleSend} style={styles.sendButton} disabled={loading}>
           <Ionicons name="send" size={24} color="#FFF" />
         </TouchableOpacity>
       </View>
@@ -79,12 +203,39 @@ const styles = StyleSheet.create({
   },
   chatContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  chatList: {
+    padding: 10,
   },
   gif: {
     width: 349,
     height: 349,
+    alignSelf: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  },
+  messageContainer: {
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+    maxWidth: '80%',
+  },
+  userMessageContainer: {
+    backgroundColor: COLORS.primary,
+    alignSelf: 'flex-end',
+  },
+  botMessageContainer: {
+    backgroundColor: '#2C2C2E',
+    alignSelf: 'flex-start',
+  },
+  messageText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+  },
+  loading: {
+    position: 'absolute',
+    alignSelf: 'center',
+    top: '50%',
   },
   inputContainer: {
     flexDirection: 'row',
