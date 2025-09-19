@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }) => {
   const [otpSent, setOtpSent] = useState(false);
 
   const handleSendOtp = async () => {
-    navigation.replace('Main');
+    navigation.replace('PurposeOnboarding');
     return
     console.log('Sending OTP to:', phoneNumber);
     try {
@@ -60,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
       const data = await response.json();
 
       if (response.ok) {
-        navigation.replace('Main');
+        navigation.replace('PurposeOnboarding');
       } else {
         Alert.alert('Error', data.message || 'Failed to verify OTP');
       }
@@ -121,7 +121,7 @@ const LoginScreen = ({ navigation }) => {
         </>
       )}
 
-      <TouchableOpacity onPress={() => navigation.replace('Main')}>
+      <TouchableOpacity onPress={() => navigation.replace('PurposeOnboarding')}>
         <Text style={styles.signupText}>
           Don't have an account? <Text style={styles.signupLink}>Sign Up</Text>
         </Text>

@@ -10,6 +10,7 @@ import { COLORS } from './constants/colors';
 // Screens
 import OnboardingScreen from './screens/OnboardingScreen';
 import LoginScreen from './screens/LoginScreen';
+import PurposeOnboardingScreen from './screens/PurposeOnboardingScreen';
 import HomeScreen from './screens/HomeScreen';
 import TripPlanningScreen from './screens/TripPlanningScreen';
 import TrackerScreen from './screens/TrackerScreen';
@@ -146,6 +147,7 @@ const App = () => (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="PurposeOnboarding" component={PurposeOnboardingScreen} />
       <Stack.Screen name="Main" component={MainTabs} />
       {/* Screens that should be available outside the tab bar but within the main stack */}
       <Stack.Screen name="TripPlanning" component={TripPlanningScreen} />

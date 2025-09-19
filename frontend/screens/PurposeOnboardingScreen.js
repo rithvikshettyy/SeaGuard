@@ -11,12 +11,16 @@ const PurposeOnboardingScreen = ({ navigation }) => {
   };
 
   const handleProceed = () => {
-    navigation.navigate('Main', { screen: 'Profile', params: { userType: selectedPurpose } });
+    navigation.navigate('Main', { screen: 'HomeTab', params: { userType: selectedPurpose } });
   };
 
   return (
-    <View style={styles.container}>
-      <ImageBackground source={require('../assets/oceanbg.png')} style={styles.backgroundImage}>
+    <ImageBackground 
+      source={require('../assets/onboardingpagebackground.png')} 
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={24} color={COLORS.text} />
@@ -38,7 +42,7 @@ const PurposeOnboardingScreen = ({ navigation }) => {
               style={[styles.optionCard, selectedPurpose === 'Hobby' && styles.selectedCard]}
               onPress={() => handleSelectPurpose('Hobby')}
             >
-              <Ionicons name="fish" size={24} color={selectedPurpose === 'Hobby' ? COLORS.white : COLORS.primary} />
+              <Ionicons name="fish" size={24} color={selectedPurpose === 'Hobby' ? '#fff' : COLORS.primary} />
               <Text style={[styles.optionTitle, selectedPurpose === 'Hobby' && styles.selectedText]}>Hobby Fisher</Text>
               <Text style={[styles.optionDescription, selectedPurpose === 'Hobby' && styles.selectedText]}>
                 Track your catches, explore new spots, and celebrate your fishing journey. Ideal for casual or weekend fishing.
@@ -49,7 +53,7 @@ const PurposeOnboardingScreen = ({ navigation }) => {
               style={[styles.optionCard, selectedPurpose === 'Commercial' && styles.selectedCard]}
               onPress={() => handleSelectPurpose('Commercial')}
             >
-              <Ionicons name="boat" size={24} color={selectedPurpose === 'Commercial' ? COLORS.white : COLORS.primary} />
+              <Ionicons name="boat" size={24} color={selectedPurpose === 'Commercial' ? '#fff' : COLORS.primary} />
               <Text style={[styles.optionTitle, selectedPurpose === 'Commercial' && styles.selectedText]}>Commercial Fisher</Text>
               <Text style={[styles.optionDescription, selectedPurpose === 'Commercial' && styles.selectedText]}>
                 Monitor catch volumes, manage quotas, and optimize your yield. Perfect for full-time or small business fishing.
@@ -61,20 +65,20 @@ const PurposeOnboardingScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.proceedButton} onPress={handleProceed}>
           <Text style={styles.proceedButtonText}>Proceed</Text>
         </TouchableOpacity>
-      </ImageBackground>
-    </View>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Add a semi-transparent overlay
     justifyContent: 'space-between',
+    paddingBottom: 40, // Space for the button
   },
   header: {
     flexDirection: 'row',
@@ -94,22 +98,25 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 30,
+    alignItems: 'center', // Center content horizontally
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     color: COLORS.text,
     marginBottom: 10,
-    marginTop: 20,
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
     color: COLORS.lightText,
     marginBottom: 30,
+    textAlign: 'center',
   },
   optionsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '100%', // Ensure options take full width
   },
   optionCard: {
     width: '48%',
@@ -137,18 +144,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   selectedText: {
-    color: COLORS.white,
+    color: '#fff',
   },
   proceedButton: {
-    backgroundColor: COLORS.black,
+    backgroundColor: '#000',
     paddingVertical: 18,
     borderRadius: 10,
     alignItems: 'center',
     marginHorizontal: 30,
-    marginBottom: 40,
   },
   proceedButtonText: {
-    color: COLORS.white,
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
