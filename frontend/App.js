@@ -47,7 +47,23 @@ const HomeStack = () => (
     <Stack.Screen
       name="Home"
       component={HomeScreen}
-      options={{ headerShown: false }}
+      options={({ navigation }) => ({
+        headerTransparent: true,
+        headerTitle: () => <Image source={require('./assets/seaguardwhite.png')} style={{ width: 150, height: 40, resizeMode: 'contain' }} />,
+        headerRight: () => (
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 15 }}>
+            <LanguagePicker />
+            <TouchableOpacity onPress={() => navigation.navigate('Compass')} style={{ marginLeft: 15 }}>
+              <Ionicons name="compass-outline" size={28} color={COLORS.white} />
+            </TouchableOpacity>
+          </View>
+        ),
+        headerStyle: {
+          backgroundColor: 'transparent',
+          elevation: 0,
+          shadowOpacity: 0,
+        },
+      })}
     />
     {/* Add other screens in HomeStack here if they need to be navigated to from HomeScreen */}
     <Stack.Screen name="Compass" component={CompassScreen} />
