@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { COLORS } from '../constants/colors';
@@ -12,6 +12,7 @@ const catchLogs = [
     weight: '45.1 kg',
     fishType: 'Pomfret',
     location: '12.2502° N, 64.3372° E',
+    image: require('../assets/pomfretbg.png'), // New image for Pomfret
     bgColor: '#E67E22', // Orange
   },
   {
@@ -21,6 +22,7 @@ const catchLogs = [
     weight: '34.5 kg',
     fishType: 'Mackerel',
     location: '12.2502° N, 64.3372° E',
+    image: require('../assets/mackerelbg.png'), // New image for Mackerel
     bgColor: '#3498DB', // Blue
   },
   {
@@ -30,6 +32,7 @@ const catchLogs = [
     weight: '34.5 kg',
     fishType: 'Prawns',
     location: '12.2502° N, 64.3372° E',
+    image: require('../assets/prawnbg.png'), // New image for Prawns
     bgColor: '#E67E22', // Orange
   },
   {
@@ -39,25 +42,29 @@ const catchLogs = [
     weight: '45.1 kg',
     fishType: 'Sardine',
     location: '12.2502° N, 64.3372° E',
+    image: require('../assets/sardinebg.png'), // New image for Sardine
     bgColor: '#3498DB', // Blue
   },
 ];
 
 const CatchRecordScreen = ({ navigation }) => {
   const renderCatchItem = ({ item }) => (
-    <TouchableOpacity style={[styles.catchItem, { backgroundColor: item.bgColor }]}>
-      <View style={styles.catchItemTextContent}>
-        <Text style={styles.catchItemDate}>{item.date} - {item.time}</Text>
-        <Text style={styles.catchItemWeight}>{item.weight}</Text>
-        <View style={styles.catchItemDetails}>
-          <Ionicons name="play" size={12} color="#FFF" style={{ marginRight: 5 }} />
-          <Text style={styles.catchItemFishType}>{item.fishType}</Text>
-          <Ionicons name="location" size={12} color="#FFF" style={{ marginLeft: 10, marginRight: 5 }} />
-          <Text style={styles.catchItemLocation}>{item.location}</Text>
+    <TouchableOpacity style={styles.catchItem}>
+      <ImageBackground source={item.image} style={styles.catchItemImageBackground} imageStyle={styles.catchItemImageStyle}>
+        <View style={styles.catchItemContentWrapper}>
+          <View>
+            <Text style={styles.catchItemDate}>{item.date} - {item.time}</Text>
+            <Text style={styles.catchItemWeight}>{item.weight}</Text>
+            <View style={styles.catchItemDetails}>
+              <Ionicons name="play" size={12} color="#FFF" style={{ marginRight: 5 }} />
+              <Text style={styles.catchItemFishType}>{item.fishType}</Text>
+              <Ionicons name="location" size={12} color="#FFF" style={{ marginLeft: 10, marginRight: 5 }} />
+              <Text style={styles.catchItemLocation}>{item.location}</Text>
+            </View>
+          </View>
+          <Ionicons name="chevron-forward" size={24} color="#FFF" />
         </View>
-      </View>
-      {/* Image removed for debugging */}
-      <Ionicons name="chevron-forward" size={24} color="#FFF" style={styles.catchItemArrow} />
+      </ImageBackground>
     </TouchableOpacity>
   );
 
@@ -186,17 +193,26 @@ const styles = StyleSheet.create({
     // No specific padding needed here, handled by scrollViewContent
   },
   catchItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     borderRadius: 10,
     marginBottom: 10,
     overflow: 'hidden',
     height: 120, // Fixed height for consistency
   },
-  catchItemTextContent: {
+  catchItemImageBackground: {
+    flex: 1, // Take full space of parent TouchableOpacity
+    justifyContent: 'center', // Center content vertically
+  },
+  catchItemImageStyle: {
+    resizeMode: 'cover', // Equivalent to contentFit="cover"
+  },
+  catchItemContentWrapper: {
     flex: 1,
-    padding: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+  },
+  catchItemTextContent: {
     justifyContent: 'center',
   },
   catchItemDate: {
@@ -221,16 +237,6 @@ const styles = StyleSheet.create({
   catchItemLocation: {
     fontSize: 12,
     color: '#FFF',
-  },
-  catchItemImage: {
-    width: 120,
-    height: '100%',
-  },
-  catchItemArrow: {
-    position: 'absolute',
-    right: 10,
-    top: '50%',
-    transform: [{ translateY: -12 }], // Center vertically
   },
   fab: {
     position: 'absolute',
