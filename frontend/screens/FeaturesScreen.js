@@ -4,23 +4,6 @@ import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
 
-const marketplaceData = [
-  {
-    id: '1',
-    name: 'DECATHLON CAPERLAN Fishing Rod Combo Resifight 100 Compact Unisex 8Ft',
-    price: '₹1,999',
-    rating: 4.2,
-    image: require('../assets/banner1.png'),
-  },
-  {
-    id: '2',
-    name: 'Another Fishing Rod',
-    price: '₹2,499',
-    rating: 4.5,
-    image: require('../assets/banner2.png'),
-  },
-];
-
 const newsData = [
   {
     id: '1',
@@ -56,23 +39,6 @@ const FeaturesScreen = ({ navigation }) => {
     setActiveNewsIndex(Math.round(index));
   };
 
-  const renderMarketplaceItem = ({ item }) => (
-    <View style={styles.marketplaceItem}>
-      <Image source={item.image} style={styles.marketplaceItemImage} contentFit="cover" />
-      <Text style={styles.marketplaceItemName} numberOfLines={3}>{item.name}</Text>
-      <View style={styles.priceRatingContainer}>
-        <Text style={styles.marketplaceItemPrice}>{item.price}</Text>
-        <View style={styles.ratingContainer}>
-          <Ionicons name="star" color="#FFC107" size={14} />
-          <Text style={styles.ratingText}>{item.rating}</Text>
-        </View>
-      </View>
-      <TouchableOpacity style={styles.visitButton}>
-        <Text style={styles.visitButtonText}>Visit website</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
   const renderNewsItem = ({ item }) => (
     <View style={styles.newsItem}>
         <Text style={styles.newsItemTitle} numberOfLines={2}>{item.title}</Text>
@@ -94,7 +60,7 @@ const FeaturesScreen = ({ navigation }) => {
         <View style={[styles.card, styles.chatCard]}>
           <View style={styles.chatTextContainer}>
             <Text style={styles.cardTitle}>Chat Assistant</Text>
-            <Text style={styles.chatTitle}>Ask Seabot</Text>
+            <Text style={styles.chatTitle}>Ask Seabot!</Text>
             <Text style={styles.chatSubtitle}>our very own chatbot to help you with sea related queries</Text>
           </View>
           <Image source={require('../assets/blob.gif')} style={[styles.gif, {}]} />
@@ -114,25 +80,14 @@ const FeaturesScreen = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Marketplace Card */}
-        <View style={[styles.card, styles.marketplaceCard]}>
-          <Text style={styles.cardTitle}>Marketplace</Text>
-          <View style={styles.tabs}>
-            {['Rods', 'Fishing Nets', 'Lures', 'Boats', '+3'].map(tab => (
-              <TouchableOpacity key={tab} style={[styles.tab, tab === 'Rods' && styles.activeTab]}>
-                <Text style={[styles.tabText, tab === 'Rods' && styles.activeTabText]}>{tab}</Text>
-              </TouchableOpacity>
-            ))}
+        {/* Fishing Hub Card */}
+        <TouchableOpacity onPress={() => navigation.navigate('FishingOptimizationHub')} style={[styles.card, styles.fishingHubCard]}>
+          <Text style={styles.cardTitle}>Fishing Optimizer</Text>
+          <View style={styles.fishingHubContent}>
+            <Ionicons name="fish-outline" size={40} color={'#009688'} />
+            <Text style={styles.fishingHubText}>Optimize your catch</Text>
           </View>
-          <FlatList
-            data={marketplaceData}
-            renderItem={renderMarketplaceItem}
-            keyExtractor={item => item.id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingRight: 20 }}
-          />
-        </View>
+        </TouchableOpacity>
       </View>
 
       {/* Catch Monitor Card */}
@@ -192,7 +147,7 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: COLORS.card,
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 20,
     marginHorizontal: cardMargin,
     marginBottom: 6,
@@ -229,6 +184,7 @@ const styles = StyleSheet.create({
     width: 170,
     height: 170,
     marginLeft: 4,
+    marginBottom: 5,
   },
   row: {
     flexDirection: 'row',
@@ -236,7 +192,8 @@ const styles = StyleSheet.create({
   },
   columnLeft: {
     flex: 0.4,
-    marginRight: 15,
+    marginRight: 0,
+    marginTop: 3,
   },
   geoCard: {
     backgroundColor: '#DCEFE3',
@@ -255,86 +212,30 @@ const styles = StyleSheet.create({
     color: '#3E5A4F',
     textAlign: 'center',
   },
-  marketplaceCard: {
+  fishingHubCard: {
     flex: 0.6,
-    margin: 0,
+    marginRight: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 3,
+    marginBottom: 9,
   },
-  tabs: {
-    flexDirection: 'row',
-    marginBottom: 15,
-    flexWrap: 'wrap',
+  fishingHubContent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
-  tab: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 16,
-    backgroundColor: '#F0F2F5',
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  activeTab: {
-    backgroundColor: '#009688',
-  },
-  tabText: {
-    fontSize: 13,
-    fontWeight: '500',
-    color: '#333',
-  },
-  activeTabText: {
-    color: '#FFF',
-  },
-  marketplaceItem: {
-    width: 140,
-    marginRight: 15,
-  },
-  marketplaceItemImage: {
-    width: '100%',
-    height: 90,
-    borderRadius: 12,
-    backgroundColor: '#F0F2F5',
-  },
-  marketplaceItemName: {
-    fontSize: 12,
-    fontWeight: '500',
-    marginTop: 8,
-    height: 40, // For 3 lines
-  },
-  priceRatingContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginTop: 4,
-  },
-  marketplaceItemPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  fishingHubText: {
+    fontSize: 14,
+    fontWeight: '600',
     color: COLORS.text,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ratingText: {
-    fontSize: 12,
-    marginLeft: 4,
-    color: COLORS.lightText,
-  },
-  visitButton: {
-    backgroundColor: '#009688',
-    paddingVertical: 10,
-    borderRadius: 8,
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  visitButtonText: {
-    color: '#FFF',
-    fontSize: 13,
-    fontWeight: 'bold',
+    marginTop: 8,
   },
   catchMonitorCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 15,
   },
   catchMonitorText: {
     fontSize: 14,

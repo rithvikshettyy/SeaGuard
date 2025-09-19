@@ -1,0 +1,331 @@
+{
+  "fishingRecommendations": {
+    "fishingStyles": {
+      "commercial": {
+        "name": "Commercial Fishing",
+        "description": "Large-scale fishing operations for market supply",
+        "preferredNets": ["trawl_nets", "purse_seine", "gill_nets"],
+        "equipment": ["industrial_reels", "winches", "fish_finders"],
+        "vesselType": "large_commercial_vessels"
+      },
+      "recreational": {
+        "name": "Recreational Fishing",
+        "description": "Sport and leisure fishing activities",
+        "preferredNets": ["cast_nets", "dip_nets"],
+        "equipment": ["fishing_rods", "tackle_boxes", "coolers"],
+        "vesselType": "small_boats"
+      },
+      "artisanal": {
+        "name": "Artisanal Fishing",
+        "description": "Traditional small-scale fishing by local communities",
+        "preferredNets": ["gill_nets", "cast_nets", "beach_seines"],
+        "equipment": ["traditional_hooks", "handlines", "small_boats"],
+        "vesselType": "traditional_boats"
+      },
+      "subsistence": {
+        "name": "Subsistence Fishing",
+        "description": "Fishing for personal and family consumption",
+        "preferredNets": ["hand_nets", "small_gill_nets"],
+        "equipment": ["basic_rods", "simple_hooks", "nets"],
+        "vesselType": "small_vessels"
+      }
+    },
+    "targetFish": {
+      "tuna": {
+        "name": "Tuna",
+        "bestSeasons": ["winter", "spring"],
+        "preferredDepth": "50-200m",
+        "bestBait": ["sardines", "mackerel", "artificial_lures"],
+        "recommendedNets": ["purse_seine", "long_lines"],
+        "bestLocations": ["arabian_sea", "bay_of_bengal"],
+        "fishingStyle": ["commercial", "recreational"],
+        "timeOfDay": "early_morning"
+      },
+      "sardines": {
+        "name": "Sardines",
+        "bestSeasons": ["monsoon", "post_monsoon"],
+        "preferredDepth": "10-50m",
+        "bestBait": ["plankton", "small_artificial_lures"],
+        "recommendedNets": ["purse_seine", "beach_seine"],
+        "bestLocations": ["west_coast", "kerala_waters"],
+        "fishingStyle": ["commercial", "artisanal"],
+        "timeOfDay": "night"
+      },
+      "mackerel": {
+        "name": "Mackerel",
+        "bestSeasons": ["winter", "summer"],
+        "preferredDepth": "20-100m",
+        "bestBait": ["small_fish", "artificial_lures"],
+        "recommendedNets": ["gill_nets", "purse_seine"],
+        "bestLocations": ["arabian_sea", "konkan_coast"],
+        "fishingStyle": ["commercial", "recreational"],
+        "timeOfDay": "dawn"
+      },
+      "pomfret": {
+        "name": "Pomfret",
+        "bestSeasons": ["winter", "spring"],
+        "preferredDepth": "30-80m",
+        "bestBait": ["prawns", "small_fish"],
+        "recommendedNets": ["gill_nets", "trawl_nets"],
+        "bestLocations": ["mumbai_waters", "gujarat_coast"],
+        "fishingStyle": ["commercial", "artisanal"],
+        "timeOfDay": "early_morning"
+      },
+      "kingfish": {
+        "name": "King Fish",
+        "bestSeasons": ["monsoon", "post_monsoon"],
+        "preferredDepth": "20-60m",
+        "bestBait": ["live_fish", "large_lures"],
+        "recommendedNets": ["gill_nets", "long_lines"],
+        "bestLocations": ["west_coast", "south_india"],
+        "fishingStyle": ["recreational", "artisanal"],
+        "timeOfDay": "morning"
+      },
+      "prawns": {
+        "name": "Prawns",
+        "bestSeasons": ["monsoon", "winter"],
+        "preferredDepth": "5-30m",
+        "bestBait": ["fish_pieces", "worms"],
+        "recommendedNets": ["trawl_nets", "cast_nets"],
+        "bestLocations": ["backwaters", "estuaries"],
+        "fishingStyle": ["commercial", "artisanal"],
+        "timeOfDay": "night"
+      }
+    },
+    "locations": {
+      "arabian_sea": {
+        "name": "Arabian Sea",
+        "region": "West Coast India",
+        "bestFish": ["tuna", "mackerel", "pomfret"],
+        "characteristics": "Deep waters, strong currents",
+        "bestSeasons": ["winter", "spring"],
+        "waterTemperature": "24-28°C",
+        "recommendedDepth": "50-200m",
+        "fishingConditions": "rough_seas"
+      },
+      "bay_of_bengal": {
+        "name": "Bay of Bengal",
+        "region": "East Coast India",
+        "bestFish": ["tuna", "hilsa", "prawns"],
+        "characteristics": "Calmer waters, river deltas",
+        "bestSeasons": ["winter", "summer"],
+        "waterTemperature": "26-30°C",
+        "recommendedDepth": "30-150m",
+        "fishingConditions": "moderate_seas"
+      },
+      "kerala_waters": {
+        "name": "Kerala Waters",
+        "region": "Southwest Coast",
+        "bestFish": ["sardines", "kingfish", "tuna"],
+        "characteristics": "Rich marine life, backwaters",
+        "bestSeasons": ["monsoon", "post_monsoon"],
+        "waterTemperature": "25-29°C",
+        "recommendedDepth": "10-100m",
+        "fishingConditions": "calm_seas"
+      },
+      "mumbai_waters": {
+        "name": "Mumbai Waters",
+        "region": "Western Coast",
+        "bestFish": ["pomfret", "mackerel", "prawns"],
+        "characteristics": "Urban coastal waters, moderate depth",
+        "bestSeasons": ["winter", "spring"],
+        "waterTemperature": "24-28°C",
+        "recommendedDepth": "20-80m",
+        "fishingConditions": "moderate_seas"
+      },
+      "gujarat_coast": {
+        "name": "Gujarat Coast",
+        "region": "Northwest Coast",
+        "bestFish": ["pomfret", "prawns", "crab"],
+        "characteristics": "Shallow waters, tidal variations",
+        "bestSeasons": ["winter", "summer"],
+        "waterTemperature": "22-30°C",
+        "recommendedDepth": "10-60m",
+        "fishingConditions": "calm_seas"
+      },
+      "konkan_coast": {
+        "name": "Konkan Coast",
+        "region": "Western Ghats Coast",
+        "bestFish": ["mackerel", "kingfish", "sardines"],
+        "characteristics": "Rocky coastline, varied depths",
+        "bestSeasons": ["monsoon", "winter"],
+        "waterTemperature": "25-29°C",
+        "recommendedDepth": "15-90m",
+        "fishingConditions": "rough_seas"
+      }
+    },
+    "nets": {
+      "trawl_nets": {
+        "name": "Trawl Nets",
+        "type": "Commercial",
+        "bestFor": ["prawns", "bottom_fish"],
+        "depth": "10-200m",
+        "meshSize": "20-40mm",
+        "vesselRequired": "trawler",
+        "cost": "high",
+        "efficiency": "high"
+      },
+      "purse_seine": {
+        "name": "Purse Seine Nets",
+        "type": "Commercial",
+        "bestFor": ["tuna", "sardines", "mackerel"],
+        "depth": "surface-100m",
+        "meshSize": "12-25mm",
+        "vesselRequired": "large_boat",
+        "cost": "very_high",
+        "efficiency": "very_high"
+      },
+      "gill_nets": {
+        "name": "Gill Nets",
+        "type": "Artisanal",
+        "bestFor": ["pomfret", "kingfish", "mackerel"],
+        "depth": "5-150m",
+        "meshSize": "30-120mm",
+        "vesselRequired": "small_boat",
+        "cost": "moderate",
+        "efficiency": "moderate"
+      },
+      "cast_nets": {
+        "name": "Cast Nets",
+        "type": "Traditional",
+        "bestFor": ["prawns", "small_fish"],
+        "depth": "1-10m",
+        "meshSize": "6-15mm",
+        "vesselRequired": "none",
+        "cost": "low",
+        "efficiency": "low"
+      },
+      "beach_seine": {
+        "name": "Beach Seine",
+        "type": "Artisanal",
+        "bestFor": ["sardines", "anchovies"],
+        "depth": "surface-20m",
+        "meshSize": "10-20mm",
+        "vesselRequired": "shore_based",
+        "cost": "moderate",
+        "efficiency": "moderate"
+      }
+    },
+    "equipment": {
+      "fishing_rods": {
+        "name": "Fishing Rods",
+        "type": "Recreational",
+        "bestFor": ["sport_fishing", "small_fish"],
+        "priceRange": "500-5000 INR"
+      },
+      "fish_finders": {
+        "name": "Fish Finders",
+        "type": "Commercial",
+        "bestFor": ["locating_fish_schools"],
+        "priceRange": "20000-100000 INR"
+      },
+      "winches": {
+        "name": "Net Winches",
+        "type": "Commercial",
+        "bestFor": ["hauling_large_nets"],
+        "priceRange": "50000-200000 INR"
+      },
+      "tackle_boxes": {
+        "name": "Tackle Boxes",
+        "type": "Recreational",
+        "bestFor": ["organizing_fishing_gear"],
+        "priceRange": "300-2000 INR"
+      }
+    },
+    "bait": {
+      "sardines": {
+        "name": "Sardines",
+        "type": "live_bait",
+        "bestFor": ["tuna", "large_predators"],
+        "availability": "coastal_markets",
+        "preservation": "ice_storage"
+      },
+      "prawns": {
+        "name": "Prawns",
+        "type": "live_bait",
+        "bestFor": ["pomfret", "kingfish"],
+        "availability": "fishing_harbors",
+        "preservation": "live_tanks"
+      },
+      "artificial_lures": {
+        "name": "Artificial Lures",
+        "type": "artificial",
+        "bestFor": ["recreational_fishing", "sport_fish"],
+        "availability": "fishing_stores",
+        "preservation": "dry_storage"
+      },
+      "worms": {
+        "name": "Marine Worms",
+        "type": "live_bait",
+        "bestFor": ["bottom_fish", "prawns"],
+        "availability": "bait_shops",
+        "preservation": "moist_storage"
+      }
+    },
+    "recommendations": [
+      {
+        "fishingStyle": "commercial",
+        "targetFish": "tuna",
+        "location": "arabian_sea",
+        "recommendation": {
+          "nets": ["purse_seine"],
+          "equipment": ["fish_finders", "winches"],
+          "bait": ["sardines", "mackerel"],
+          "bestTime": "early_morning",
+          "season": "winter",
+          "depth": "50-200m",
+          "vesselSize": "large",
+          "expectedYield": "high",
+          "fuelEfficiency": "moderate",
+          "tips": [
+            "Use sonar to locate tuna schools",
+            "Fish during calm weather conditions",
+            "Target temperature breaks in water"
+          ]
+        }
+      },
+      {
+        "fishingStyle": "artisanal",
+        "targetFish": "sardines",
+        "location": "kerala_waters",
+        "recommendation": {
+          "nets": ["beach_seine"],
+          "equipment": ["traditional_boats"],
+          "bait": ["plankton_attractants"],
+          "bestTime": "night",
+          "season": "monsoon",
+          "depth": "10-20m",
+          "vesselSize": "small",
+          "expectedYield": "moderate",
+          "fuelEfficiency": "high",
+          "tips": [
+            "Fish during new moon for better catches",
+            "Use lights to attract sardine schools",
+            "Coordinate with other fishermen for seine operations"
+          ]
+        }
+      },
+      {
+        "fishingStyle": "recreational",
+        "targetFish": "kingfish",
+        "location": "konkan_coast",
+        "recommendation": {
+          "nets": ["fishing_lines"],
+          "equipment": ["fishing_rods", "tackle_boxes"],
+          "bait": ["live_fish", "artificial_lures"],
+          "bestTime": "morning",
+          "season": "monsoon",
+          "depth": "20-60m",
+          "vesselSize": "small",
+          "expectedYield": "low_to_moderate",
+          "fuelEfficiency": "high",
+          "tips": [
+            "Use live bait for better results",
+            "Fish near rocky structures",
+            "Monitor weather conditions closely"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -33,6 +33,10 @@ import MapsScreen from './screens/Maps';
 import FeaturesScreen from './screens/FeaturesScreen';
 import ChatScreen from './screens/ChatScreen';
 import LanguagePicker from './components/LanguagePicker';
+import FishingOptimizationHub from './screens/FishingOptimizationHub';
+import FishingNetsGuide from './screens/FishingNetsGuide';
+import FishingGears from './screens/FishingGears';
+import BaitSelection from './screens/BaitSelection';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -160,6 +164,10 @@ const App = () => (
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="Tracker" component={TrackerScreen} />
       <Stack.Screen name="ChatScreen" component={ChatScreen} />
+      <Stack.Screen name="FishingOptimizationHub" component={FishingOptimizationHub} />
+      <Stack.Screen name="FishingNetsGuide" component={FishingNetsGuide} />
+      <Stack.Screen name="FishingGears" component={FishingGears} />
+      <Stack.Screen name="BaitSelection" component={BaitSelection} />
     </Stack.Navigator>
   </NavigationContainer>
 );
