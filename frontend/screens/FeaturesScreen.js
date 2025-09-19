@@ -18,6 +18,7 @@ const FeaturesScreen = ({ navigation }) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showCursor, setShowCursor] = useState(true);
   const newsListRef = useRef(null);
 
   useEffect(() => {
@@ -65,6 +66,14 @@ const FeaturesScreen = ({ navigation }) => {
       return () => clearInterval(interval);
     }
   }, [activeNewsIndex, news, loading]);
+
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorInterval);
+  }, []);
 
   const onScroll = (event) => {
     const slideSize = event.nativeEvent.layoutMeasurement.width;
@@ -134,7 +143,7 @@ const FeaturesScreen = ({ navigation }) => {
         <View style={[styles.card, styles.chatCard]}>
           <View style={styles.chatTextContainer}>
             <Text style={styles.cardTitle}>Chat Assistant</Text>
-            <Text style={styles.chatTitle}>Ask Seabot|</Text>
+            <Text style={styles.chatTitle}>Ask Seabot{showCursor ? '|' : ' '}</Text>
             <Text style={styles.chatSubtitle}>Our very own chatbot to help you with sea related queries.</Text>
           </View>
           <Image source={require('../assets/blob.gif')} style={[styles.gif, {}]} />
