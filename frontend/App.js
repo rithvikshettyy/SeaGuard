@@ -49,6 +49,7 @@ const HomeStack = () => (
       component={HomeScreen}
       options={({ navigation }) => ({
         headerTransparent: true,
+        headerLeft: () => null,
         headerTitle: () => <Image source={require('./assets/seaguardwhite.png')} style={{ width: 150, height: 40, resizeMode: 'contain' }} />,
         headerRight: () => (
           <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 15 }}>

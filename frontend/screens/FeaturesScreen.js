@@ -119,7 +119,7 @@ const FeaturesScreen = ({ navigation }) => {
       removeClippedSubviews={true}
     >
       <View style={styles.header}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} contentFit="contain" />
+        <Image source={require('../assets/icon_black.png')} style={styles.logo} contentFit="contain" />
         <TouchableOpacity>
           <Ionicons name="language-outline" size={32} color={COLORS.text} />
         </TouchableOpacity>
@@ -141,7 +141,7 @@ const FeaturesScreen = ({ navigation }) => {
         <View style={styles.columnLeft}>
           {/* Geo-Fencing Status Card */}
           <View style={[styles.card, styles.geoCard, { marginHorizontal: 0, marginBottom: 10, }]}>
-            <Text style={styles.cardTitle}>Geo-Fencing Status</Text>
+            <Text style={[styles.cardTitle, { color: '#FFFFFF' }]}>Geo-Fencing Status</Text>
             <Text style={styles.geoStatus}>SAFE</Text>
             <Text style={styles.geoDistance}>Nearest Geo-Fence: 20.5km away</Text>
           </View>
@@ -160,18 +160,35 @@ const FeaturesScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Catch Monitor Card */}
-      <View style={[styles.card, styles.catchMonitorCard]}>
-        <View>
+      <View style={styles.twoCardRow}>
+        {/* Identify Fish Species Card */}
+        <View style={[styles.card, styles.halfCard]}>
+          <Text style={styles.cardTitle}>Identify Fish Species</Text>
+          <View style={styles.identifyContent}>
+            <View>
+                <Ionicons name="fish-outline" size={50} color="#333" />
+                <Text style={styles.identifyQuestionMark}>?</Text>
+            </View>
+            <Text style={styles.identifyDescription}>
+              Know your catch — identify species with a single tap.
+            </Text>
+          </View>
+          <TouchableOpacity style={styles.uploadButton}>
+            <Text style={styles.uploadButtonText}>Upload Image</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Catch Monitor Card */}
+        <TouchableOpacity style={[styles.card, styles.halfCard]} onPress={() => navigation.navigate('CatchRecord')}>
           <Text style={styles.cardTitle}>Monitor catch volumes</Text>
-          <Text style={styles.catchMonitorText}>Today:</Text>
-          <Text style={styles.catchMonitorText}>Monthly Avg:</Text>
-          <Text style={styles.catchMonitorText}>Trend:</Text>
-        </View>
-        <View style={styles.progressCircle}>
-          <Text style={styles.progressText}>69%</Text>
-          <Text style={styles.progressSubText}>280kg/500kg</Text>
-        </View>
+          <View style={styles.catchVolumeContainer}>
+            <Text style={styles.catchVolume}>59.1kg</Text>
+            <Text style={styles.catchSubText}>8.6kg avg/outing</Text>
+          </View>
+          <View style={styles.catchLogButton}>
+            <Text style={styles.catchLogButtonText}>View Catch Log</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
       {/* Latest News Card */}
@@ -251,7 +268,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   geoCard: {
-    backgroundColor: '#DCEFE3',
+    backgroundColor: '#2E7D3F',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 15,
@@ -259,12 +276,12 @@ const styles = StyleSheet.create({
   geoStatus: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#3E5A4F',
+    color: '#FFFFFF',
     marginVertical: 4,
   },
   geoDistance: {
     fontSize: 13,
-    color: '#3E5A4F',
+    color: '#FFFFFF',
     textAlign: 'center',
   },
   fishingHubCard: {
@@ -286,35 +303,73 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     marginTop: 8,
   },
-  catchMonitorCard: {
+  twoCardRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    paddingHorizontal: cardMargin,
     marginBottom: 15,
   },
-  catchMonitorText: {
-    fontSize: 14,
-    color: COLORS.text,
-    marginBottom: 4,
+  halfCard: {
+    width: '48%',
+    marginHorizontal: 0,
   },
-  progressCircle: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 10,
-    borderColor: '#E0E0E0',
-    borderTopColor: '#009688',
+  identifyContent: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 5,
   },
-  progressText: {
+  identifyQuestionMark: {
+    position: 'absolute',
+    top: 0,
+    right: -15,
     fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  identifyDescription: {
+    fontSize: 13,
+    color: COLORS.lightText,
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  uploadButton: {
+    backgroundColor: '#0A2540',
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: 'center',
+    marginTop: 'auto',
+  },
+  uploadButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  catchVolumeContainer: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  catchVolume: {
+    fontSize: 36,
     fontWeight: 'bold',
     color: COLORS.text,
   },
-  progressSubText: {
-    fontSize: 12,
+  catchSubText: {
+    fontSize: 14,
     color: COLORS.lightText,
+    marginTop: 4,
+  },
+  catchLogButton: {
+    backgroundColor: '#0A2540',
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  catchLogButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
   },
   newsCard: {
     height: 200,
