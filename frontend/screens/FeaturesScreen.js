@@ -4,10 +4,14 @@ import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { COLORS } from '../constants/colors';
+import { Env } from '../constants/env';
+
+const BASE_URL = Env.BASE_URL;
 
 const { width } = Dimensions.get('window');
 const cardMargin = 15;
 const cardWidth = width - (cardMargin * 2);
+
 
 const FeaturesScreen = ({ navigation }) => {
   const [activeNewsIndex, setActiveNewsIndex] = useState(0);
@@ -30,7 +34,7 @@ const FeaturesScreen = ({ navigation }) => {
         const { latitude, longitude } = location.coords;
 
         // Replace with your actual backend IP address
-        const response = await fetch(`http://10.0.2.2:8000/rss-feed?lat=${latitude}&lon=${longitude}`);
+        const response = await fetch(`${BASE_URL}/rss-feed?lat=${latitude}&lon=${longitude}`);
         if (!response.ok) {
           throw new Error('Failed to fetch news');
         }

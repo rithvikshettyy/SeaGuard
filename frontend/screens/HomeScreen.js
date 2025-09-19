@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, Act
 import * as Location from 'expo-location';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { COLORS } from '../constants/colors';
+import { Env } from '../constants/env';
+
+const BASE_URL = Env.BASE_URL;
 
 const HomeScreen = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
@@ -16,7 +19,7 @@ const HomeScreen = ({ navigation }) => {
   const fetchFishingAlert = async (latitude, longitude) => {
     try {
       // NOTE: Replace with your actual backend IP/domain if not running on localhost in production
-      const response = await fetch(`http://10.0.2.2:8000/fishing-alert?lat=${latitude}&lon=${longitude}`);
+      const response = await fetch(`${BASE_URL}/fishing-alert?lat=${latitude}&lon=${longitude}`);
       if (!response.ok) {
         throw new Error('Network response was not ok.');
       }

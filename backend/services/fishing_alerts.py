@@ -1,24 +1,30 @@
 
-import requests
+import httpx
 from datetime import datetime
 from typing import Dict, Any, Optional
 from zoneinfo import ZoneInfo  # Accurate timezone handling
-import concurrent.futures
+import asyncio
+import time
 
 
 class IndiaFishingAlerts:
-    def __init__(self):
-        self.session = requests.Session()
-        self.session.timeout = 8
+    def __init__(self, httpx_client: httpx.AsyncClient):
+        self.session = httpx_client
         self.IST = ZoneInfo("Asia/Kolkata")
         self.limits = {
             'wind_ms': 12.0, 'wave_m': 2.5, 'rain_mm': 10.0,
             'swell_m': 2.0, 'current_ms': 1.0,
             'visibility_m': 1000, 'visibility_m_night': 5000,
         }
+        self._cache = {}
+        self._cache_ttl = 300  # Cache for 5 minutes
 
-    def get_alerts(self, lat: float, lon: float, location_name: str = "") -> Dict[str, Any]:
+    async def get_alerts(self, lat: float, lon: float, location_name: str = "") -> Dict[str, Any]:
         """Evaluate safety probability for fishing."""
+        cache_key = (lat, lon)
+        if cache_key in self._cache and (time.time() - self._cache[cache_key]["timestamp"]) < self._cache_ttl:
+            return self._cache[cache_key]["data"]
+
         try:
             weather_params = {
                 "current": "temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,precipitation_probability,weather_code,pressure_msl,wind_speed_10m,visibility",
@@ -28,11 +34,10 @@ class IndiaFishingAlerts:
                 "current": "wave_height,wave_direction,wind_wave_period,swell_wave_height,ocean_current_velocity"
             }
             
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                future_weather = executor.submit(self._fetch, "https://api.open-meteo.com/v1/forecast", lat, lon, **weather_params)
-                future_marine = executor.submit(self._fetch, "https://marine-api.open-meteo.com/v1/marine", lat, lon, **marine_params)
-                weather = future_weather.result()
-                marine = future_marine.result()
+            weather_task = self._fetch("https://api.open-meteo.com/v1/forecast", lat, lon, **weather_params)
+            marine_task = self._fetch("https://marine-api.open-meteo.com/v1/marine", lat, lon, **marine_params)
+            
+            weather, marine = await asyncio.gather(weather_task, marine_task)
 
             # Determine day/night
             is_day = self._is_daytime(weather)
@@ -59,7 +64,7 @@ class IndiaFishingAlerts:
 
             print("DEBUG: Marine Data:", marine.get("current", {}))
 
-            return {
+            result = {
                 "safe": safe,
                 "status": status,
                 "message": " | ".join([c["message"] for c in checks if c["message"]]),
@@ -74,13 +79,15 @@ class IndiaFishingAlerts:
                     "factors": checks
                 },
             }
+            self._cache[cache_key] = {"data": result, "timestamp": time.time()}
+            return result
         except Exception as e:
             return self._error(str(e), location_name)
 
-    def _fetch(self, url: str, lat: float, lon: float, **params) -> Dict[str, Any]:
+    async def _fetch(self, url: str, lat: float, lon: float, **params) -> Dict[str, Any]:
         try:
             params.update({"latitude": lat, "longitude": lon, "timezone": "Asia/Kolkata"})
-            r = self.session.get(url, params=params)
+            r = await self.session.get(url, params=params)
             r.raise_for_status()
             return r.json()
         except Exception:
