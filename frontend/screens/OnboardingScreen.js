@@ -18,7 +18,7 @@ const slides = [
     key: '1',
     title: 'Hourly Forecasts',
     subtitle: 'Hourly wave and weather reports to help keep you safe',
-    image: require('../assets/banner1.png'),
+    image: require('../assets/banner1new.jpg'),
   },
   {
     key: '2',
@@ -51,7 +51,7 @@ const OnboardingScreen = ({ navigation }) => {
   }).current;
 
   const renderItem = ({ item }) => (
-    <ImageBackground source={item.image} style={styles.slide} fadeDuration={100}>
+    <ImageBackground source={item.image} style={styles.slide}>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.subtitle}>{item.subtitle}</Text>
@@ -158,11 +158,11 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: '#000',
     paddingVertical: 15,
-    paddingHorizontal: 120,
+    paddingHorizontal: 150,
     borderRadius: 10,
     marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#fff'
+    // borderWidth: 0,
+    // borderColor: '#fff'
   },
   loginButtonText: {
     color: '#fff',

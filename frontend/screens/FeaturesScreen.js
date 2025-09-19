@@ -157,10 +157,11 @@ const FeaturesScreen = ({ navigation }) => {
         {/* Fishing Hub Card */}
         <TouchableOpacity onPress={() => navigation.navigate('FishingOptimizationHub')} style={[styles.card, styles.fishingHubCard]}>
           <Text style={styles.cardTitle}>Fishing Optimizer</Text>
-          <View style={styles.fishingHubContent}>
-            <Ionicons name="fish-outline" size={40} color={'#009688'} />
-            <Text style={styles.fishingHubText}>Optimize your catch</Text>
-          </View>
+          <Image source={require('../assets/fishnet.png')} style={styles.fishingOptimizerImage} />
+          <Text style={styles.fishingHubText}>Get personalized strategies for a better catch.</Text>
+          <TouchableOpacity style={styles.optimizeButton} onPress={() => navigation.navigate('FishingOptimizationHub')}>
+            <Text style={styles.optimizeButtonText}>Optimize Now</Text>
+          </TouchableOpacity>
         </TouchableOpacity>
       </View>
 
@@ -275,37 +276,57 @@ const styles = StyleSheet.create({
     backgroundColor: '#2E7D3F',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 15,
+    padding: 5,
+    aspectRatio: 1,
+    marginRight: 0,
   },
   geoStatus: {
-    fontSize: 36,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginVertical: 4,
   },
   geoDistance: {
-    fontSize: 13,
+    fontSize: 10,
     color: '#FFFFFF',
     textAlign: 'center',
   },
   fishingHubCard: {
     flex: 0.6,
     marginRight: 0,
+    marginLeft: 6,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 3,
-    marginBottom: 9,
+    marginTop: 0,
+    marginBottom: 6,
+    aspectRatio: 1,
   },
-  fishingHubContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
+  fishingOptimizerImage: {
+    width: 120,
+    height: 80,
+    resizeMode: 'contain',
+    marginVertical: 10,
   },
   fishingHubText: {
     fontSize: 14,
     fontWeight: '600',
-    color: COLORS.text,
-    marginTop: 8,
+    color: COLORS.lightText,
+    textAlign: 'center',
+    marginBottom: 1,
+    marginTop: 10,
+  },
+  optimizeButton: {
+    backgroundColor: '#0A2540',
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 50,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  optimizeButtonText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '700',
   },
   twoCardRow: {
     flexDirection: 'row',
@@ -346,8 +367,8 @@ const styles = StyleSheet.create({
   },
   uploadButtonText: {
     color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: '700',
   },
   catchVolumeContainer: {
     alignItems: 'center',
@@ -372,8 +393,8 @@ const styles = StyleSheet.create({
   },
   catchLogButtonText: {
     color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: '700',
   },
   newsCard: {
     height: 200,
