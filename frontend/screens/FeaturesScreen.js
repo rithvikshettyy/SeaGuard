@@ -134,7 +134,7 @@ const FeaturesScreen = ({ navigation }) => {
         <View style={[styles.card, styles.chatCard]}>
           <View style={styles.chatTextContainer}>
             <Text style={styles.cardTitle}>Chat Assistant</Text>
-            <Text style={styles.chatTitle}>Ask Seabot.</Text>
+            <Text style={styles.chatTitle}>Ask Seabot|</Text>
             <Text style={styles.chatSubtitle}>Our very own chatbot to help you with sea related queries.</Text>
           </View>
           <Image source={require('../assets/blob.gif')} style={[styles.gif, {}]} />
@@ -149,7 +149,7 @@ const FeaturesScreen = ({ navigation }) => {
             <Text style={styles.geoStatus}>SAFE</Text>
             <Text style={styles.geoDistance}>Nearest Geo-Fence: 20.5km away</Text>
           </View>
-          <View style={[styles.card, { overflow: 'hidden', padding: 0, backgroundColor: 'black', height: 100, marginHorizontal: 0, marginBottom: 15 }]}>
+          <View style={[styles.card, { overflow: 'hidden', padding: 0, backgroundColor: 'black', height: 93, marginHorizontal: 0, marginBottom: 6, marginTop: -4}]}>
             <Image source={require('../assets/fish.gif')} style={{ height: '100%', width: '100%' }} />
           </View>
         </View>
@@ -160,7 +160,7 @@ const FeaturesScreen = ({ navigation }) => {
           <Image source={require('../assets/fishnet.png')} style={styles.fishingOptimizerImage} />
           <Text style={styles.fishingHubText}>Get personalized strategies for a better catch.</Text>
           <TouchableOpacity style={styles.optimizeButton} onPress={() => navigation.navigate('FishingOptimizationHub')}>
-            <Text style={styles.optimizeButtonText}>Optimize Now</Text>
+            <Text style={styles.optimizeButtonText}>Get Recommendations</Text>
           </TouchableOpacity>
         </TouchableOpacity>
       </View>
@@ -238,6 +238,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: COLORS.lightText,
     marginBottom: 4,
+    fontWeight: '700',
   },
   chatCard: {
     flexDirection: 'row',
@@ -258,10 +259,11 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   gif: {
-    width: 170,
-    height: 170,
-    marginLeft: 4,
-    marginBottom: 5,
+    width: 140,
+    height: 200,
+    marginLeft: 0,
+    marginBottom: -50,
+    marginTop: -30,
   },
   row: {
     flexDirection: 'row',
@@ -277,8 +279,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 5,
-    aspectRatio: 1,
-    marginRight: 0,
+    aspectRatio: 1 / 1.05,
+    marginRight: -6,
+    marginTop: -4,
   },
   geoStatus: {
     fontSize: 28,
@@ -318,8 +321,8 @@ const styles = StyleSheet.create({
   optimizeButton: {
     backgroundColor: '#0A2540',
     borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 50,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     marginTop: 10,
     alignItems: 'center',
   },
@@ -332,10 +335,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: cardMargin,
-    marginBottom: 15,
+    marginBottom: 4,
   },
   halfCard: {
-    width: '48%',
+    width: '49.1%',
     marginHorizontal: 0,
   },
   identifyContent: {
@@ -353,7 +356,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   identifyDescription: {
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.lightText,
     textAlign: 'center',
     marginTop: 8,
@@ -361,9 +364,10 @@ const styles = StyleSheet.create({
   uploadButton: {
     backgroundColor: '#0A2540',
     borderRadius: 8,
-    paddingVertical: 12,
+    paddingVertical: 10,
     alignItems: 'center',
-    marginTop: 'auto',
+    marginTop: '10',
+    marginBottom: -10,
   },
   uploadButtonText: {
     color: '#FFFFFF',
@@ -378,9 +382,10 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
     color: COLORS.text,
+    paddingTop: 30,
   },
   catchSubText: {
-    fontSize: 14,
+    fontSize: 12,
     color: COLORS.lightText,
     marginTop: 4,
   },
@@ -389,7 +394,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 37,
+    marginBottom: -10,
   },
   catchLogButtonText: {
     color: '#FFFFFF',
