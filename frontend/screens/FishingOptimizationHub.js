@@ -90,16 +90,27 @@ const FishingOptimizationHub = ({ navigation }) => {
   };
 
   const renderItem = ({ item }) => {
-    const isExpanded = item.title === expandedItem;
+    const isDefaultItem = defaultOptions.some(defaultItem => defaultItem.title === item.title);
+    const isExpanded = isDefaultItem || item.title === expandedItem;
+
     return (
       <View style={styles.itemWrapper}>
-        <TouchableOpacity style={styles.itemContainer} onPress={() => handlePress(item.title)} activeOpacity={0.8}>
+        {isDefaultItem ? (
+          <View style={styles.itemContainer}>
             <View style={[styles.iconContainer, { backgroundColor: item.color }]}>
                 <Ionicons name={item.icon} size={22} color="white" />
             </View>
             <Text style={styles.itemText}>{item.title}</Text>
-            <Ionicons name={isExpanded ? "chevron-down" : "chevron-forward"} size={22} color="#C7C7CC" />
-        </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity style={styles.itemContainer} onPress={() => handlePress(item.title)} activeOpacity={0.8}>
+              <View style={[styles.iconContainer, { backgroundColor: item.color }]}>
+                  <Ionicons name={item.icon} size={22} color="white" />
+              </View>
+              <Text style={styles.itemText}>{item.title}</Text>
+              <Ionicons name={isExpanded ? "chevron-down" : "chevron-forward"} size={22} color="#888888" />
+          </TouchableOpacity>
+        )}
         {isExpanded && (
             <View style={styles.expandedContent}>
                 <Text style={styles.contentText}>{item.content}</Text>
@@ -113,7 +124,7 @@ const FishingOptimizationHub = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="white" />
+          <Ionicons name="arrow-back" size={24} color="#333333" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Fishing Optimization Hub</Text>
         <View style={{ width: 24 }} />
@@ -200,7 +211,7 @@ const FishingOptimizationHub = ({ navigation }) => {
             extraData={expandedItem}
         />}
         
-        {recommendations === undefined && <View style={styles.noResult}><Text style={{color: 'white'}}>No recommendations found for your selection.</Text></View>}
+        {recommendations === undefined && <View style={styles.noResult}><Text style={styles.noResultText}>No recommendations found for your selection.</Text></View>}
 
       </ScrollView>
     </SafeAreaView>
@@ -210,7 +221,7 @@ const FishingOptimizationHub = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
+    backgroundColor: '#F0F2F5', // Light background for a sleek look
   },
   scrollView: {
     flex: 1,
@@ -219,118 +230,148 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    backgroundColor: '#1C1C1E',
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'rgba(255, 255, 255, 0.2)',
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    backgroundColor: '#FFFFFF', // Light header
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5,
   },
   headerTitle: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#333333', // Dark text for light background
   },
   recommendationForm: {
     padding: 20,
     margin: 15,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 15,
+    backgroundColor: '#FFFFFF', // Light background
+    borderWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   formTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 15,
-    color: 'white',
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: 20,
+    color: '#333333', // Dark text
     textAlign: 'center',
   },
   input: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    borderRadius: 10,
-    padding: 15,
+    backgroundColor: '#E8E8E8', // Lighter input field
+    borderRadius: 12,
+    padding: 16,
     fontSize: 16,
-    color: 'white',
+    color: '#333333', // Dark text
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#CCCCCC', // Lighter border
   },
   dropdownContainer: {
-    marginBottom: 10,
+    marginBottom: 15,
   },
   dropdownText: {
     fontSize: 16,
-    color: 'white',
+    color: '#333333', // Dark text
   },
   dropdown: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    borderRadius: 10,
-    marginTop: 5,
+    backgroundColor: '#FFFFFF', // Light background
+    borderRadius: 12,
+    marginTop: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
   dropdownItem: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+    padding: 16,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#EEEEEE', // Lighter border
   },
   dropdownItemText: {
     fontSize: 16,
-    color: 'white',
+    color: '#333333', // Dark text
   },
   button: {
-    backgroundColor: '#007AFF',
-    borderRadius: 10,
-    padding: 15,
+    backgroundColor: '#002845', // Specified button color
+    borderRadius: 12,
+    padding: 16,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20,
+    shadowColor: '#002845',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 8,
   },
   buttonText: {
     color: 'white',
-    fontWeight: '600',
-    fontSize: 16,
+    fontWeight: '700',
+    fontSize: 17,
   },
   list: {
-    marginTop: 10,
+    marginTop: 20,
   },
   itemWrapper: {
     marginHorizontal: 15,
-    borderRadius: 20,
+    borderRadius: 15,
     marginBottom: 15,
     overflow: 'hidden',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#FFFFFF', // Light background
+    borderWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
+    padding: 18,
   },
   iconContainer: {
-    width: 36,
-    height: 36,
-    borderRadius: 8,
+    width: 40,
+    height: 40,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: 18,
   },
   itemText: {
     flex: 1,
-    fontSize: 17,
-    color: 'white',
-    fontWeight: '500',
+    fontSize: 18,
+    color: '#333333', // Dark text
+    fontWeight: '600',
   },
   expandedContent: {
     paddingHorizontal: 20,
     paddingBottom: 20,
+    paddingTop: 10,
   },
   contentText: {
     fontSize: 15,
-    color: '#E5E5EA',
-    lineHeight: 22,
+    color: '#555555', // Darker grey for better readability
+    lineHeight: 24,
   },
   noResult: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 30,
+  },
+  noResultText: {
+    color: '#555555',
+    fontSize: 16,
+    fontStyle: 'italic',
   }
 });
 
