@@ -47,7 +47,13 @@ const FeaturesScreen = ({ navigation }) => {
   );
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }}>
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 100 }}
+      decelerationRate="fast"
+      removeClippedSubviews={true}
+    >
       <View style={styles.header}>
         <Image source={require('../assets/logo.png')} style={styles.logo} contentFit="contain" />
         <TouchableOpacity>
@@ -60,8 +66,8 @@ const FeaturesScreen = ({ navigation }) => {
         <View style={[styles.card, styles.chatCard]}>
           <View style={styles.chatTextContainer}>
             <Text style={styles.cardTitle}>Chat Assistant</Text>
-            <Text style={styles.chatTitle}>Ask Seabot!</Text>
-            <Text style={styles.chatSubtitle}>our very own chatbot to help you with sea related queries</Text>
+            <Text style={styles.chatTitle}>Ask Seabot.</Text>
+            <Text style={styles.chatSubtitle}>Our very own chatbot to help you with sea related queries.</Text>
           </View>
           <Image source={require('../assets/blob.gif')} style={[styles.gif, {}]} />
         </View>
@@ -265,7 +271,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   newsItem: {
-    width: cardWidth,
+    width: cardWidth - 40,
     paddingRight: 20, // To avoid text touching the edge
   },
 
