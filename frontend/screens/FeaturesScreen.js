@@ -1,29 +1,9 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Dimensions, ActivityIndicator } from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
 import { COLORS } from '../constants/colors';
-
-const newsData = [
-  {
-    id: '1',
-    title: 'Chance of High Tides on Mumbai Coast -TOI',
-    snippet: 'Mumbai, Sept 17 (TOI) — The India Meteorological Department (IMD) has issued an advisory warning of unusually high tides expected along the Mumbai coastline...',
-    image: require('../assets/banner3.png'),
-  },
-  {
-    id: '2',
-    title: 'New Fishing Regulations Announced',
-    snippet: 'The government has announced new fishing regulations to protect marine life...',
-    image: require('../assets/banner4.png'),
-  },
-    {
-    id: '3',
-    title: 'Local Fisherman Catches Record-Breaking Fish',
-    snippet: 'A local fisherman from the area has caught a record-breaking fish, making headlines...',
-    image: require('../assets/banner1.png'),
-  },
-];
 
 const { width } = Dimensions.get('window');
 const cardMargin = 15;
@@ -31,7 +11,56 @@ const cardWidth = width - (cardMargin * 2);
 
 const FeaturesScreen = ({ navigation }) => {
   const [activeNewsIndex, setActiveNewsIndex] = useState(0);
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const newsListRef = useRef(null);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setError('Permission to access location was denied');
+          setLoading(false);
+          return;
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
+
+        // Replace with your actual backend IP address
+        const response = await fetch(`http://10.0.2.2:8000/rss-feed?lat=${latitude}&lon=${longitude}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch news');
+        }
+        const data = await response.json();
+        setNews(data.items || []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
+  useEffect(() => {
+    if (news.length > 0 && !loading) {
+      const interval = setInterval(() => {
+        const nextIndex = (activeNewsIndex + 1) % news.length;
+        if (newsListRef.current) {
+          newsListRef.current.scrollToIndex({
+            index: nextIndex,
+            animated: true,
+          });
+        }
+      }, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [activeNewsIndex, news, loading]);
 
   const onScroll = (event) => {
     const slideSize = event.nativeEvent.layoutMeasurement.width;
@@ -41,10 +70,45 @@ const FeaturesScreen = ({ navigation }) => {
 
   const renderNewsItem = ({ item }) => (
     <View style={styles.newsItem}>
-        <Text style={styles.newsItemTitle} numberOfLines={2}>{item.title}</Text>
-        <Text style={styles.newsItemSnippet} numberOfLines={4}>{item.snippet}</Text>
+      <Text style={styles.newsItemTitle} numberOfLines={3}>{item.title}</Text>
+      <Text style={styles.newsItemSnippet} numberOfLines={2}>{item.source}</Text>
     </View>
   );
+
+  const renderNewsContent = () => {
+    if (loading) {
+      return <ActivityIndicator size="large" color={COLORS.primary} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />;
+    }
+
+    if (error) {
+      return <Text style={styles.errorText}>Error: {error}</Text>;
+    }
+
+    if (news.length === 0) {
+      return <Text style={styles.errorText}>No news available at the moment.</Text>;
+    }
+
+    return (
+      <>
+        <FlatList
+          ref={newsListRef}
+          data={news}
+          renderItem={renderNewsItem}
+          keyExtractor={(item, index) => item.link || index.toString()}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={onScroll}
+          scrollEventThrottle={16}
+        />
+        <View style={styles.pagination}>
+          {news.map((_, index) => (
+            <View key={index} style={[styles.dot, activeNewsIndex === index ? styles.activeDot : {}]} />
+          ))}
+        </View>
+      </>
+    );
+  };
 
   return (
     <ScrollView
@@ -113,22 +177,7 @@ const FeaturesScreen = ({ navigation }) => {
       {/* Latest News Card */}
       <View style={[styles.card, styles.newsCard]}>
         <Text style={styles.cardTitle}>Latest News</Text>
-        <FlatList
-          ref={newsListRef}
-          data={newsData}
-          renderItem={renderNewsItem}
-          keyExtractor={item => item.id}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={onScroll}
-          scrollEventThrottle={16}
-        />
-        <View style={styles.pagination}>
-          {newsData.map((_, index) => (
-            <View key={index} style={[styles.dot, activeNewsIndex === index ? styles.activeDot : {}]} />
-          ))}
-        </View>
+        {renderNewsContent()}
       </View>
     </ScrollView>
   );
@@ -306,6 +355,11 @@ const styles = StyleSheet.create({
   },
   activeDot: {
     backgroundColor: '#333',
+  },
+  errorText: {
+    textAlign: 'center',
+    marginTop: 20,
+    color: COLORS.lightText,
   },
 });
 

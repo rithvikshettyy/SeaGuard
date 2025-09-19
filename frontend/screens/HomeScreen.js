@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }) => {
   const fetchFishingAlert = async (latitude, longitude) => {
     try {
       // NOTE: Replace with your actual backend IP/domain if not running on localhost in production
-      const response = await fetch(`http://10.0.2.2:8080/fishing-alert?lat=${latitude}&lon=${longitude}`);
+      const response = await fetch(`http://10.0.2.2:8000/fishing-alert?lat=${latitude}&lon=${longitude}`);
       if (!response.ok) {
         throw new Error('Network response was not ok.');
       }

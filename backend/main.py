@@ -21,6 +21,8 @@ from models.authentication import Phone, Otp
 from models.chat import ChatRequest
 from pydantic import BaseModel
 from fastapi import Request
+from fastapi.responses import JSONResponse
+from services.rss_service import RssService
 
 # --- FastAPI Setup ---
 app = FastAPI(
@@ -31,6 +33,7 @@ app = FastAPI(
 
 
 alerts = IndiaFishingAlerts()
+rss_service = RssService()
 # auth_service = AuthService()
 chat_service = ChatService()
 
@@ -51,6 +54,22 @@ def fishing_alert(lat: float, lon: float):
     if "ERROR" in result["status"]:
         raise HTTPException(status_code=503, detail=result["message"])
     return result
+
+@app.get("/rss-feed")
+async def rss_feed(lat: float, lon: float):
+    """
+    Provides a JSON feed of recent fishing and coastal news for a given location.
+    """
+    try:
+        news_data = await rss_service.get_news(lat, lon)
+        return JSONResponse(content=news_data)
+    except HTTPException as e:
+        # Re-raise HTTPExceptions thrown from the service
+        raise e
+    except Exception as e:
+        # Catch any other unexpected errors
+        logging.error(f"Error in rss_feed endpoint: {e}")
+        raise HTTPException(status_code=500, detail="An internal error occurred while fetching the news feed.")
 
 # @app.post("/send-otp")
 # async def send_otp(request: Request):
