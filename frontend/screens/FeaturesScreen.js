@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Dimensi
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
+import * as ImagePicker from 'expo-image-picker';
 import { COLORS } from '../constants/colors';
 import { Env } from '../constants/env';
 
@@ -20,6 +21,27 @@ const FeaturesScreen = ({ navigation }) => {
   const [error, setError] = useState(null);
   const [showCursor, setShowCursor] = useState(true);
   const newsListRef = useRef(null);
+
+  const handleUploadPress = async () => {
+    // Request permission
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Sorry, we need camera roll permissions to make this work!');
+      return;
+    }
+
+    // Launch image picker
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      navigation.navigate('GetPredictions', { imageUri: result.assets[0].uri });
+    }
+  };
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -187,7 +209,7 @@ const FeaturesScreen = ({ navigation }) => {
               Know your catch — identify species with a single tap.
             </Text>
           </View>
-          <TouchableOpacity style={styles.uploadButton}>
+          <TouchableOpacity style={styles.uploadButton} onPress={handleUploadPress}>
             <Text style={styles.uploadButtonText}>Upload Image</Text>
           </TouchableOpacity>
         </View>

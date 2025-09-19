@@ -41,6 +41,7 @@ import FishingNetsGuide from './screens/FishingNetsGuide';
 import FishingGears from './screens/FishingGears';
 import BaitSelection from './screens/BaitSelection';
 import AnimatedTabBar from './components/AnimatedTabBar';
+import GetPredictionsScreen from './screens/GetPredictions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -142,6 +143,7 @@ const App = () => {
         <Stack.Screen name="FishingNetsGuide" component={FishingNetsGuide} />
         <Stack.Screen name="FishingGears" component={FishingGears} />
         <Stack.Screen name="BaitSelection" component={BaitSelection} />
+        <Stack.Screen name="GetPredictions" component={GetPredictionsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,3 +1,3 @@
 export const Env = {
-    BASE_URL: "https://3d7d33e3ca0c.ngrok-free.app"
+    BASE_URL: "https://a123e264a546.ngrok-free.app"
 };
