@@ -47,18 +47,7 @@ const HomeStack = () => (
     <Stack.Screen
       name="Home"
       component={HomeScreen}
-      options={({ navigation }) => ({
-        headerTransparent: true,
-        headerTitle: () => <Image source={require('./assets/logo.png')} style={{ width: 120, height: 40, resizeMode: 'contain' }} />,
-        headerRight: () => (
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 15 }}>
-            <LanguagePicker />
-            <TouchableOpacity onPress={() => navigation.navigate('Compass')} style={{ marginLeft: 15 }}>
-              <Ionicons name="compass-outline" size={28} color={COLORS.white} />
-            </TouchableOpacity>
-          </View>
-        ),
-      })}
+      options={{ headerShown: false }}
     />
     {/* Add other screens in HomeStack here if they need to be navigated to from HomeScreen */}
     <Stack.Screen name="Compass" component={CompassScreen} />
@@ -66,74 +55,12 @@ const HomeStack = () => (
   </Stack.Navigator>
 );
 
+import AnimatedTabBar from './components/AnimatedTabBar';
+
 const MainTabs = () => (
   <Tab.Navigator
-    screenOptions={({ route }) => ({
-      headerShown: false,
-      tabBarShowLabel: false, // We handle the label manually
-      tabBarActiveTintColor: '#000', // Color for the active icon and text
-      tabBarInactiveTintColor: '#FFF', // Color for the inactive icons
-      tabBarStyle: {
-        position: 'absolute',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        bottom: 25,
-        left: 20,
-        right: 20,
-        backgroundColor: '#1C1C1E',
-        borderRadius: 35,
-        height: 70,
-        borderTopWidth: 0,
-        elevation: 10,
-        shadowColor: '#000',
-        shadowOpacity: 0.15,
-        shadowRadius: 10,
-      },
-      tabBarItemStyle: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-      },
-      tabBarIcon: ({ focused, color, size }) => {
-        const routeNameToLabel = {
-          'HomeTab': 'Home',
-          'Maps': 'Maps',
-          'Features': 'Features',
-          'Profile': 'Profile',
-        }
-        let iconName;
-        if (route.name === 'HomeTab') {
-          iconName = 'home';
-        } else if (route.name === 'Maps') {
-          iconName = 'map-outline';
-        } else if (route.name === 'Features') {
-          iconName = 'build-outline';
-        } else if (route.name === 'Profile') {
-          iconName = 'person-outline';
-        }
-
-        if (focused) {
-          return (
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              backgroundColor: 'white',
-              borderRadius: 25,
-              paddingVertical: 8,
-              paddingHorizontal: 15,
-            }}>
-              <Ionicons name={iconName} size={22} color={color} />
-              <Text style={{ color: color, marginLeft: 8, fontWeight: 'bold', fontSize: 14 }}>
-                {routeNameToLabel[route.name]}
-              </Text>
-            </View>
-          )
-        }
-        return <Ionicons name={iconName} size={26} color={color} />;
-      },
-    })}
+    tabBar={(props) => <AnimatedTabBar {...props} />}
+    screenOptions={{ headerShown: false }}
   >
     <Tab.Screen name="HomeTab" component={HomeStack} />
     <Tab.Screen name="Maps" component={MapsScreen} />
