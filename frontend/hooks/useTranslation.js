@@ -1,28 +1,29 @@
 import { useLanguage } from '../contexts/LanguageContext';
-import { translations } from '../translations';
 
 export const useTranslation = () => {
-  const { currentLanguage } = useLanguage();
+  const { language } = useLanguage();
 
   const t = (key) => {
     try {
       // Split the key by dots to access nested properties
       const keys = key.split('.');
-      let result = translations[currentLanguage];
+      let result = screenTexts;
       
-      for (const k of keys) {
-        result = result[k];
+      const [screenKey, ...rest] = keys;
+      const translations = require('../constants/screenTexts').screenTexts;
+      
+      let value = translations[screenKey];
+      if (!value) return key;
+
+      value = value[language] || value['en'];
+      if (!value) return key;
+
+      for (const k of rest) {
+        value = value?.[k];
+        if (value === undefined) return key;
       }
-      
-      // If translation doesn't exist, fallback to English
-      if (!result && currentLanguage !== 'en') {
-        result = translations['en'];
-        for (const k of keys) {
-          result = result[k];
-        }
-      }
-      
-      return result || key;
+
+      return value;
     } catch (error) {
       // If any error occurs, return the key itself
       return key;

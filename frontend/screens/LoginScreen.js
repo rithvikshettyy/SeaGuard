@@ -9,22 +9,43 @@ import {
   Image,
   Dimensions,
   Alert,
+  Modal,
+  FlatList,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
+import { screenTexts } from '../constants/screenTexts';
+import { useTranslation } from '../hooks/useTranslation';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getAvailableLanguages, getLanguageNames } from '../constants/screenTexts';
 
 const { width, height } = Dimensions.get('window');
 
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const { language, changeLanguage } = useLanguage();
+
+  const LANGUAGES = getAvailableLanguages().map(code => ({
+    code,
+    name: getLanguageNames()[code]
+  }));
+
+  const handleLanguageSelect = (languageCode) => {
+    changeLanguage(languageCode);
+    setModalVisible(false);
+  };
 
   const handleLogin = () => {
     // Mock login logic
     if (phoneNumber && otp) {
       navigation.replace('PurposeOnboarding');
     } else {
-      Alert.alert('Error', 'Please enter phone number and OTP.');
+      Alert.alert(
+        screenTexts.LoginScreen[language].error || 'Error',
+        screenTexts.LoginScreen[language].errors?.missingFields || 'Please fill in all fields'
+      );
     }
   };
 
@@ -34,23 +55,61 @@ const LoginScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color="#000" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.languageButton}>
-          <Text style={styles.languageButtonText}>🌐 Choose Language (Default: English IN)</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity 
+        style={styles.languageButton}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.languageButtonText}>
+          <Text>🌐 </Text>
+          <Text>{getLanguageNames()[language]}</Text>
+        </Text>
+      </TouchableOpacity>
+    </View>
 
       <Image
         source={require('../assets/fisherman.png')}
         style={styles.topImage}
       />
 
-      <Text style={styles.title}>Welcome user!{`\n`}Glad to see you again!</Text>
+      <Text style={styles.title}>{screenTexts.LoginScreen[language].title}</Text>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <TouchableOpacity 
+          style={styles.modalOverlay}
+          activeOpacity={1}
+          onPressOut={() => setModalVisible(false)}
+        >
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>{screenTexts.LoginScreen[language].chooseLanguage}</Text>
+            <FlatList
+              data={LANGUAGES}
+              renderItem={({ item }) => (
+                <TouchableOpacity 
+                  style={styles.languageItem}
+                  onPress={() => handleLanguageSelect(item.code)}
+                >
+                  <Text style={styles.languageText}>{item.name}</Text>
+                  {language === item.code && (
+                    <Ionicons name="checkmark" size={24} color={COLORS.primary} />
+                  )}
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item.code}
+            />
+          </View>
+        </TouchableOpacity>
+      </Modal>
 
       <View style={styles.inputContainer}>
         <Ionicons name="person-outline" size={20} color="#aaa" style={styles.inputIcon} />
         <TextInput
           style={styles.input}
-          placeholder="Phone Number"
+          placeholder={screenTexts.LoginScreen[language].phone}
           placeholderTextColor="#aaa"
           keyboardType="phone-pad"
           value={phoneNumber}
@@ -62,7 +121,7 @@ const LoginScreen = ({ navigation }) => {
         <Ionicons name="key-outline" size={20} color="#aaa" style={styles.inputIcon} />
         <TextInput
           style={styles.input}
-          placeholder="Enter OTP"
+          placeholder={screenTexts.LoginScreen[language].otp}
           placeholderTextColor="#aaa"
           keyboardType="number-pad"
           secureTextEntry
@@ -72,20 +131,20 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       <TouchableOpacity>
-        <Text style={styles.resendOtp}>resend OTP</Text>
+        <Text style={styles.resendOtp}>{screenTexts.LoginScreen[language].resendOtp}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
+        <Text style={styles.loginButtonText}>{screenTexts.LoginScreen[language].login}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.replace('PurposeOnboarding')}> 
         <Text style={styles.signupText}>
-          Don't have an account? <Text style={styles.signupLink}>Sign Up</Text>
+          <Text>{screenTexts.LoginScreen[language].noAccount}</Text>
+          {' '}
+          <Text style={styles.signupLink}>{screenTexts.LoginScreen[language].signUp}</Text>
         </Text>
-      </TouchableOpacity>
-
-      <Image
+      </TouchableOpacity>      <Image
         source={require('../assets/seaguardbottomboat.png')}
         style={styles.bottomImage}
       />
@@ -175,6 +234,47 @@ const styles = StyleSheet.create({
     width: width,
     height: height * 0.25,
     resizeMode: 'stretch',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width: width * 0.8,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: COLORS.primary,
+  },
+  languageItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    width: '100%',
+  },
+  languageText: {
+    fontSize: 16,
+    color: '#333',
   },
 });
 

@@ -1,10 +1,27 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Modal, FlatList, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
+import { screenTexts } from '../constants/screenTexts';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getAvailableLanguages, getLanguageNames } from '../constants/screenTexts';
+
+const { width } = Dimensions.get('window');
 
 const PurposeOnboardingScreen = ({ navigation }) => {
   const [selectedPurpose, setSelectedPurpose] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const { language, changeLanguage } = useLanguage();
+
+  const LANGUAGES = getAvailableLanguages().map(code => ({
+    code,
+    name: getLanguageNames()[code]
+  }));
+
+  const handleLanguageSelect = (languageCode) => {
+    changeLanguage(languageCode);
+    setModalVisible(false);
+  };
 
   const handleSelectPurpose = (purpose) => {
     setSelectedPurpose(purpose);
@@ -25,16 +42,19 @@ const PurposeOnboardingScreen = ({ navigation }) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={24} color={COLORS.text} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.languageButton}>
+          <TouchableOpacity 
+            style={styles.languageButton}
+            onPress={() => setModalVisible(true)}
+          >
             <Ionicons name="language-outline" size={24} color={COLORS.text} />
-            <Text style={styles.languageText}>Choose Language (Default: English IN)</Text>
+            <Text style={styles.languageText}>{getLanguageNames()[language]}</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title}>How do you plan to use SeaGuard?</Text>
+          <Text style={styles.title}>{screenTexts.PurposeOnboardingScreen[language].title}</Text>
           <Text style={styles.subtitle}>
-            Choose your fishing style so we can customize your catch monitoring, analytics, and features to match your goals.
+            {screenTexts.PurposeOnboardingScreen[language].subtitle}
           </Text>
 
           <View style={styles.optionsContainer}>
@@ -43,9 +63,11 @@ const PurposeOnboardingScreen = ({ navigation }) => {
               onPress={() => handleSelectPurpose('Hobby')}
             >
               <Ionicons name="fish" size={24} color={selectedPurpose === 'Hobby' ? '#fff' : COLORS.primary} />
-              <Text style={[styles.optionTitle, selectedPurpose === 'Hobby' && styles.selectedText]}>Hobby Fisher</Text>
+              <Text style={[styles.optionTitle, selectedPurpose === 'Hobby' && styles.selectedText]}>
+                {screenTexts.PurposeOnboardingScreen[language].hobbyTitle}
+              </Text>
               <Text style={[styles.optionDescription, selectedPurpose === 'Hobby' && styles.selectedText]}>
-                Track your catches, explore new spots, and celebrate your fishing journey. Ideal for casual or weekend fishing.
+                {screenTexts.PurposeOnboardingScreen[language].hobbyDescription}
               </Text>
             </TouchableOpacity>
 
@@ -54,23 +76,96 @@ const PurposeOnboardingScreen = ({ navigation }) => {
               onPress={() => handleSelectPurpose('Commercial')}
             >
               <Ionicons name="boat" size={24} color={selectedPurpose === 'Commercial' ? '#fff' : COLORS.primary} />
-              <Text style={[styles.optionTitle, selectedPurpose === 'Commercial' && styles.selectedText]}>Commercial Fisher</Text>
+              <Text style={[styles.optionTitle, selectedPurpose === 'Commercial' && styles.selectedText]}>
+                {screenTexts.PurposeOnboardingScreen[language].commercialTitle}
+              </Text>
               <Text style={[styles.optionDescription, selectedPurpose === 'Commercial' && styles.selectedText]}>
-                Monitor catch volumes, manage quotas, and optimize your yield. Perfect for full-time or small business fishing.
+                {screenTexts.PurposeOnboardingScreen[language].commercialDescription}
               </Text>
             </TouchableOpacity>
           </View>
         </View>
 
         <TouchableOpacity style={styles.proceedButton} onPress={handleProceed}>
-          <Text style={styles.proceedButtonText}>Proceed</Text>
+          <Text style={styles.proceedButtonText}>{screenTexts.PurposeOnboardingScreen[language].proceed}</Text>
         </TouchableOpacity>
+
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <TouchableOpacity 
+            style={styles.modalOverlay}
+            activeOpacity={1}
+            onPressOut={() => setModalVisible(false)}
+          >
+            <View style={styles.modalView}>
+              <Text style={styles.modalTitle}>
+                {screenTexts.PurposeOnboardingScreen[language].chooseLanguage}
+              </Text>
+              <FlatList
+                data={LANGUAGES}
+                renderItem={({ item }) => (
+                  <TouchableOpacity 
+                    style={styles.languageItem}
+                    onPress={() => handleLanguageSelect(item.code)}
+                  >
+                    <Text style={styles.languageText}>{item.name}</Text>
+                    {language === item.code && (
+                      <Ionicons name="checkmark" size={24} color={COLORS.primary} />
+                    )}
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item) => item.code}
+              />
+            </View>
+          </TouchableOpacity>
+        </Modal>
       </View>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width: width * 0.8,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: COLORS.primary,
+  },
+  languageItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    width: '100%',
+  },
   backgroundImage: {
     flex: 1,
   },
