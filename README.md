@@ -1,6 +1,6 @@
 # SeaGuard
 
-![SeaGuard Logo](./assets/logo.png)
+![SeaGuard Logo](./frontend/assets/logo.png)
 
 SeaGuard is a comprehensive mobile assistant for fishermen, designed to promote safety, sustainability, and efficiency at sea. This application provides vital information and tools to help fishermen navigate, log catches, and stay safe.
 
