@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, TextInput, Alert, } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
 import { Picker } from '@react-native-picker/picker';
-import catchLogsData from '../constants/catchLogsData.json'; // Import the JSON file
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 const fishTypeImages = {
   'Pomfret': require('../assets/pomfretbg.png'),
@@ -38,13 +47,12 @@ const LogNewCatchScreen = ({ navigation }) => {
     const numericValue = parseInt(text, 10);
     if (isNaN(numericValue) || numericValue < 0 || numericValue > 59) {
       setMinute('00');
-    }
-    else {
+    } else {
       setMinute(text.padStart(2, '0'));
     }
   };
 
-  const handleSaveCatchLog = () => {
+  const handleSaveCatchLog = async () => {
     if (!date || !volume || !selectedFish || !location) {
       Alert.alert('Error', 'Please fill all required fields (Date, Volume, Type of Fish, Location).');
       return;
@@ -61,27 +69,22 @@ const LogNewCatchScreen = ({ navigation }) => {
       image: fishTypeImages[selectedFish], // Get image based on fish type
     };
 
-    // In a real app, you would send this to a backend or save to AsyncStorage
-    // For this exercise, we'll simulate saving to the JSON file.
-    // This direct modification of imported JSON is for demonstration purposes only.
-    // In a real React Native app, you'd typically use AsyncStorage or a database.
-    const updatedLogs = [...catchLogsData, newLog];
-    // This part would typically involve writing to a file system or database
-    // For now, we'll just log it and navigate.
-    console.log('New Catch Log:', newLog);
-    console.log('Updated Catch Logs:', updatedLogs);
-
-    // Simulate saving to JSON file (this won't persist across app restarts without native module)
-    // For persistent storage, use AsyncStorage or a database.
-    // Example of how you might write to a file (requires native modules or specific libraries):
-    // import * as FileSystem from 'expo-file-system';
-    // FileSystem.writeAsStringAsync(
-    //   FileSystem.documentDirectory + 'catchLogsData.json',
-    //   JSON.stringify(updatedLogs)
-    // );
-
-    navigation.navigate('CatchRecord', { newLog: newLog }); // Pass new log to CatchRecordScreen
+    try {
+      const storedLogs = await AsyncStorage.getItem('catchLogs');
+      let existingLogs = [];
+      if (storedLogs !== null) {
+        existingLogs = JSON.parse(storedLogs);
+      }
+      const updatedLogs = [...existingLogs, newLog];
+      await AsyncStorage.setItem('catchLogs', JSON.stringify(updatedLogs));
+      console.log('New Catch Log saved to AsyncStorage:', newLog);
+      navigation.navigate('CatchRecord'); // Navigate back to CatchRecordScreen
+    } catch (error) {
+      console.error('Error saving new catch log to AsyncStorage:', error);
+      Alert.alert('Error', 'Failed to save catch log. Please try again.');
+    }
   };
+
 
   return (
     <SafeAreaView style={styles.container}>

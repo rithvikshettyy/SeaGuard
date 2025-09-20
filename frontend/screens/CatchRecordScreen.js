@@ -3,26 +3,44 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, Fla
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { COLORS } from '../constants/colors';
-import catchLogsData from '../constants/catchLogsData.json'; // Import the JSON file
+import catchLogsData from '../constants/catchLogsData.json'; // Import the JSON file for initial data
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { useIsFocused } from '@react-navigation/native';
 
 const CatchRecordScreen = ({ navigation, route }) => {
-  const [catchLogs, setCatchLogs] = useState(catchLogsData);
+  const [catchLogs, setCatchLogs] = useState([]); // Initialize as empty, will load from storage
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (isFocused && route.params?.newLog) {
-      const newLog = route.params.newLog;
-      setCatchLogs((prevLogs) => {
-        const updatedLogs = [...prevLogs, newLog];
-        // In a real app, you would save updatedLogs to persistent storage here
-        // For this exercise, we'll just update the state.
-        return updatedLogs;
-      });
-      // Clear the param so it doesn't add the same log again on re-focus
-      navigation.setParams({ newLog: undefined });
-    }
-  }, [isFocused, route.params?.newLog]);
+    const loadInitialLogs = async () => {
+      try {
+        const storedLogs = await AsyncStorage.getItem('catchLogs');
+        if (storedLogs !== null) {
+          setCatchLogs(JSON.parse(storedLogs));
+        } else {
+          // If no logs in AsyncStorage, use the initial data from the JSON file
+          setCatchLogs(catchLogsData);
+          // Optionally, save this initial data to AsyncStorage for future use
+          await AsyncStorage.setItem('catchLogs', JSON.stringify(catchLogsData));
+        }
+      } catch (error) {
+        console.error('Error loading initial catch logs:', error);
+      }
+    };
+
+    loadInitialLogs();
+
+    // Listener for when the screen is focused to ensure latest data is loaded
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadInitialLogs();
+    });
+
+    return unsubscribe; // Cleanup the listener
+  }, [navigation]);
+
+  // No longer need the useEffect that listens for route.params?.newLog
+  // as LogNewCatchScreen will directly update AsyncStorage and the focus listener will reload.
+
 
   const renderCatchItem = ({ item }) => (
     <TouchableOpacity style={styles.catchItem}>
