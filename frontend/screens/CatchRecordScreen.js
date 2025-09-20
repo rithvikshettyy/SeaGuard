@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, FlatList, ImageBackground, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { COLORS } from '../constants/colors';
@@ -38,12 +38,52 @@ const CatchRecordScreen = ({ navigation, route }) => {
     return unsubscribe; // Cleanup the listener
   }, [navigation]);
 
-  // No longer need the useEffect that listens for route.params?.newLog
-  // as LogNewCatchScreen will directly update AsyncStorage and the focus listener will reload.
+  const handleDeleteLog = async (logId) => {
+    Alert.alert(
+      "Delete Log",
+      "Are you sure you want to delete this catch log?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            try {
+              const updatedLogs = catchLogs.filter(log => log.id !== logId);
+              setCatchLogs(updatedLogs);
+              await AsyncStorage.setItem('catchLogs', JSON.stringify(updatedLogs));
+            } catch (error) {
+              console.error('Error deleting catch log:', error);
+              Alert.alert('Error', 'Failed to delete catch log.');
+            }
+          }
+        }
+      ]
+    );
+  };
+
+  // Calculate statistics
+  const totalCatch = catchLogs.reduce((acc, log) => {
+    const weightValue = parseFloat(log.weight.replace('kg', ''));
+    return acc + (isNaN(weightValue) ? 0 : weightValue);
+  }, 0).toFixed(1);
+
+  const mostCommonFish = (() => {
+    if (catchLogs.length === 0) return 'N/A';
+    const fishTypeCounts = catchLogs.reduce((acc, log) => {
+      acc[log.fishType] = (acc[log.fishType] || 0) + 1;
+      return acc;
+    }, {});
+    return Object.keys(fishTypeCounts).reduce((a, b) =>
+      fishTypeCounts[a] > fishTypeCounts[b] ? a : b
+    );
+  })();
 
 
   const renderCatchItem = ({ item }) => (
-    <TouchableOpacity style={styles.catchItem}>
+    <View style={styles.catchItem}>
       <ImageBackground source={item.image} style={styles.catchItemImageBackground} imageStyle={styles.catchItemImageStyle}>
         <View style={styles.catchItemContentWrapper}>
           <View>
@@ -56,10 +96,12 @@ const CatchRecordScreen = ({ navigation, route }) => {
               <Text style={styles.catchItemLocation}>{item.location}</Text>
             </View>
           </View>
-          <Ionicons name="chevron-forward" size={24} color="#FFF" />
+          <TouchableOpacity onPress={() => handleDeleteLog(item.id)}>
+            <Ionicons name="close-circle" size={28} color="#FFFFFF" />
+          </TouchableOpacity>
         </View>
       </ImageBackground>
-    </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -78,26 +120,22 @@ const CatchRecordScreen = ({ navigation, route }) => {
       <ScrollView style={styles.scrollViewContent}>
         {/* Today's Statistics */}
         <View style={styles.statsContainer}>
-          <Text style={styles.statsTitle}>Today's Statistics</Text>
+          <Text style={styles.statsTitle}>Catch Statistics</Text>
           <View style={styles.statsRow}>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>59.1kg</Text>
+              <Text style={styles.statValue}>{totalCatch}kg</Text>
               <Text style={styles.statLabel}>Total Catch</Text>
             </View>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>Tuna</Text>
+              <Text style={styles.statValue}>{mostCommonFish}</Text>
               <Text style={styles.statLabel}>Most Common</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statValue}>8.6kg</Text>
-              <Text style={styles.statLabel}>Avg / Outing</Text>
             </View>
           </View>
         </View>
 
         {/* Monthly Log Header */}
         <View style={styles.monthlyLogHeader}>
-          <Text style={styles.monthlyLogTitle}>September 2025</Text>
+          <Text style={styles.monthlyLogTitle}>Filter</Text>
           <Ionicons name="calendar-outline" size={24} color={COLORS.text} />
         </View>
 

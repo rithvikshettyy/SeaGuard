@@ -6,8 +6,14 @@ import * as Location from 'expo-location';
 import * as ImagePicker from 'expo-image-picker';
 import { COLORS } from '../constants/colors';
 import { Env } from '../constants/env';
+<<<<<<< Updated upstream
 import { useLanguage } from '../contexts/LanguageContext';
 import { screenTexts, getLanguageNames } from '../constants/screenTexts';
+=======
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
+import catchLogsData from '../constants/catchLogsData.json';
+>>>>>>> Stashed changes
 
 const BASE_URL = Env.BASE_URL;
 
@@ -24,6 +30,7 @@ const FeaturesScreen = ({ navigation }) => {
   const [showCursor, setShowCursor] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const newsListRef = useRef(null);
+<<<<<<< Updated upstream
   const { language, changeLanguage } = useLanguage();
 
   const LANGUAGES = Object.entries(getLanguageNames()).map(([code, name]) => ({
@@ -35,6 +42,10 @@ const FeaturesScreen = ({ navigation }) => {
     changeLanguage(languageCode);
     setModalVisible(false);
   };
+=======
+  const [catchLogs, setCatchLogs] = useState([]);
+  const isFocused = useIsFocused();
+>>>>>>> Stashed changes
 
   const handleUploadPress = async () => {
     // Request permission
@@ -110,6 +121,43 @@ const FeaturesScreen = ({ navigation }) => {
 
     return () => clearInterval(cursorInterval);
   }, []);
+
+  useEffect(() => {
+    const loadCatchLogs = async () => {
+      try {
+        const storedLogs = await AsyncStorage.getItem('catchLogs');
+        if (storedLogs !== null) {
+          setCatchLogs(JSON.parse(storedLogs));
+        } else {
+          setCatchLogs(catchLogsData);
+          await AsyncStorage.setItem('catchLogs', JSON.stringify(catchLogsData));
+        }
+      } catch (error) {
+        console.error('Error loading catch logs:', error);
+      }
+    };
+
+    if (isFocused) {
+        loadCatchLogs();
+    }
+  }, [isFocused]);
+
+  // Calculate statistics
+  const totalCatch = catchLogs.reduce((acc, log) => {
+    const weightValue = parseFloat(log.weight.replace('kg', ''));
+    return acc + (isNaN(weightValue) ? 0 : weightValue);
+  }, 0).toFixed(1);
+
+  const mostCommonFish = (() => {
+    if (catchLogs.length === 0) return 'N/A';
+    const fishTypeCounts = catchLogs.reduce((acc, log) => {
+      acc[log.fishType] = (acc[log.fishType] || 0) + 1;
+      return acc;
+    }, {});
+    return Object.keys(fishTypeCounts).reduce((a, b) =>
+      fishTypeCounts[a] > fishTypeCounts[b] ? a : b
+    );
+  })();
 
   const onScroll = (event) => {
     const slideSize = event.nativeEvent.layoutMeasurement.width;
@@ -240,8 +288,13 @@ const FeaturesScreen = ({ navigation }) => {
         <TouchableOpacity style={[styles.card, styles.halfCard]} onPress={() => navigation.navigate('CatchRecord')}>
           <Text style={styles.cardTitle}>{screenTexts.FeaturesScreen[language].catchMonitor.title}</Text>
           <View style={styles.catchVolumeContainer}>
+<<<<<<< Updated upstream
             <Text style={styles.catchVolume}>{screenTexts.FeaturesScreen[language].catchMonitor.volume.replace('{volume}', '59.1')}</Text>
             <Text style={styles.catchSubText}>{screenTexts.FeaturesScreen[language].catchMonitor.average.replace('{average}', '8.6')}</Text>
+=======
+            <Text style={styles.catchVolume}>{totalCatch}kg</Text>
+            <Text style={styles.catchSubText}>Most common: {mostCommonFish}</Text>
+>>>>>>> Stashed changes
           </View>
           <View style={styles.catchLogButton}>
             <Text style={styles.catchLogButtonText}>{screenTexts.FeaturesScreen[language].catchMonitor.button}</Text>

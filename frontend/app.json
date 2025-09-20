@@ -8,8 +8,13 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
+<<<<<<< Updated upstream
       "image": "./assets/icon.png",
       "resizeMode": "contain",
+=======
+      "image": "./assets/splashimage.png",
+      "resizeMode": "cover",
+>>>>>>> Stashed changes
       "backgroundColor": "#ffffff"
     },
     "ios": {
