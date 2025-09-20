@@ -6,9 +6,12 @@ import { COLORS } from '../constants/colors';
 import { Env } from '../constants/env';
 
 const BASE_URL = Env.BASE_URL;
+import { useLanguage } from '../contexts/LanguageContext';
 
 const HomeScreen = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
+  const { translate } = useLanguage();
+  const t = (key) => translate('HomeScreen', key);
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState(null);
   const [fishingAlert, setFishingAlert] = useState(null);
@@ -26,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
       const data = await response.json();
       setFishingAlert(data);
     } catch (error) {
-      setErrorMsg(`Failed to fetch fishing alert: ${error.message}`);
+      setErrorMsg(t('errors.fetchFailed', { error: error.message }));
     }
   };
 
@@ -36,7 +39,7 @@ const HomeScreen = ({ navigation }) => {
       setErrorMsg(null);
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+        setErrorMsg(t('location.permissionDenied'));
         return;
       }
       let currentLocation = await Location.getCurrentPositionAsync({});
@@ -55,7 +58,7 @@ const HomeScreen = ({ navigation }) => {
       await fetchFishingAlert(currentLocation.coords.latitude, currentLocation.coords.longitude);
 
     } catch (error) {
-      setErrorMsg(`An error occurred: ${error.message}`);
+      setErrorMsg(t('errors.general', { error: error.message }));
       console.error(error);
     } finally {
       setLoading(false);
@@ -73,25 +76,11 @@ const HomeScreen = ({ navigation }) => {
   }, [loadData]);
 
   const getWeatherDescription = (code) => {
-    const descriptions = {
-      0: 'Clear sky', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
-      45: 'Fog', 48: 'Depositing rime fog',
-      51: 'Light drizzle', 53: 'Moderate drizzle', 55: 'Dense drizzle',
-      56: 'Light freezing drizzle', 57: 'Dense freezing drizzle',
-      61: 'Slight rain', 63: 'Moderate rain', 65: 'Heavy rain',
-      66: 'Light freezing rain', 67: 'Heavy freezing rain',
-      71: 'Slight snow fall', 73: 'Moderate snow fall',
-      75: 'Heavy snow fall',
-      77: 'Snow grains',
-      80: 'Slight rain showers', 81: 'Moderate rain showers', 82: 'Violent rain showers',
-      85: 'Slight snow showers', 86: 'Heavy snow showers',
-      95: 'Thunderstorm', 96: 'Thunderstorm with slight hail', 99: 'Thunderstorm with heavy hail',
-    };
-    return descriptions[code] || 'Unknown';
+    return t(`weather.descriptions.${code}`) || t('weather.descriptions.unknown');
   };
 
   const getFishingConditions = () => {
-    if (!fishingAlert) return { text: 'Loading...', color: '#E0E0E0' };
+    if (!fishingAlert) return { text: t('common.loading'), color: '#E0E0E0' };
     return {
       text: fishingAlert.advice,
       color: fishingAlert.safe ? '#6BFF8A' : '#FF6B6B',
@@ -113,7 +102,7 @@ const HomeScreen = ({ navigation }) => {
             style={styles.sosButton}
             onPress={() => navigation.navigate('SOS')}
           >
-            <Text style={styles.sosText}>Emergency SOS</Text>
+            <Text style={styles.sosText}>{t('buttons.emergencySos')}</Text>
           </TouchableOpacity>
 
           {loading ? (
@@ -122,7 +111,7 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.errorContainer}>
               <Text style={styles.errorText}>{errorMsg}</Text>
               <TouchableOpacity style={styles.retryButton} onPress={loadData}>
-                <Text style={styles.retryButtonText}>Retry</Text>
+                <Text style={styles.retryButtonText}>{t('buttons.retry')}</Text>
               </TouchableOpacity>
             </View>
           ) : fishingAlert && weatherData && marineData ? (
@@ -137,47 +126,47 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.timeText}>{currentTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}</Text>
                 
                 <View style={styles.locationContainer}>
-                  <Text style={styles.locationText}>{address || 'Loading...'}</Text>
-                  <Text style={styles.lastUpdateText}>Last Update: {fishingAlert.time.split(' ')[1]} Hrs</Text>
+                  <Text style={styles.locationText}>{address || t('common.loading')}</Text>
+                  <Text style={styles.lastUpdateText}>{t('location.lastUpdate')}: {fishingAlert.time.split(' ')[1]} {t('common.hours')}</Text>
                 </View>
 
                 <Text style={styles.temperature}>{Math.round(weatherData.temperature_2m)}°</Text>
                 <Text style={styles.weatherDescription}>{getWeatherDescription(weatherData.weather_code)}</Text>
-                <Text style={styles.windSpeed}>Wind Speed: {weatherData.wind_speed_10m}km/h</Text>
+                <Text style={styles.windSpeed}>{t('weather.windSpeed')}: {weatherData.wind_speed_10m}km/h</Text>
                 
                 <View style={styles.weatherStats}>
                   <View style={styles.statItem}>
-                    <Text style={styles.statLabel}>Feels Like</Text>
+                    <Text style={styles.statLabel}>{t('weather.feelsLike')}</Text>
                     <Text style={styles.statValue}>{Math.round(weatherData.apparent_temperature)}°C</Text>
                   </View>
                   <View style={styles.statItem}>
-                    <Text style={styles.statLabel}>Humidity</Text>
+                    <Text style={styles.statLabel}>{t('weather.humidity')}</Text>
                     <Text style={styles.statValue}>{weatherData.relative_humidity_2m}%</Text>
                   </View>
                   <View style={styles.statItem}>
-                    <Text style={styles.statLabel}>Chance of Rain</Text>
+                    <Text style={styles.statLabel}>{t('weather.chanceOfRain')}</Text>
                     <Text style={styles.statValue}>{weatherData.precipitation_probability}%</Text>
                   </View>
                   <View style={styles.statItem}>
-                    <Text style={styles.statLabel}>Pressure</Text>
+                    <Text style={styles.statLabel}>{t('weather.pressure')}</Text>
                     <Text style={styles.statValue}>{Math.round(weatherData.pressure_msl)}mbar</Text>
                   </View>
                 </View>
               </View>
 
               <View style={styles.oceanContainer}>
-                <Text style={styles.oceanTitle}>Ocean Conditions</Text>
+                <Text style={styles.oceanTitle}>{t('ocean.title')}</Text>
                 <View style={styles.oceanStats}>
                   <View style={styles.statItem}>
-                    <Text style={styles.statLabel}>Wave Height</Text>
+                    <Text style={styles.statLabel}>{t('ocean.waveHeight')}</Text>
                     <Text style={styles.statValue}>{(marineData.wave_height ?? '--')}m</Text>
                   </View>
                   <View style={styles.statItem}>
-                    <Text style={styles.statLabel}>Wave Direction</Text>
+                    <Text style={styles.statLabel}>{t('ocean.waveDirection')}</Text>
                     <Text style={styles.statValue}>{(marineData.wave_direction ?? '--')}°</Text>
                   </View>
                   <View style={styles.statItem}>
-                    <Text style={styles.statLabel}>Wind Wave Period</Text>
+                    <Text style={styles.statLabel}>{t('ocean.windWavePeriod')}</Text>
                     <Text style={styles.statValue}>{(marineData.wind_wave_period ?? '--')}s</Text>
                   </View>
                 </View>

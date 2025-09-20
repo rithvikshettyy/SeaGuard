@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getAvailableLanguages, getLanguageNames } from '../constants/screenTexts';
 
-const LANGUAGES = [
-  { code: 'en', name: 'English' },
-  { code: 'hi', name: 'हिन्दी' },
-  { code: 'mr', name: 'मराठी' },
-  { code: 'ta', name: 'தமிழ்' },
-  { code: 'te', name: 'తెలుగు' },
-];
+const LANGUAGES = getAvailableLanguages().map(code => ({
+  code,
+  name: getLanguageNames()[code]
+}));
 
 const LanguagePicker = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0]);
+  const { currentLanguage, changeLanguage } = useLanguage();
+  const selectedLanguage = LANGUAGES.find(lang => lang.code === currentLanguage) || LANGUAGES[0];
 
   const renderItem = ({ item }) => (
     <TouchableOpacity 
       style={styles.languageButton}
       onPress={() => {
-        setSelectedLanguage(item);
+        changeLanguage(item.code);
         setModalVisible(false);
       }}
     >

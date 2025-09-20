@@ -1,0 +1,7152 @@
+// import multilingualData from '../../backend/multilingual_screenTexts.json';
+
+// Constants for multi-language support for all screens
+// Language codes follow ISO 639-1 standard:
+// en: English
+// hi: Hindi
+// ta: Tamil
+// te: Telugu
+// ml: Malayalam
+// bn: Bengali
+// fr: French
+// es: Spanish
+
+export const getAvailableLanguages = () => {
+  return ['en', 'hi', 'ta', 'te', 'ml', 'bn', 'fr', 'es'];
+};
+
+export const getLanguageNames = () => {
+  return {
+    en: 'English',
+    hi: 'हिंदी',
+    ta: 'தமிழ்',
+    te: 'తెలుగు',
+    ml: 'മലയാളം',
+    bn: 'বাংলা',
+    fr: 'Français',
+    es: 'Español'
+  };
+};
+
+// Import all translations from the JSON file
+export const screenTexts = {
+  HomeScreen: {
+    en: {
+      title: "Home",
+      welcome: "Welcome to SeaGuard!",
+      location: {
+        permissionDenied: "Permission to access location was denied",
+        loading: "Loading location...",
+        coordinateFormat: "°N, °E"
+      },
+      weather: {
+        descriptions: {
+          0: "Clear sky",
+          1: "Mainly clear",
+          2: "Partly cloudy",
+          3: "Overcast",
+          45: "Fog",
+          48: "Depositing rime fog",
+          51: "Light drizzle",
+          53: "Moderate drizzle",
+          55: "Dense drizzle",
+          56: "Light freezing drizzle",
+          57: "Dense freezing drizzle",
+          61: "Slight rain",
+          63: "Moderate rain",
+          65: "Heavy rain",
+          66: "Light freezing rain",
+          67: "Heavy freezing rain",
+          71: "Slight snow fall",
+          73: "Moderate snow fall",
+          75: "Heavy snow fall",
+          77: "Snow grains",
+          80: "Slight rain showers",
+          81: "Moderate rain showers",
+          82: "Violent rain showers",
+          85: "Slight snow showers",
+          86: "Heavy snow showers",
+          95: "Thunderstorm",
+          96: "Thunderstorm with slight hail",
+          99: "Thunderstorm with heavy hail"
+        }
+      },
+      fishingConditions: {
+        loading: "Loading...",
+        unknown: "Unknown"
+      },
+      errors: {
+        networkError: "Network response was not ok.",
+        fetchError: "Failed to fetch fishing alert: "
+      }
+    },
+    hi: {
+      title: "मूल",
+      welcome: "सीगार्ड में आपका स्वागत है!",
+      location: {
+        permissionDenied: "स्थान तक पहुँचने की अनुमति अस्वीकार कर दी गई।",
+        loading: "स्थान लोड कर रहा है...",
+        coordinateFormat: "एन, ई"
+      },
+      weather: {
+        descriptions: {
+          0: "निर्मल आकाश",
+          1: "मुख्य रूप से साफ़",
+          2: "आंशिक रूप से बादल",
+          3: "बादल",
+          45: "कोहरा",
+          48: "धुँध",
+          51: "हल्की बूंदा-बांदी",
+          53: "हल्की बूंदा-बांदी",
+          55: "बूंदाबांदी",
+          56: "हल्की हिमपात वाली बूंदा-बांदी",
+          57: "कोहरा",
+          61: "हल्की बारिश",
+          63: "मध्यम वर्षा",
+          65: "भारी वर्षा",
+          66: "हल्का हिमपात",
+          67: "भारी हिमपात",
+          71: "हल्की बर्फबारी",
+          73: "मध्यम बर्फबारी",
+          75: "भारी बर्फबारी",
+          77: "हिम-कण",
+          80: "हल्की बूंदाबांदी",
+          81: "मध्यम वर्षा",
+          82: "भारी वर्षा",
+          85: "हल्की बर्फबारी",
+          86: "भारी बर्फबारी",
+          95: "आँधी",
+          96: "आँधी के साथ हल्की ओलावृष्टि",
+          99: "गरज-बरसाती तूफान जिसमें भारी ओलावृष्टि होती है"
+        }
+      },
+      fishingConditions: {
+        loading: "लोडिंग...",
+        unknown: "अज्ञेय"
+      },
+      errors: {
+        networkError: "नेटवर्क प्रतिक्रिया ठीक नहीं थी।",
+        fetchError: "मछली पकड़ने की चेतावनी प्राप्त करने में विफलः"
+      }
+    },
+    ta: {
+      title: "முகப்பு பக்கம்",
+      welcome: "சீகார்டில் அனைவரையும் வரவேற்கிறேன்!",
+      location: {
+        permissionDenied: "இடத்திற்குச் செல்ல அனுமதி மறுக்கப்பட்டது.",
+        loading: "இருப்பிடத்தை ஏற்றிக் கொண்டிருக்கிறேன்...",
+        coordinateFormat: "வடக்கு"
+      },
+      weather: {
+        descriptions: {
+          0: "வெண்வானிலை",
+          1: "தெளிவான",
+          2: "ஓரளவு மேகமூட்டம்",
+          3: "மேகமூட்டமான",
+          45: "மூடுபனி",
+          48: "பனிமூட்டம்",
+          51: "லேசான மழை",
+          53: "மிதமான மழை",
+          55: "அடர்ந்த மழை",
+          56: "லேசான உறைபனித்துளி மழை",
+          57: "அடர்ந்த பனிமூட்டம்",
+          61: "லேசான மழை",
+          63: "மிதமான மழை",
+          65: "கனமழை",
+          66: "லேசான உறைபனி மழை",
+          67: "கனமான உறைபனி மழை",
+          71: "லேசான பனிப்பொழிவு",
+          73: "மிதமான பனிப்பொழிவு",
+          75: "பனிப்பொழிவு",
+          77: "பனித்துளிகள்",
+          80: "லேசான மழைத்துளிகள்",
+          81: "மிதமான மழை பொழிவு",
+          82: "கனமழை",
+          85: "லேசான பனிப்பொழிவு",
+          86: "கனமழை",
+          95: "இடி மின்னலுடன் கூடிய மழை",
+          96: "இடி மின்னலுடன் கூடிய லேசான ஆலங்கட்டி மழை",
+          99: "இடி மின்னலுடன் கூடிய கனமழை"
+        }
+      },
+      fishingConditions: {
+        loading: "போடும்...",
+        unknown: "அறியப்படாத"
+      },
+      errors: {
+        networkError: "நெட்வொர்க் பதில் சரியாக இல்லை.",
+        fetchError: "மீன்பிடி எச்சரிக்கையைப் பெற முடியவில்லை:"
+      }
+    },
+    te: {
+      title: "స్వదేశం",
+      welcome: "సీగార్డ్ కి స్వాగతం!",
+      location: {
+        permissionDenied: "స్థానానికి ప్రవేశించడానికి అనుమతి నిరాకరించబడింది",
+        loading: "స్థానం లోడ్ అవుతోంది...",
+        coordinateFormat: "ఉత్తరాభిముఖంగా"
+      },
+      weather: {
+        descriptions: {
+          0: "స్వచ్ఛమైన ఆకాశం",
+          1: "ప్రధానంగా స్పష్టత",
+          2: "పాక్షికంగా మేఘావృతమైన",
+          3: "మేఘావృతమైన",
+          45: "పొగమంచు",
+          48: "పొగమంచు",
+          51: "తేలికపాటి జల్లు",
+          53: "తేలికపాటి వర్షం",
+          55: "జల్లు",
+          56: "తేలికపాటి మంచు కురవడం",
+          57: "మంచు కుండపోత",
+          61: "తేలికపాటి వర్షం",
+          63: "మితమైన వర్షం",
+          65: "భారీ వర్షం",
+          66: "తేలికపాటి మంచు కురవడం",
+          67: "భారీ మంచు కురవడం",
+          71: "మంచు కురవడం",
+          73: "తేలికపాటి మంచు కురుస్తుంది",
+          75: "మంచు కురవడం",
+          77: "మంచు",
+          80: "తేలికపాటి వర్షపు జల్లులు",
+          81: "తేలికపాటి వర్షపాతం",
+          82: "భారీ వర్షపాతం",
+          85: "తేలికపాటి మంచు జల్లులు",
+          86: "మంచు కురవడం",
+          95: "ఉరుములతో కూడిన వర్షం",
+          96: "మెరుపులతో కూడిన తేలికపాటి వాన",
+          99: "ఉరుములు మెరుపులతో కూడిన భారీ వడగండ్ల వాన"
+        }
+      },
+      fishingConditions: {
+        loading: "లోడవుతున్న...",
+        unknown: "తెలియని"
+      },
+      errors: {
+        networkError: "నెట్వర్క్ ప్రతిస్పందన సరిగా లేకపోయింది.",
+        fetchError: "చేపలు పట్టే హెచ్చరికను తీసుకురావడంలో విఫలమైంది:"
+      }
+    },
+    ml: {
+      title: "ആസ്ഥാനം",
+      welcome: "സീഗാർഡിൽ സ്വാഗതം!",
+      location: {
+        permissionDenied: "സ്ഥലം ആക്സസ് ചെയ്യാൻ അനുമതി നിഷേധിക്കപ്പെട്ടു.",
+        loading: "ലൊക്കേഷന്‍ ലോഡ് ചെയ്യുന്നു...",
+        coordinateFormat: "ഈശ്വരഭൂമി"
+      },
+      weather: {
+        descriptions: {
+          0: "തെളിഞ്ഞ ആകാശം",
+          1: "തെളിഞ്ഞ",
+          2: "മേഘം നിറഞ്ഞ",
+          3: "മേഘാവൃതമായ",
+          45: "മൂടൽമഞ്ഞ്",
+          48: "നിക്ഷേപിക്കുന്ന ഋതുമണി മൂടൽ",
+          51: "നേരിയ മഴ",
+          53: "നേരിയ മഴ",
+          55: "മഴ",
+          56: "നേരിയ മഞ്ഞുപെയ്തു",
+          57: "മഴ",
+          61: "നേരിയ മഴ",
+          63: "ഇടത്തരം മഴ",
+          65: "കനത്ത മഴ",
+          66: "നേരിയ മഞ്ഞ്‌",
+          67: "കനത്ത മഞ്ഞുവീഴ്ച",
+          71: "നേരിയ മഞ്ഞ് വീഴ്ച",
+          73: "മിതമായ മഞ്ഞുവീഴ്ച",
+          75: "മഞ്ഞുവീഴ്ച",
+          77: "മഞ്ഞുപൊടി",
+          80: "നേരിയ മഴ",
+          81: "ഇടത്തരം മഴ",
+          82: "കനത്ത മഴ",
+          85: "നേരിയ മഞ്ഞ്‌ പെയ്‌തല്‍",
+          86: "കനത്ത മഞ്ഞുവീഴ്ച",
+          95: "ഇടിമിന്നല്",
+          96: "ഇടിമിന്നലോട് കൂടിയ നേരിയ ആലിപ്പഴ വർഷനം",
+          99: "ഇടിമിന്നലോട് കൂടിയ മഴ"
+        }
+      },
+      fishingConditions: {
+        loading: "ഇറക്കുമതിചെയ്യൽ...",
+        unknown: "അജ്ഞാതനായ"
+      },
+      errors: {
+        networkError: "നെറ്റ്‌വർക്ക് പ്രതികരണം ശരിയായിരുന്നില്ല.",
+        fetchError: "മത്സ്യബന്ധന മുന്നറിയിപ്പ് ലഭിക്കുന്നതിൽ പരാജയപ്പെട്ടു:"
+      }
+    },
+    bn: {
+      title: "গৃহ",
+      welcome: "সিগার্ড-এ আপনাকে স্বাগত।",
+      location: {
+        permissionDenied: "অবস্থান অ্যাক্সেস করার অনুমতি প্রত্যাখ্যান করা হয়েছিল।",
+        loading: "অবস্থান লোড করা...",
+        coordinateFormat: "এন, ই"
+      },
+      weather: {
+        descriptions: {
+          0: "পরিষ্কার আকাশ",
+          1: "স্বচ্ছ",
+          2: "আংশিক মেঘলা",
+          3: "মেঘলা",
+          45: "কুয়াশা",
+          48: "রেইম ফগ",
+          51: "হালকা ঝিরঝির বৃষ্টি",
+          53: "মাঝারি বৃষ্টিপাত",
+          55: "ঘন কুয়াশা",
+          56: "হালকা তুষারপাত",
+          57: "ঘন বরফ",
+          61: "হালকা বৃষ্টি",
+          63: "মাঝারি বৃষ্টি",
+          65: "ভারী বৃষ্টি",
+          66: "হালকা তুষারপাত",
+          67: "ভারী তুষারপাত",
+          71: "হালকা তুষারপাত",
+          73: "মাঝারি মাত্রার তুষারপাত",
+          75: "তুষারপাত",
+          77: "তুষারকণা",
+          80: "হালকা বৃষ্টিপাত",
+          81: "মাঝারি বৃষ্টিপাত",
+          82: "ভারী বৃষ্টিপাত",
+          85: "হালকা তুষারপাত",
+          86: "তুষারঝড়",
+          95: "বজ্রপাত",
+          96: "বজ্রবিদ্যুৎ সহ হালকা শিলাবৃষ্টি",
+          99: "বজ্রবিদ্যুৎ সহিত ঝড়"
+        }
+      },
+      fishingConditions: {
+        loading: "লোড করা...",
+        unknown: "অজ্ঞাত"
+      },
+      errors: {
+        networkError: "নেটওয়ার্ক প্রতিক্রিয়া ঠিক ছিল না।",
+        fetchError: "মাছ ধরার সতর্কতা আনতে ব্যর্থ:"
+      }
+    },
+    kn: {
+      title: "ಮುಖಪುటం",
+      welcome: "ಸೀಗಾರ್ಡ್‌ಗೆ ಸ್ವಾಗತ!",
+      location: {
+        permissionDenied: "ಸ್ಥಳಕ್ಕೆ ಪ್ರವೇಶಿಸಲು ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ.",
+        loading: "ಸ್ಥಳ ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+        coordinateFormat: "ಪೂರ್ವ"
+      },
+      weather: {
+        descriptions: {
+          0: "ಸ್ವಚ್ಛ ಆಕಾಶ",
+          1: "ಸ್ಪಷ್ಟವಾಗಿರುವ",
+          2: "ಮೋಡದ",
+          3: "ಮೋಡಕವಿದ",
+          45: "ಮಂಜು",
+          48: "ಋಣಧಾತು ಮಂಜು",
+          51: "ಹನಿ ಮಳೆ",
+          53: "ಮಧ್ಯಮ ಮಳೆ",
+          55: "ಮಳೆ",
+          56: "ಹನಿ ಮಳೆ",
+          57: "ಮಂಜು",
+          61: "ಸ್ವಲ್ಪ ಮಳೆ",
+          63: "ಸಾಧಾರಣ ಮಳೆ",
+          65: "ಭಾರೀ ಮಳೆ",
+          66: "ಹಗುರವಾದ ಘನೀಭವನದ ಮಳೆ",
+          67: "ಭಾರೀ ಘನೀಕರಿಸುವ ಮಳೆ",
+          71: "ಸ್ವಲ್ಪ ಹಿಮಪಾತ",
+          73: "ಮಧ್ಯಮ ಹಿಮಪಾತ",
+          75: "ಹಿಮಪಾತ",
+          77: "ಹಿಮ",
+          80: "ಹನಿ ಮಳೆ",
+          81: "ಸಾಧಾರಣ ಮಳೆ",
+          82: "ಭಾರೀ ಮಳೆ",
+          85: "ಸಣ್ಣ ಪ್ರಮಾಣದ ಹಿಮಪಾತ",
+          86: "ಹಿಮಪಾತ",
+          95: "ಗುಡುಗು",
+          96: "ಗುಡುಗು ಸಿಡಿಲಿನೊಂದಿಗೆ ಸಣ್ಣ ಆಲಿಕಲ್ಲು ಮಳೆ",
+          99: "ಗುಡುಗು ಸಿಡಿಲಿನೊಂದಿಗೆ ಭಾರೀ ಆಲಿಕಲ್ಲು ಮಳೆ"
+        }
+      },
+      fishingConditions: {
+        loading: "ಲೋಡಿಂಗ್...",
+        unknown: "ಅಪರಿಚಿತ"
+      },
+      errors: {
+        networkError: "ಜಾಲಬಂಧ ಪ್ರತಿಕ್ರಿಯೆ ಸರಿಯಾಗಿರಲಿಲ್ಲ.",
+        fetchError: "ಮೀನುಗಾರಿಕೆ ಎಚ್ಚರಿಕೆಯನ್ನು ಪಡೆಯಲು ವಿಫಲವಾಗಿದೆ:"
+      }
+    },
+    gu: {
+      title: "ગૃહ",
+      welcome: "સીગાર્ડમાં આપનું સ્વાગત છે!",
+      location: {
+        permissionDenied: "સ્થાન પર પહોંચવાની પરવાનગી નકારી દેવામાં આવી હતી.",
+        loading: "સ્થાન લોડિંગ...",
+        coordinateFormat: "એન. , ઇ."
+      },
+      weather: {
+        descriptions: {
+          0: "સ્વચ્છ આકાશ",
+          1: "મોટેભાગે સ્પષ્ટ",
+          2: "આંશિક વાદળછાયું",
+          3: "વાદળો",
+          45: "ધુમ્મસ",
+          48: "જમાव धुके",
+          51: "ઝરમર",
+          53: "મધ્યમ વરસાદ",
+          55: "ગાજવીજ",
+          56: "હળવા હિમવર્ષા",
+          57: "ગાઢું ઠંડું",
+          61: "હળવો વરસાદ",
+          63: "મધ્યમ વરસાદ",
+          65: "ભારે વરસાદ",
+          66: "હળવો હિમવર્ષા",
+          67: "ભારે હિમવર્ષા",
+          71: "બરફવર્ષા",
+          73: "મધ્યમ બરફવર્ષા",
+          75: "હિમવર્ષા",
+          77: "બરફ",
+          80: "છૂટાછવાયા વરસાદ",
+          81: "મધ્યમ વરસાદ",
+          82: "ભારે વરસાદ",
+          85: "હળવો બરફવર્ષા",
+          86: "બરફવર્ષા",
+          95: "વાવાઝોડું",
+          96: "ગાજવીજ સાથે છૂટાછવાયા કરા સાથે વાવાઝોડું",
+          99: "ભારે કરા સાથેનું આંધી વાવાઝોડું"
+        }
+      },
+      fishingConditions: {
+        loading: "લોડિંગ...",
+        unknown: "અજાણ્યો"
+      },
+      errors: {
+        networkError: "નેટવર્ક પ્રતિભાવ યોગ્ય નહોતો.",
+        fetchError: "માછીમારીની ચેતવણી મેળવવા માટે નિષ્ફળતા:"
+      }
+    },
+    mr: {
+      title: "मुखपृष्ठ",
+      welcome: "सीगार्डमध्ये आपले स्वागत आहे!",
+      location: {
+        permissionDenied: "स्थानापर्यंत पोहोचण्याची परवानगी नाकारण्यात आली.",
+        loading: "स्थान लोड करत आहे...",
+        coordinateFormat: "एन, ई"
+      },
+      weather: {
+        descriptions: {
+          0: "निरभ्र आकाश",
+          1: "मुख्यतः स्पष्ट",
+          2: "ढगाळ",
+          3: "ढगाळ",
+          45: "धुके",
+          48: "जमावदार धुके",
+          51: "हलका पाऊस",
+          53: "हलका पाऊस",
+          55: "मुसळधार पाऊस",
+          56: "हलका गोठणारा पाऊस",
+          57: "गारठा",
+          61: "हलका पाऊस",
+          63: "मध्यम पाऊस",
+          65: "मुसळधार पाऊस",
+          66: "हलका गोठणारा पाऊस",
+          67: "जोरदार गोठणारा पाऊस",
+          71: "हलका हिमवर्षाव",
+          73: "मध्यम प्रमाणात बर्फवृष्टी",
+          75: "हिमवादळ",
+          77: "हिम",
+          80: "हलका पाऊस",
+          81: "मध्यम पाऊस",
+          82: "मुसळधार पाऊस",
+          85: "हलका हिमवर्षाव",
+          86: "हिमवर्षाव",
+          95: "गडगडाटी वादळ",
+          96: "गारासह गडगडाटी वादळ",
+          99: "गारासह वादळी पाऊस"
+        }
+      },
+      fishingConditions: {
+        loading: "लोडिंग...",
+        unknown: "अज्ञात"
+      },
+      errors: {
+        networkError: "नेटवर्क प्रतिसाद योग्य नव्हता.",
+        fetchError: "मासेमारीची चेतावणी मिळवण्यात अपयशी:"
+      }
+    },
+    or: {
+      title: "Home",
+      welcome: "Welcome to SeaGuard!",
+      location: {
+        permissionDenied: "Permission to access location was denied",
+        loading: "Loading location...",
+        coordinateFormat: "°N, °E"
+      },
+      weather: {
+        descriptions: {
+          0: "Clear sky",
+          1: "Mainly clear",
+          2: "Partly cloudy",
+          3: "Overcast",
+          45: "Fog",
+          48: "Depositing rime fog",
+          51: "Light drizzle",
+          53: "Moderate drizzle",
+          55: "Dense drizzle",
+          56: "Light freezing drizzle",
+          57: "Dense freezing drizzle",
+          61: "Slight rain",
+          63: "Moderate rain",
+          65: "Heavy rain",
+          66: "Light freezing rain",
+          67: "Heavy freezing rain",
+          71: "Slight snow fall",
+          73: "Moderate snow fall",
+          75: "Heavy snow fall",
+          77: "Snow grains",
+          80: "Slight rain showers",
+          81: "Moderate rain showers",
+          82: "Violent rain showers",
+          85: "Slight snow showers",
+          86: "Heavy snow showers",
+          95: "Thunderstorm",
+          96: "Thunderstorm with slight hail",
+          99: "Thunderstorm with heavy hail"
+        }
+      },
+      fishingConditions: {
+        loading: "Loading...",
+        unknown: "Unknown"
+      },
+      errors: {
+        networkError: "Network response was not ok.",
+        fetchError: "Failed to fetch fishing alert: "
+      }
+    },
+    as: {
+      title: "Home",
+      welcome: "Welcome to SeaGuard!",
+      location: {
+        permissionDenied: "Permission to access location was denied",
+        loading: "Loading location...",
+        coordinateFormat: "°N, °E"
+      },
+      weather: {
+        descriptions: {
+          0: "Clear sky",
+          1: "Mainly clear",
+          2: "Partly cloudy",
+          3: "Overcast",
+          45: "Fog",
+          48: "Depositing rime fog",
+          51: "Light drizzle",
+          53: "Moderate drizzle",
+          55: "Dense drizzle",
+          56: "Light freezing drizzle",
+          57: "Dense freezing drizzle",
+          61: "Slight rain",
+          63: "Moderate rain",
+          65: "Heavy rain",
+          66: "Light freezing rain",
+          67: "Heavy freezing rain",
+          71: "Slight snow fall",
+          73: "Moderate snow fall",
+          75: "Heavy snow fall",
+          77: "Snow grains",
+          80: "Slight rain showers",
+          81: "Moderate rain showers",
+          82: "Violent rain showers",
+          85: "Slight snow showers",
+          86: "Heavy snow showers",
+          95: "Thunderstorm",
+          96: "Thunderstorm with slight hail",
+          99: "Thunderstorm with heavy hail"
+        }
+      },
+      fishingConditions: {
+        loading: "Loading...",
+        unknown: "Unknown"
+      },
+      errors: {
+        networkError: "Network response was not ok.",
+        fetchError: "Failed to fetch fishing alert: "
+      }
+    },
+    pa: {
+      title: "ਘਰੇਲੂ",
+      welcome: "ਸੀਗਾਰਡ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ।",
+      location: {
+        permissionDenied: "ਸਥਾਨ ਤੱਕ ਪਹੁੰਚ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਰੱਦ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ।",
+        loading: "ਸਥਾਨ लोड कर रहा...",
+        coordinateFormat: "ਉੱਤਰ, ਪੂਰਬ"
+      },
+      weather: {
+        descriptions: {
+          0: "ਸਾਫ਼ ਅਸਮਾਨ",
+          1: "ਸਾਫ਼",
+          2: "ਬੱਦਲਵਾਈ",
+          3: "ਬੱਦਲਵਾਈ",
+          45: "ਧੁੰਦ",
+          48: "ਸ਼ੀਸਾਟੀ ਬੱਦਲ",
+          51: "ਹਲਕੀ ਬੂੰਦਾਬਾਂਦੀ",
+          53: "ਹਲਕੀ ਬਾਰਿਸ਼",
+          55: "ਬਾਰਿਸ਼",
+          56: "ਹਲਕਾ ਠੰਢਾ ਬੂੰਦਾਬਾਂਦਾ",
+          57: "ਬਰਸਾਤੀ ਬਾਰਿਸ਼",
+          61: "ਹਲਕਾ ਜਿਹਾ ਮੀਂਹ",
+          63: "ਮੱਧਮ ਮੀਂਹ",
+          65: "ਭਾਰੀ ਬਾਰਿਸ਼",
+          66: "ਹਲਕਾ ਠੰਢਾ ਮੀਂਹ",
+          67: "ਭਾਰੀ ਬਰਫ਼ਬਾਰੀ",
+          71: "ਹਲਕਾ ਜਿਹਾ ਬਰਫ਼ਬਾਰੀ",
+          73: "ਦਰਮਿਆਨੀ ਬਰਫ਼ਬਾਰੀ",
+          75: "ਭਾਰੀ ਬਰਫ਼ਬਾਰੀ",
+          77: "ਬਰਫ਼ੀਲੀ",
+          80: "ਹਲਕੀ ਬਾਰਿਸ਼",
+          81: "ਦਰਮਿਆਨੇ ਮੀਂਹ",
+          82: "ਭਾਰੀ ਮੀਂਹ",
+          85: "ਹਲਕਾ ਜਿਹਾ ਬਰਫ਼ਬਾਰੀ",
+          86: "ਬਰਫ਼ਬਾਰੀ",
+          95: "ਗਰਜਧੁਨੀ",
+          96: "ਗੜੇਮਾਰੀ ਦੇ ਨਾਲ ਤੂਫ਼ਾਨ",
+          99: "ਗੜੇਮਾਰੀ ਦੇ ਨਾਲ ਤੂਫ਼ਾਨ"
+        }
+      },
+      fishingConditions: {
+        loading: "ਲੋਡ...",
+        unknown: "ਅਗਿਆਤ"
+      },
+      errors: {
+        networkError: "ਨੈੱਟਵਰਕ ਪ੍ਰਤੀਕਿਰਿਆ ਠੀਕ ਨਹੀਂ ਸੀ।",
+        fetchError: "ਫਿਸ਼ਿੰਗ ਅਲਰਟ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲਤਾ:"
+      }
+    },
+    sd: {
+      title: "Home",
+      welcome: "Welcome to SeaGuard!",
+      location: {
+        permissionDenied: "Permission to access location was denied",
+        loading: "Loading location...",
+        coordinateFormat: "°N, °E"
+      },
+      weather: {
+        descriptions: {
+          0: "Clear sky",
+          1: "Mainly clear",
+          2: "Partly cloudy",
+          3: "Overcast",
+          45: "Fog",
+          48: "Depositing rime fog",
+          51: "Light drizzle",
+          53: "Moderate drizzle",
+          55: "Dense drizzle",
+          56: "Light freezing drizzle",
+          57: "Dense freezing drizzle",
+          61: "Slight rain",
+          63: "Moderate rain",
+          65: "Heavy rain",
+          66: "Light freezing rain",
+          67: "Heavy freezing rain",
+          71: "Slight snow fall",
+          73: "Moderate snow fall",
+          75: "Heavy snow fall",
+          77: "Snow grains",
+          80: "Slight rain showers",
+          81: "Moderate rain showers",
+          82: "Violent rain showers",
+          85: "Slight snow showers",
+          86: "Heavy snow showers",
+          95: "Thunderstorm",
+          96: "Thunderstorm with slight hail",
+          99: "Thunderstorm with heavy hail"
+        }
+      },
+      fishingConditions: {
+        loading: "Loading...",
+        unknown: "Unknown"
+      },
+      errors: {
+        networkError: "Network response was not ok.",
+        fetchError: "Failed to fetch fishing alert: "
+      }
+    },
+    kok: {
+      title: "Home",
+      welcome: "Welcome to SeaGuard!",
+      location: {
+        permissionDenied: "Permission to access location was denied",
+        loading: "Loading location...",
+        coordinateFormat: "°N, °E"
+      },
+      weather: {
+        descriptions: {
+          0: "Clear sky",
+          1: "Mainly clear",
+          2: "Partly cloudy",
+          3: "Overcast",
+          45: "Fog",
+          48: "Depositing rime fog",
+          51: "Light drizzle",
+          53: "Moderate drizzle",
+          55: "Dense drizzle",
+          56: "Light freezing drizzle",
+          57: "Dense freezing drizzle",
+          61: "Slight rain",
+          63: "Moderate rain",
+          65: "Heavy rain",
+          66: "Light freezing rain",
+          67: "Heavy freezing rain",
+          71: "Slight snow fall",
+          73: "Moderate snow fall",
+          75: "Heavy snow fall",
+          77: "Snow grains",
+          80: "Slight rain showers",
+          81: "Moderate rain showers",
+          82: "Violent rain showers",
+          85: "Slight snow showers",
+          86: "Heavy snow showers",
+          95: "Thunderstorm",
+          96: "Thunderstorm with slight hail",
+          99: "Thunderstorm with heavy hail"
+        }
+      },
+      fishingConditions: {
+        loading: "Loading...",
+        unknown: "Unknown"
+      },
+      errors: {
+        networkError: "Network response was not ok.",
+        fetchError: "Failed to fetch fishing alert: "
+      }
+    },
+    doi: {
+      title: "Home",
+      welcome: "Welcome to SeaGuard!",
+      location: {
+        permissionDenied: "Permission to access location was denied",
+        loading: "Loading location...",
+        coordinateFormat: "°N, °E"
+      },
+      weather: {
+        descriptions: {
+          0: "Clear sky",
+          1: "Mainly clear",
+          2: "Partly cloudy",
+          3: "Overcast",
+          45: "Fog",
+          48: "Depositing rime fog",
+          51: "Light drizzle",
+          53: "Moderate drizzle",
+          55: "Dense drizzle",
+          56: "Light freezing drizzle",
+          57: "Dense freezing drizzle",
+          61: "Slight rain",
+          63: "Moderate rain",
+          65: "Heavy rain",
+          66: "Light freezing rain",
+          67: "Heavy freezing rain",
+          71: "Slight snow fall",
+          73: "Moderate snow fall",
+          75: "Heavy snow fall",
+          77: "Snow grains",
+          80: "Slight rain showers",
+          81: "Moderate rain showers",
+          82: "Violent rain showers",
+          85: "Slight snow showers",
+          86: "Heavy snow showers",
+          95: "Thunderstorm",
+          96: "Thunderstorm with slight hail",
+          99: "Thunderstorm with heavy hail"
+        }
+      },
+      fishingConditions: {
+        loading: "Loading...",
+        unknown: "Unknown"
+      },
+      errors: {
+        networkError: "Network response was not ok.",
+        fetchError: "Failed to fetch fishing alert: "
+      }
+    },
+    fr: {
+      title: "Home",
+      welcome: "Welcome to SeaGuard!",
+      location: {
+        permissionDenied: "Permission to access location was denied",
+        loading: "Loading location...",
+        coordinateFormat: "°N, °E"
+      },
+      weather: {
+        descriptions: {
+          0: "Clear sky",
+          1: "Mainly clear",
+          2: "Partly cloudy",
+          3: "Overcast",
+          45: "Fog",
+          48: "Depositing rime fog",
+          51: "Light drizzle",
+          53: "Moderate drizzle",
+          55: "Dense drizzle",
+          56: "Light freezing drizzle",
+          57: "Dense freezing drizzle",
+          61: "Slight rain",
+          63: "Moderate rain",
+          65: "Heavy rain",
+          66: "Light freezing rain",
+          67: "Heavy freezing rain",
+          71: "Slight snow fall",
+          73: "Moderate snow fall",
+          75: "Heavy snow fall",
+          77: "Snow grains",
+          80: "Slight rain showers",
+          81: "Moderate rain showers",
+          82: "Violent rain showers",
+          85: "Slight snow showers",
+          86: "Heavy snow showers",
+          95: "Thunderstorm",
+          96: "Thunderstorm with slight hail",
+          99: "Thunderstorm with heavy hail"
+        }
+      },
+      fishingConditions: {
+        loading: "Loading...",
+        unknown: "Unknown"
+      },
+      errors: {
+        networkError: "Network response was not ok.",
+        fetchError: "Failed to fetch fishing alert: "
+      }
+    },
+    es: {
+      title: "Home",
+      welcome: "Welcome to SeaGuard!",
+      location: {
+        permissionDenied: "Permission to access location was denied",
+        loading: "Loading location...",
+        coordinateFormat: "°N, °E"
+      },
+      weather: {
+        descriptions: {
+          0: "Clear sky",
+          1: "Mainly clear",
+          2: "Partly cloudy",
+          3: "Overcast",
+          45: "Fog",
+          48: "Depositing rime fog",
+          51: "Light drizzle",
+          53: "Moderate drizzle",
+          55: "Dense drizzle",
+          56: "Light freezing drizzle",
+          57: "Dense freezing drizzle",
+          61: "Slight rain",
+          63: "Moderate rain",
+          65: "Heavy rain",
+          66: "Light freezing rain",
+          67: "Heavy freezing rain",
+          71: "Slight snow fall",
+          73: "Moderate snow fall",
+          75: "Heavy snow fall",
+          77: "Snow grains",
+          80: "Slight rain showers",
+          81: "Moderate rain showers",
+          82: "Violent rain showers",
+          85: "Slight snow showers",
+          86: "Heavy snow showers",
+          95: "Thunderstorm",
+          96: "Thunderstorm with slight hail",
+          99: "Thunderstorm with heavy hail"
+        }
+      },
+      fishingConditions: {
+        loading: "Loading...",
+        unknown: "Unknown"
+      },
+      errors: {
+        networkError: "Network response was not ok.",
+        fetchError: "Failed to fetch fishing alert: "
+      }
+    }
+  },
+  ChatScreen: {
+    en: {
+      title: "Chat",
+      send: "Send",
+      placeholder: "Type your message...",
+      initialBotMessage: "Hello! I am SeaBot, your AI assistant. How can I help you today?",
+      errorMessages: {
+        connection: "Sorry, I am having trouble connecting. Please try again later.",
+        micPermission: "Permission to access microphone is required!"
+      },
+      recording: {
+        start: "Start Recording",
+        stop: "Stop Recording"
+      }
+    },
+    hi: {
+      title: "चैट",
+      send: "भेजना",
+      placeholder: "आप अपना संदेश लिखिए।...",
+      initialBotMessage: "नमस्कार! मैं SeaBot हूँ, आपका AI सहायक। आज मैं आपकी किस प्रकार सहायता कर सकती हूँ?",
+      errorMessages: {
+        connection: "क्षमा कीजिए, मुझे जुड़ने में समस्या हो रही है। कृपया बाद में पुनः प्रयास करें।",
+        micPermission: "माइक्रोफ़ोन तक पहुँच की अनुमति आवश्यक है!"
+      },
+      recording: {
+        start: "रिकॉर्डिंग आरंभ करें",
+        stop: "रिकॉर्डिंग बंद करें"
+      }
+    },
+    ta: {
+      title: "உரையாடல்",
+      send: "அனுப்ப",
+      placeholder: "உங்கள் செய்தியைத் தட்டச்சு செய்யுங்கள்....",
+      initialBotMessage: "வணக்கம்! நான் SeaBot, உங்கள் செயற்கை நுண்ணறிவு உதவியாளர். இன்று நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?",
+      errorMessages: {
+        connection: "மன்னிக்கவும், இணைக்க எனக்குச் சிரமமாக இருக்கிறது. பிறகு முயற்சி செய்யுங்கள்.",
+        micPermission: "மைக்ரோஃபோனைப் பயன்படுத்த அனுமதி தேவை!"
+      },
+      recording: {
+        start: "பதிவு செய்யத் தொடங்குங்கள்",
+        stop: "பதிவு நிறுத்து"
+      }
+    },
+    te: {
+      title: "చాట్",
+      send: "పంపడం",
+      placeholder: "మీ సందేశాన్ని టైప్ చేయండి....",
+      initialBotMessage: "నమస్కారం! నేను SeaBot, మీ AI సహాయకురాలిని. ఈ రోజు నేను మీకు ఏ విధంగా సహాయపడగలను?",
+      errorMessages: {
+        connection: "క్షమించండి, కనెక్ట్ చేయడంలో ఇబ్బంది పడుతున్నాను. దయచేసి తరువాత ప్రయత్నించండి.",
+        micPermission: "మైక్రోఫోన్ ను యాక్సెస్ చేయడానికి అనుమతి అవసరం."
+      },
+      recording: {
+        start: "రికార్డింగ్ ప్రారంభించు",
+        stop: "రికార్డింగ్ ఆపండి"
+      }
+    },
+    ml: {
+      title: "ചാറ്റ്",
+      send: "അയയ്ക്കുക",
+      placeholder: "താങ്കൾക്ക് സന്ദേശം ടൈപ്പ് ചെയ്യുക....",
+      initialBotMessage: "നമസ്കാരം! ഞാൻ SeaBot ആണ്, താങ്കളുടെ AI സഹായി.  ഇന്ന് ഞാൻ എങ്ങനെ സഹായിക്കട്ടെ?",
+      errorMessages: {
+        connection: "ക്ഷമിക്കണം, കണക്ട് ചെയ്യുന്നതിൽ പ്രശ്നം ഉണ്ട്. പിന്നീട് ഒന്ന് ശ്രമിച്ചു നോക്കൂ.",
+        micPermission: "മൈക്രോഫോൺ ഉപയോഗിക്കുന്നതിന് അനുവാദം ആവശ്യമാണ്!"
+      },
+      recording: {
+        start: "റെക്കോഡ് ചെയ്യൽ ആരംഭിക്കുക",
+        stop: "റെക്കോർഡിംഗ് നിർത്തുക"
+      }
+    },
+    bn: {
+      title: "কথোপকথন",
+      send: "প্রেরণ",
+      placeholder: "আপনার বার্তা টাইপ করুন।...",
+      initialBotMessage: "নমস্কার! আমি SeaBot, আপনার AI সহকারী। আজকে আমি আপনাকে কিভাবে সাহায্য করতে পারি?",
+      errorMessages: {
+        connection: "দুঃখিত, সংযোগ করতে সমস্যা হচ্ছে। অনুগ্রহ করে পরে চেষ্টা করুন।",
+        micPermission: "মাইক্রোফোন ব্যবহার করার অনুমতি প্রয়োজন।"
+      },
+      recording: {
+        start: "রেকর্ড করা শুরু করুন",
+        stop: "রেকর্ড বন্ধ করুন"
+      }
+    },
+    kn: {
+      title: "ಚಾಟ್",
+      send: "ಕಳಿಸು",
+      placeholder: "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ಬರೆಯಿರಿ....",
+      initialBotMessage: "ನಮಸ್ಕಾರ! ನಾನು SeaBot, ನಿಮ್ಮ AI ಸಹಾಯಕ. ಇಂದು ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
+      errorMessages: {
+        connection: "ಕ್ಷಮಿಸಿ, ಸಂಪರ್ಕ ಸಾಧಿಸಲು ಸಮಸ್ಯೆ ಆಗುತ್ತಿದೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಪ್ರಯತ್ನಿಸಿ ನೋಡಿ.",
+        micPermission: "ಮೈಕ್ರೊಫೋನ್ ಬಳಸಲು ಅನುಮತಿ ಅಗತ್ಯವಿದೆ."
+      },
+      recording: {
+        start: "ರೆಕಾರ್ಡಿಂಗ್ ಆರಂಭಿಸಿ",
+        stop: "ಧ್ವನಿಮುದ್ರಣವನ್ನು ನಿಲ್ಲಿಸುವುದು"
+      }
+    },
+    gu: {
+      title: "ચેટ",
+      send: "મોકલો",
+      placeholder: "તમારો સંદેશ લખો....",
+      initialBotMessage: "નમસ્તે! હું SeaBot છું, આપનો AI સહાયક. આજે હું આપને કઈ રીતે મદદ કરી શકું?",
+      errorMessages: {
+        connection: "માફ કરશો, કનેક્શનમાં મુશ્કેલી પડી રહી છે. કૃપા કરીને પછી પ્રયાસ કરો.",
+        micPermission: "માઇક્રોફોન ઍક્સેસ કરવા માટે પરવાનગી જરૂરી છે."
+      },
+      recording: {
+        start: "રેકોર્ડિંગ શરૂ કરો.",
+        stop: "રેકોર્ડિંગ બંધ કરો"
+      }
+    },
+    mr: {
+      title: "चॅट",
+      send: "पाठवा",
+      placeholder: "तुमचा संदेश टाइप करा....",
+      initialBotMessage: "नमस्कार! मी SeaBot आहे, तुमचा AI सहाय्यक. मी आज कशी मदत करू शकते?",
+      errorMessages: {
+        connection: "क्षमस्व, जोडणीत समस्या येत आहे. कृपया नंतर प्रयत्न करा.",
+        micPermission: "मायक्रोफोन वापरण्याची परवानगी आवश्यक आहे."
+      },
+      recording: {
+        start: "ध्वनिमुद्रण सुरू करा",
+        stop: "ध्वनिमुद्रण थांबवा"
+      }
+    },
+    or: {
+      title: "Chat",
+      send: "Send",
+      placeholder: "Type your message...",
+      initialBotMessage: "Hello! I am SeaBot, your AI assistant. How can I help you today?",
+      errorMessages: {
+        connection: "Sorry, I am having trouble connecting. Please try again later.",
+        micPermission: "Permission to access microphone is required!"
+      },
+      recording: {
+        start: "Start Recording",
+        stop: "Stop Recording"
+      }
+    },
+    as: {
+      title: "Chat",
+      send: "Send",
+      placeholder: "Type your message...",
+      initialBotMessage: "Hello! I am SeaBot, your AI assistant. How can I help you today?",
+      errorMessages: {
+        connection: "Sorry, I am having trouble connecting. Please try again later.",
+        micPermission: "Permission to access microphone is required!"
+      },
+      recording: {
+        start: "Start Recording",
+        stop: "Stop Recording"
+      }
+    },
+    pa: {
+      title: "ਗੱਲਬਾਤ",
+      send: "ਭੇਜਣਾ",
+      placeholder: "ਆਪਣਾ ਸੁਨੇਹਾ ਟਾਈਪ ਕਰੋ।...",
+      initialBotMessage: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ SeaBot ਹਾਂ, ਤੁਹਾਡੀ AI ਸਹਾਇਕ। ਅੱਜ ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਸਹਾਇਤਾ ਕਰ ਸਕਦੀ ਹਾਂ?",
+      errorMessages: {
+        connection: "ਮੁਆਫ਼ ਕਰਨਾ, ਮੈਨੂੰ ਜੁੜਨ ਵਿੱਚ ਮੁਸ਼ਕਲ ਆ ਰਹੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+        micPermission: "ਮਾਈਕ੍ਰੋਫੋਨ ਤੱਕ ਪਹੁੰਚ ਕਰਨ ਲਈ ਆਗਿਆ ਦੀ ਲੋੜ ਹੈ।"
+      },
+      recording: {
+        start: "ਰਿਕਾਰਡ ਕਰਨਾ ਆਰੰਭ ਕਰੋ।",
+        stop: "ਰਿਕਾਰਡਿੰਗ ਬੰਦ ਕਰੋ"
+      }
+    },
+    sd: {
+      title: "Chat",
+      send: "Send",
+      placeholder: "Type your message...",
+      initialBotMessage: "Hello! I am SeaBot, your AI assistant. How can I help you today?",
+      errorMessages: {
+        connection: "Sorry, I am having trouble connecting. Please try again later.",
+        micPermission: "Permission to access microphone is required!"
+      },
+      recording: {
+        start: "Start Recording",
+        stop: "Stop Recording"
+      }
+    },
+    kok: {
+      title: "Chat",
+      send: "Send",
+      placeholder: "Type your message...",
+      initialBotMessage: "Hello! I am SeaBot, your AI assistant. How can I help you today?",
+      errorMessages: {
+        connection: "Sorry, I am having trouble connecting. Please try again later.",
+        micPermission: "Permission to access microphone is required!"
+      },
+      recording: {
+        start: "Start Recording",
+        stop: "Stop Recording"
+      }
+    },
+    doi: {
+      title: "Chat",
+      send: "Send",
+      placeholder: "Type your message...",
+      initialBotMessage: "Hello! I am SeaBot, your AI assistant. How can I help you today?",
+      errorMessages: {
+        connection: "Sorry, I am having trouble connecting. Please try again later.",
+        micPermission: "Permission to access microphone is required!"
+      },
+      recording: {
+        start: "Start Recording",
+        stop: "Stop Recording"
+      }
+    },
+    fr: {
+      title: "Chat",
+      send: "Send",
+      placeholder: "Type your message...",
+      initialBotMessage: "Hello! I am SeaBot, your AI assistant. How can I help you today?",
+      errorMessages: {
+        connection: "Sorry, I am having trouble connecting. Please try again later.",
+        micPermission: "Permission to access microphone is required!"
+      },
+      recording: {
+        start: "Start Recording",
+        stop: "Stop Recording"
+      }
+    },
+    es: {
+      title: "Chat",
+      send: "Send",
+      placeholder: "Type your message...",
+      initialBotMessage: "Hello! I am SeaBot, your AI assistant. How can I help you today?",
+      errorMessages: {
+        connection: "Sorry, I am having trouble connecting. Please try again later.",
+        micPermission: "Permission to access microphone is required!"
+      },
+      recording: {
+        start: "Start Recording",
+        stop: "Stop Recording"
+      }
+    }
+  },
+  LoginScreen: {
+    en: {
+      title: "Login",
+      welcome: "Welcome user!\nGlad to see you again!",
+      phoneNumber: {
+        label: "Phone Number",
+        placeholder: "Enter your phone number"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "Enter OTP",
+        sendButton: "Send OTP",
+        verifyButton: "Verify OTP",
+        sentSuccess: "OTP sent successfully",
+        verifyError: "Failed to verify OTP"
+      },
+      errors: {
+        general: "An unexpected error occurred. Please try again.",
+        sendOtp: "Failed to send OTP"
+      }
+    },
+    hi: {
+      title: "लॉगिन",
+      welcome: "स्वागत उपयोगकर्ता! आपको पुनः देखकर प्रसन्नता हुई!",
+      phoneNumber: {
+        label: "फ़ोन नंबर",
+        placeholder: "अपना फ़ोन नंबर दर्ज करें।"
+      },
+      otp: {
+        label: "ओटीपी",
+        placeholder: "ओटीपी दर्ज करें।",
+        sendButton: "OTP भेज दीजिए।",
+        verifyButton: "ओटीपी सत्यापित करें।",
+        sentSuccess: "OTP सफलतापूर्वक भेज दिया गया है।",
+        verifyError: "OTP सत्यापित करने में विफलता"
+      },
+      errors: {
+        general: "एक अप्रत्याशित त्रुटि हुई है। कृपया पुनः प्रयास करें।",
+        sendOtp: "OTP भेजने में विफल रही।"
+      }
+    },
+    ta: {
+      title: "உள்நுழைவு",
+      welcome: "வரவேற்கிறேன் பயனரே! மீண்டும் உங்களைப் பார்த்ததில் மகிழ்ச்சி!",
+      phoneNumber: {
+        label: "தொலைபேசி எண்",
+        placeholder: "உங்கள் தொலைபேசி எண்ணை உள்ளிடவும்."
+      },
+      otp: {
+        label: "OTP எண்",
+        placeholder: "OTP-ஐ உள்ளிடவும்.",
+        sendButton: "OTP அனுப்பவும்.",
+        verifyButton: "OTP சரிபார்க்கவும்.",
+        sentSuccess: "OTP அனுப்பிவிட்டது.",
+        verifyError: "OTP சரிபார்க்கத் தோல்வியுற்றது."
+      },
+      errors: {
+        general: "எதிர்பாராத ஒரு பிழை ஏற்பட்டது. மீண்டும் முயற்சி செய்யவும்.",
+        sendOtp: "OTP அனுப்பத் தோல்வியுற்றது."
+      }
+    },
+    te: {
+      title: "ప్రవేశం",
+      welcome: "స్వాగతం, వాడుకుని! మళ్ళీ మిమ్మల్ని చూసి చాలా సంతోషంగా ఉంది!",
+      phoneNumber: {
+        label: "ఫోన్ నంబరు",
+        placeholder: "మీ ఫోన్ నంబర్ ని ఎంటర్ చేయండి."
+      },
+      otp: {
+        label: "ఓటీపీ",
+        placeholder: "OTP ని ప్రవేశ పెట్టండి",
+        sendButton: "OTP పంపించండి.",
+        verifyButton: "OTP సరిచూసుకోవాలి.",
+        sentSuccess: "OTP పంపించబడింది.",
+        verifyError: "OTP ధృవీకరించడంలో విఫలమైంది."
+      },
+      errors: {
+        general: "ఒక ఊహించని దోషం సంభవించింది. దయచేసి మరలా ప్రయత్నించండి.",
+        sendOtp: "OTP పంపించడంలో విఫలమైంది."
+      }
+    },
+    ml: {
+      title: "ലോഗിന്‍ ചെയ്യല്",
+      welcome: "ഉപയോക്താവിനെ സ്വാഗതം ചെയ്യുന്നു! വീണ്ടും കണ്ടതിൽ സന്തോഷം!",
+      phoneNumber: {
+        label: "ഫോൺ നമ്പർ",
+        placeholder: "താങ്കളുടെ ഫോൺ നമ്പർ നൽകുക."
+      },
+      otp: {
+        label: "ഒ.ടി.പി.",
+        placeholder: "OTP നൽകുക",
+        sendButton: "OTP അയയ്ക്കുക",
+        verifyButton: "OTP പരിശോധിക്കണം",
+        sentSuccess: "OTP വിജയകരമായി അയച്ചിരിക്കുന്നു",
+        verifyError: "OTP പരിശോധിക്കുന്നതിൽ പരാജയപ്പെട്ടു."
+      },
+      errors: {
+        general: "ഒരു അപ്രതീക്ഷിത പിശക് സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+        sendOtp: "OTP അയയ്ക്കാൻ പരാജയപ്പെട്ടു."
+      }
+    },
+    bn: {
+      title: "লগইন",
+      welcome: "স্বাগত ব্যবহারকারী! আপনাকে আবার দেখে আনন্দিত!",
+      phoneNumber: {
+        label: "ফোন নম্বর",
+        placeholder: "আপনার ফোন নম্বরটি লিখুন।"
+      },
+      otp: {
+        label: "ওটিপি",
+        placeholder: "OTP প্রবেশ করান।",
+        sendButton: "OTP প্রেরণ করুন।",
+        verifyButton: "OTP যাচাই করুন।",
+        sentSuccess: "OTP সফলভাবে প্রেরণ করা হয়েছে।",
+        verifyError: "OTP যাচাইকরণ ব্যর্থ হয়েছে।"
+      },
+      errors: {
+        general: "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে পুনরায় চেষ্টা করুন।",
+        sendOtp: "OTP পাঠাতে ব্যর্থ।"
+      }
+    },
+    kn: {
+      title: "ಲಾಗಿನ್",
+      welcome: "ಸ್ವಾಗತ ಬಳಕೆದಾರರೇ! ಮತ್ತೆ ನಿಮ್ಮನ್ನು ನೋಡಿ ಸಂತೋಷವಾಯಿತು!",
+      phoneNumber: {
+        label: "ದೂರವಾಣಿ ಸಂಖ್ಯೆ",
+        placeholder: "ನಿಮ್ಮ ದೂರವಾಣಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ."
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "OTP ಯಲ್ಲಿ ನಮೂದಿಸಿ",
+        sendButton: "OTP ಕಳುಹಿಸು",
+        verifyButton: "OTP ದೃಢೀಕರಿಸಿ.",
+        sentSuccess: "OTP ಕಳುಹಿಸಲಾಗಿದೆ ಯಶಸ್ವಿಯಾಗಿ.",
+        verifyError: "OTP ಪರಿಶೀಲಿಸಲು ವಿಫಲವಾಗಿದೆ."
+      },
+      errors: {
+        general: "ಅನಿರೀಕ್ಷಿತ ದೋಷ ಸಂಭವಿಸಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+        sendOtp: "OTP ಕಳುಹಿಸಲು ವಿಫಲವಾಯಿತು."
+      }
+    },
+    gu: {
+      title: "પ્રવેશ",
+      welcome: "સ્વાગત વાચક! તમને ફરીથી જોઈને આનંદ થયો!",
+      phoneNumber: {
+        label: "ફોન નંબર",
+        placeholder: "તમારો ફોન નંબર દાખલ કરો."
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "OTP દાખલ કરો.",
+        sendButton: "OTP મોકલો.",
+        verifyButton: "OTP ચકાસો.",
+        sentSuccess: "OTP સફળતાપૂર્વક મોકલવામાં આવ્યો છે.",
+        verifyError: "OTP ચકાસવામાં નિષ્ફળતા."
+      },
+      errors: {
+        general: "એક અણધારી ભૂલ આવી. કૃપા કરીને ફરી પ્રયાસ કરો.",
+        sendOtp: "OTP મોકલવાનું નિષ્ફળ ગયું."
+      }
+    },
+    mr: {
+      title: "प्रवेश",
+      welcome: "स्वागत वापरकर्ता! पुन्हा भेटून आनंद झाला.",
+      phoneNumber: {
+        label: "दूरध्वनी क्रमांक",
+        placeholder: "तुमचा दूरध्वनी क्रमांक द्या."
+      },
+      otp: {
+        label: "ओटीपी",
+        placeholder: "OTP प्रविष्ट करा",
+        sendButton: "OTP पाठवा.",
+        verifyButton: "OTP तपासा.",
+        sentSuccess: "OTP यशस्वीरित्या पाठवण्यात आला आहे.",
+        verifyError: "OTP सत्यापित करण्यात अयशस्वी झाले."
+      },
+      errors: {
+        general: "एक अनपेक्षित त्रुटी आली आहे. कृपया पुन्हा प्रयत्न करा.",
+        sendOtp: "OTP पाठविण्यात अयशस्वी झाले."
+      }
+    },
+    or: {
+      title: "Login",
+      welcome: "Welcome user!\nGlad to see you again!",
+      phoneNumber: {
+        label: "Phone Number",
+        placeholder: "Enter your phone number"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "Enter OTP",
+        sendButton: "Send OTP",
+        verifyButton: "Verify OTP",
+        sentSuccess: "OTP sent successfully",
+        verifyError: "Failed to verify OTP"
+      },
+      errors: {
+        general: "An unexpected error occurred. Please try again.",
+        sendOtp: "Failed to send OTP"
+      }
+    },
+    as: {
+      title: "Login",
+      welcome: "Welcome user!\nGlad to see you again!",
+      phoneNumber: {
+        label: "Phone Number",
+        placeholder: "Enter your phone number"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "Enter OTP",
+        sendButton: "Send OTP",
+        verifyButton: "Verify OTP",
+        sentSuccess: "OTP sent successfully",
+        verifyError: "Failed to verify OTP"
+      },
+      errors: {
+        general: "An unexpected error occurred. Please try again.",
+        sendOtp: "Failed to send OTP"
+      }
+    },
+    pa: {
+      title: "ਲਾਗਇਨ",
+      welcome: "ਸੁਆਗਤ ਹੈ ਉਪਭੋਗਤਾ! ਤੁਹਾਨੂੰ ਦੁਬਾਰਾ ਮਿਲकर ਖੁਸ਼ੀ ਹੋਈ।",
+      phoneNumber: {
+        label: "ਫੋਨ ਨੰਬਰ",
+        placeholder: "ਆਪਣਾ ਫ਼ੋਨ ਨੰਬਰ ਦਰਜ ਕਰੋ।"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "OTP ਵਿੱਚ ਦਰਜ ਕਰੋ।",
+        sendButton: "OTP ਭੇਜੋ।",
+        verifyButton: "OTP ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ।",
+        sentSuccess: "OTP ਸਫਲਤਾਪੂਰਵਕ ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ।",
+        verifyError: "OTP ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਵਿੱਚ ਅਸਫਲਤਾ ਆਈ ਹੈ।"
+      },
+      errors: {
+        general: "ਇੱਕ ਅਣਕਿਆਸੀ ਗਲਤੀ ਆ ਗਈ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+        sendOtp: "OTP ਭੇਜਣ ਵਿੱਚ ਅਸਫਲਤਾ"
+      }
+    },
+    sd: {
+      title: "Login",
+      welcome: "Welcome user!\nGlad to see you again!",
+      phoneNumber: {
+        label: "Phone Number",
+        placeholder: "Enter your phone number"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "Enter OTP",
+        sendButton: "Send OTP",
+        verifyButton: "Verify OTP",
+        sentSuccess: "OTP sent successfully",
+        verifyError: "Failed to verify OTP"
+      },
+      errors: {
+        general: "An unexpected error occurred. Please try again.",
+        sendOtp: "Failed to send OTP"
+      }
+    },
+    kok: {
+      title: "Login",
+      welcome: "Welcome user!\nGlad to see you again!",
+      phoneNumber: {
+        label: "Phone Number",
+        placeholder: "Enter your phone number"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "Enter OTP",
+        sendButton: "Send OTP",
+        verifyButton: "Verify OTP",
+        sentSuccess: "OTP sent successfully",
+        verifyError: "Failed to verify OTP"
+      },
+      errors: {
+        general: "An unexpected error occurred. Please try again.",
+        sendOtp: "Failed to send OTP"
+      }
+    },
+    doi: {
+      title: "Login",
+      welcome: "Welcome user!\nGlad to see you again!",
+      phoneNumber: {
+        label: "Phone Number",
+        placeholder: "Enter your phone number"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "Enter OTP",
+        sendButton: "Send OTP",
+        verifyButton: "Verify OTP",
+        sentSuccess: "OTP sent successfully",
+        verifyError: "Failed to verify OTP"
+      },
+      errors: {
+        general: "An unexpected error occurred. Please try again.",
+        sendOtp: "Failed to send OTP"
+      }
+    },
+    fr: {
+      title: "Login",
+      welcome: "Welcome user!\nGlad to see you again!",
+      phoneNumber: {
+        label: "Phone Number",
+        placeholder: "Enter your phone number"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "Enter OTP",
+        sendButton: "Send OTP",
+        verifyButton: "Verify OTP",
+        sentSuccess: "OTP sent successfully",
+        verifyError: "Failed to verify OTP"
+      },
+      errors: {
+        general: "An unexpected error occurred. Please try again.",
+        sendOtp: "Failed to send OTP"
+      }
+    },
+    es: {
+      title: "Login",
+      welcome: "Welcome user!\nGlad to see you again!",
+      phoneNumber: {
+        label: "Phone Number",
+        placeholder: "Enter your phone number"
+      },
+      otp: {
+        label: "OTP",
+        placeholder: "Enter OTP",
+        sendButton: "Send OTP",
+        verifyButton: "Verify OTP",
+        sentSuccess: "OTP sent successfully",
+        verifyError: "Failed to verify OTP"
+      },
+      errors: {
+        general: "An unexpected error occurred. Please try again.",
+        sendOtp: "Failed to send OTP"
+      }
+    }
+  },
+  AboutScreen: {
+    en: {
+      title: "About",
+      version: "Version",
+      description: "SeaGuard is your maritime safety companion"
+    },
+    hi: {
+      title: "लगभग",
+      version: "संस्करण",
+      description: "सीगार्ड आपका समुद्री सुरक्षा साथी है।"
+    },
+    ta: {
+      title: "பற்றி",
+      version: "பதிப்பு",
+      description: "SeaGuard உங்கள் கடல்சார் பாதுகாப்பு கூட்டாளி."
+    },
+    te: {
+      title: "సుమారుగా",
+      version: "వెర్షన్",
+      description: "సీగార్డ్ మీ సముద్ర భద్రతా సహచరుడు."
+    },
+    ml: {
+      title: "ഏകദേശം",
+      version: "പതിപ്പ്",
+      description: "സീഗാർഡ് താങ്കളുടെ സമുദ്ര സുരക്ഷാ പങ്കാളിയാണ്."
+    },
+    bn: {
+      title: "প্রায়",
+      version: "সংস্করণ",
+      description: "সিগার্ড আপনার সামুদ্রিক নিরাপত্তা সঙ্গী।"
+    },
+    kn: {
+      title: "ಸುಮಾರು",
+      version: "ಆವೃತ್ತಿ",
+      description: "ಸೀಗಾರ್ಡ್ ನಿಮ್ಮ ಕಡಲ ಸುರಕ್ಷತಾ ಸಂಗಾತಿಯಾಗಿದ್ದಾರೆ."
+    },
+    gu: {
+      title: "આશરે",
+      version: "આવૃત્તિ",
+      description: "સીગાર્ડ આપનો દરિયાઈ સલામતી સાથી છે."
+    },
+    mr: {
+      title: "सुमारे",
+      version: "आवृत्ती",
+      description: "सीगार्ड हा तुमचा सागरी सुरक्षा सहकारी आहे."
+    },
+    or: {
+      title: "About",
+      version: "Version",
+      description: "SeaGuard is your maritime safety companion"
+    },
+    as: {
+      title: "About",
+      version: "Version",
+      description: "SeaGuard is your maritime safety companion"
+    },
+    pa: {
+      title: "ਲਗਭਗ",
+      version: "ਸੰਸਕਰਣ",
+      description: "SeaGuard ਤੁਹਾਡਾ ਸਮੁੰਦਰੀ ਸੁਰੱਖਿਆ ਸਾਥੀ ਹੈ।"
+    },
+    sd: {
+      title: "About",
+      version: "Version",
+      description: "SeaGuard is your maritime safety companion"
+    },
+    kok: {
+      title: "About",
+      version: "Version",
+      description: "SeaGuard is your maritime safety companion"
+    },
+    doi: {
+      title: "About",
+      version: "Version",
+      description: "SeaGuard is your maritime safety companion"
+    },
+    fr: {
+      title: "About",
+      version: "Version",
+      description: "SeaGuard is your maritime safety companion"
+    },
+    es: {
+      title: "About",
+      version: "Version",
+      description: "SeaGuard is your maritime safety companion"
+    }
+  },
+  BaitSelection: {
+    en: {
+      title: "Bait Selection",
+      selectPrompt: "Select your bait type"
+    },
+    hi: {
+      title: "बाइट",
+      selectPrompt: "आप किस प्रकार का भेषज चुनना चाहते हैं?"
+    },
+    ta: {
+      title: "பந்த்",
+      selectPrompt: "உங்களுக்கு எந்த வகை இரையை பிடிக்கும் என்பதைத் தேர்ந்தெடுக்கவும்."
+    },
+    te: {
+      title: "పోటీ",
+      selectPrompt: "మీ లాలిత్యపు రకాన్ని ఎంచుకోండి."
+    },
+    ml: {
+      title: "നറുക്കെടുപ്പ്",
+      selectPrompt: "നിങ്ങളുടെ പ്രലോഭനത്തിന്റെ തരം തിരഞ്ഞെടുക്കുക."
+    },
+    bn: {
+      title: "নির্বাচন",
+      selectPrompt: "আপনার প্রলোভনের ধরন নির্বাচন করুন।"
+    },
+    kn: {
+      title: "ಹರಾಜು",
+      selectPrompt: "ನಿಮ್ಮ ಬಲೆಯ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ."
+    },
+    gu: {
+      title: "બાઈટ",
+      selectPrompt: "તમે કયા પ્રકારનું માછલાં પકડવાનું સાધન પસંદ કરશો?"
+    },
+    mr: {
+      title: "बैट चयन",
+      selectPrompt: "तुम्ही तुमचे भक्ष प्रकार निवडा."
+    },
+    or: {
+      title: "Bait Selection",
+      selectPrompt: "Select your bait type"
+    },
+    as: {
+      title: "Bait Selection",
+      selectPrompt: "Select your bait type"
+    },
+    pa: {
+      title: "ਚੋਣ",
+      selectPrompt: "ਤੁਸੀਂ ਆਪਣਾ ਲਾਰਾ ਕਿਸ ਪ੍ਰਕਾਰ ਦਾ ਚੁਣੋ।"
+    },
+    sd: {
+      title: "Bait Selection",
+      selectPrompt: "Select your bait type"
+    },
+    kok: {
+      title: "Bait Selection",
+      selectPrompt: "Select your bait type"
+    },
+    doi: {
+      title: "Bait Selection",
+      selectPrompt: "Select your bait type"
+    },
+    fr: {
+      title: "Bait Selection",
+      selectPrompt: "Select your bait type"
+    },
+    es: {
+      title: "Bait Selection",
+      selectPrompt: "Select your bait type"
+    }
+  },
+  CatchRecordScreen: {
+    en: {
+      title: "Catch Record",
+      addNew: "Add New Catch",
+      history: "Catch History"
+    },
+    hi: {
+      title: "कैच",
+      addNew: "नया कैच जोड़ें",
+      history: "इतिहास"
+    },
+    ta: {
+      title: "பதிவு",
+      addNew: "புதிய வசனத்தைச் சேர்க்கவும்",
+      history: "வரலாறு"
+    },
+    te: {
+      title: "రికార్డవుతున్న",
+      addNew: "కొత్త ఉల్లేఖనం జోడించండి",
+      history: "చరిత్ర"
+    },
+    ml: {
+      title: "റെക്കോഡ്",
+      addNew: "പുതിയ പിടക്ക്",
+      history: "ചരിത്രം"
+    },
+    bn: {
+      title: "ক্যাচ",
+      addNew: "নতুন ক্যাচ যোগ করুন।",
+      history: "ইতিহাস"
+    },
+    kn: {
+      title: "ದಾಖಲೆಯ",
+      addNew: "ಹೊಸ ಸಾಲು ಸೇರಿಸಿ.",
+      history: "ಇತಿಹಾಸ"
+    },
+    gu: {
+      title: "રેકોર્ડ",
+      addNew: "નવો કૉટિન્‍ડ કરો.",
+      history: "ઇતિહાસ"
+    },
+    mr: {
+      title: "रेकॉर्ड",
+      addNew: "नवीन ओळी",
+      history: "इतिहास"
+    },
+    or: {
+      title: "Catch Record",
+      addNew: "Add New Catch",
+      history: "Catch History"
+    },
+    as: {
+      title: "Catch Record",
+      addNew: "Add New Catch",
+      history: "Catch History"
+    },
+    pa: {
+      title: "ਰਿਕਾਰਡ",
+      addNew: "ਨਵਾਂ ਕੈਚ ਸ਼ਾਮਲ ਕਰੋ।",
+      history: "ਇਤਿਹਾਸ"
+    },
+    sd: {
+      title: "Catch Record",
+      addNew: "Add New Catch",
+      history: "Catch History"
+    },
+    kok: {
+      title: "Catch Record",
+      addNew: "Add New Catch",
+      history: "Catch History"
+    },
+    doi: {
+      title: "Catch Record",
+      addNew: "Add New Catch",
+      history: "Catch History"
+    },
+    fr: {
+      title: "Catch Record",
+      addNew: "Add New Catch",
+      history: "Catch History"
+    },
+    es: {
+      title: "Catch Record",
+      addNew: "Add New Catch",
+      history: "Catch History"
+    }
+  },
+  CompassScreen: {
+    en: {
+      title: "Compass",
+      north: "N",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    hi: {
+      title: "कंपास",
+      north: "पाठ",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    ta: {
+      title: "திசைகாட்டி",
+      north: "சங்ரீகந்தா",
+      south: "S",
+      east: "S",
+      west: "W"
+    },
+    te: {
+      title: "దిక్సూచి",
+      north: "టెక్స్ట్",
+      south: "S",
+      east: "ఈ",
+      west: "W"
+    },
+    ml: {
+      title: "ദിശാസൂചിക",
+      north: "പാഠം",
+      south: "S",
+      east: "ഇംഗ്ലിഷ്",
+      west: "W"
+    },
+    bn: {
+      title: "চৌম্বকী",
+      north: "টেক্সট",
+      south: "S",
+      east: "পাঠ্য",
+      west: "ডাব্লু"
+    },
+    kn: {
+      title: "ದಿಕ್ಸೂಚಿ",
+      north: "ಪಠ್ಯ:",
+      south: "S",
+      east: "E",
+      west: "ಪಶ್ಚಿಮ"
+    },
+    gu: {
+      title: "કંપાસ",
+      north: "લખાણ",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    mr: {
+      title: "दिशादर्शक",
+      north: "मजकूर",
+      south: "S",
+      east: "मजकूर",
+      west: "W"
+    },
+    or: {
+      title: "Compass",
+      north: "N",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    as: {
+      title: "Compass",
+      north: "N",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    pa: {
+      title: "ਕੰਪਾਸ",
+      north: "ਟੈਕਸਟ:",
+      south: "S",
+      east: "ਪਾਠ",
+      west: "W"
+    },
+    sd: {
+      title: "Compass",
+      north: "N",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    kok: {
+      title: "Compass",
+      north: "N",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    doi: {
+      title: "Compass",
+      north: "N",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    fr: {
+      title: "Compass",
+      north: "N",
+      south: "S",
+      east: "E",
+      west: "W"
+    },
+    es: {
+      title: "Compass",
+      north: "N",
+      south: "S",
+      east: "E",
+      west: "W"
+    }
+  },
+  DisasterAlertScreen: {
+    en: {
+      title: "Disaster Alerts",
+      noAlerts: "No active alerts",
+      checkStatus: "Check Alert Status"
+    },
+    hi: {
+      title: "आपदा सूचना",
+      noAlerts: "कोई सक्रिय चेतावनी नहीं है।",
+      checkStatus: "चेतावनी की स्थिति की जाँच करें"
+    },
+    ta: {
+      title: "எச்சரிக்கைகள்",
+      noAlerts: "எந்த எச்சரிக்கையும் இல்லை.",
+      checkStatus: "எச்சரிக்கை நிலையை சரிபார்க்கவும்"
+    },
+    te: {
+      title: "విపత్తు హెచ్చరికలు",
+      noAlerts: "క్రియాశీల హెచ్చరికలు లేవు.",
+      checkStatus: "హెచ్చరిక స్థితిని పరిశీలించండి."
+    },
+    ml: {
+      title: "ദുരന്ത സൂചനകൾ",
+      noAlerts: "സജീവമായ മുന്നറിയിപ്പുകളില്ല",
+      checkStatus: "മുന്നറിയിപ്പിന്റെ അവസ്ഥ പരിശോധിക്കുക."
+    },
+    bn: {
+      title: "বিপর্যয় সতর্কতা",
+      noAlerts: "কোন সক্রিয় সতর্কতা নেই।",
+      checkStatus: "সতর্কতার অবস্থা পরীক্ষা করুন।"
+    },
+    kn: {
+      title: "ವಿಪತ್ತು ಎಚ್ಚರಿಕೆ",
+      noAlerts: "ಯಾವುದೇ ಸಕ್ರಿಯ ಎಚ್ಚರಿಕೆಗಳಿಲ್ಲ.",
+      checkStatus: "ಎಚ್ಚರಿಕೆಯ ಸ್ಥಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ."
+    },
+    gu: {
+      title: "આપાતકાલીન સૂચના",
+      noAlerts: "કોઈ સક્રિય ચેતવણીઓ નથી.",
+      checkStatus: "ચેતવણીની સ્થિતિ તપાસો"
+    },
+    mr: {
+      title: "आपत्कालीन सूचना",
+      noAlerts: "कोणतेही सक्रिय चेतावणी नाहीत.",
+      checkStatus: "अलर्टची स्थिती तपासा"
+    },
+    or: {
+      title: "Disaster Alerts",
+      noAlerts: "No active alerts",
+      checkStatus: "Check Alert Status"
+    },
+    as: {
+      title: "Disaster Alerts",
+      noAlerts: "No active alerts",
+      checkStatus: "Check Alert Status"
+    },
+    pa: {
+      title: "ਅਲਰਟ",
+      noAlerts: "ਕੋਈ ਸਰਗਰਮ ਚੇਤਾਵਨੀ ਨਹੀਂ ਹੈ।",
+      checkStatus: "ਚੇਤਾਵਨੀ ਦੀ ਸਥਿਤੀ ਦੀ ਜਾਂਚ ਕਰੋ।"
+    },
+    sd: {
+      title: "Disaster Alerts",
+      noAlerts: "No active alerts",
+      checkStatus: "Check Alert Status"
+    },
+    kok: {
+      title: "Disaster Alerts",
+      noAlerts: "No active alerts",
+      checkStatus: "Check Alert Status"
+    },
+    doi: {
+      title: "Disaster Alerts",
+      noAlerts: "No active alerts",
+      checkStatus: "Check Alert Status"
+    },
+    fr: {
+      title: "Disaster Alerts",
+      noAlerts: "No active alerts",
+      checkStatus: "Check Alert Status"
+    },
+    es: {
+      title: "Disaster Alerts",
+      noAlerts: "No active alerts",
+      checkStatus: "Check Alert Status"
+    }
+  },
+  EditProfileScreen: {
+    en: {
+      title: "Edit Profile",
+      save: "Save Changes",
+      cancel: "Cancel",
+      fields: {
+        name: "Name",
+        phone: "Phone Number",
+        vessel: "Vessel Name"
+      }
+    },
+    hi: {
+      title: "प्रोफ़ाइल संपादित करें",
+      save: "परिवर्तन सहेजें",
+      cancel: "रद्द",
+      fields: {
+        name: "नाम",
+        phone: "फ़ोन नंबर",
+        vessel: "पोत का नाम"
+      }
+    },
+    ta: {
+      title: "சுயவிவரத்தைப் புதுப்பிக்கவும்",
+      save: "மாற்றங்களைச் சேமிக்கவும்",
+      cancel: "ரத்து",
+      fields: {
+        name: "பெயர்",
+        phone: "தொலைபேசி எண்",
+        vessel: "கப்பல் பெயர்"
+      }
+    },
+    te: {
+      title: "ప్రొఫైల్ సవరించు",
+      save: "మార్పులు భద్రపరచండి",
+      cancel: "రద్దు",
+      fields: {
+        name: "పేరు",
+        phone: "ఫోన్ నంబరు",
+        vessel: "నౌక పేరు"
+      }
+    },
+    ml: {
+      title: "പ്രൊഫൈൽ എഡിറ്റ് ചെയ്യുക",
+      save: "മാറ്റങ്ങൾ സംഭിക്കുക",
+      cancel: "ഉപേക്ഷിക്കുക",
+      fields: {
+        name: "പേര്",
+        phone: "ഫോൺ നമ്പർ",
+        vessel: "കപ്പല് നാമം"
+      }
+    },
+    bn: {
+      title: "প্রোফাইল সম্পাদনা করুন",
+      save: "পরিবর্তনগুলি সংরক্ষণ করুন",
+      cancel: "বাতিল",
+      fields: {
+        name: "নাম",
+        phone: "ফোন নম্বর",
+        vessel: "জাহাজ নাম"
+      }
+    },
+    kn: {
+      title: "ಪ್ರೊಫೈಲ್‌ಅನ್ನು ಸಂಪಾದಿಸಿ",
+      save: "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ",
+      cancel: "ರದ್ದುಗೊಳಿಸು",
+      fields: {
+        name: "ಹೆಸರು",
+        phone: "ದೂರವಾಣಿ ಸಂಖ್ಯೆ",
+        vessel: "ಹಡಗು ಹೆಸರು"
+      }
+    },
+    gu: {
+      title: "પ્રોફાઇલ સંપાદિત કરો",
+      save: "ફેરફારો સાચાવો.",
+      cancel: "રદ",
+      fields: {
+        name: "નામ",
+        phone: "ફોન નંબર",
+        vessel: "બોટનું નામ"
+      }
+    },
+    mr: {
+      title: "प्रोफाइल संपादित करा",
+      save: "बदल जतन करा",
+      cancel: "नाकारणे",
+      fields: {
+        name: "नाव",
+        phone: "दूरध्वनी क्रमांक",
+        vessel: "जहाज नाव"
+      }
+    },
+    or: {
+      title: "Edit Profile",
+      save: "Save Changes",
+      cancel: "Cancel",
+      fields: {
+        name: "Name",
+        phone: "Phone Number",
+        vessel: "Vessel Name"
+      }
+    },
+    as: {
+      title: "Edit Profile",
+      save: "Save Changes",
+      cancel: "Cancel",
+      fields: {
+        name: "Name",
+        phone: "Phone Number",
+        vessel: "Vessel Name"
+      }
+    },
+    pa: {
+      title: "ਪ੍ਰੋਫਾਈਲ ਸੰਪਾਦਿਤ ਕਰੋ",
+      save: "ਤਬਦੀਲੀਆਂ ਸੰਭਾਲੋ।",
+      cancel: "ਰੱਦ",
+      fields: {
+        name: "ਨਾਮ",
+        phone: "ਫੋਨ ਨੰਬਰ",
+        vessel: "ਜਹਾਜ਼"
+      }
+    },
+    sd: {
+      title: "Edit Profile",
+      save: "Save Changes",
+      cancel: "Cancel",
+      fields: {
+        name: "Name",
+        phone: "Phone Number",
+        vessel: "Vessel Name"
+      }
+    },
+    kok: {
+      title: "Edit Profile",
+      save: "Save Changes",
+      cancel: "Cancel",
+      fields: {
+        name: "Name",
+        phone: "Phone Number",
+        vessel: "Vessel Name"
+      }
+    },
+    doi: {
+      title: "Edit Profile",
+      save: "Save Changes",
+      cancel: "Cancel",
+      fields: {
+        name: "Name",
+        phone: "Phone Number",
+        vessel: "Vessel Name"
+      }
+    },
+    fr: {
+      title: "Edit Profile",
+      save: "Save Changes",
+      cancel: "Cancel",
+      fields: {
+        name: "Name",
+        phone: "Phone Number",
+        vessel: "Vessel Name"
+      }
+    },
+    es: {
+      title: "Edit Profile",
+      save: "Save Changes",
+      cancel: "Cancel",
+      fields: {
+        name: "Name",
+        phone: "Phone Number",
+        vessel: "Vessel Name"
+      }
+    }
+  },
+  FeaturesScreen: {
+    en: {
+      title: "Features",
+      availableFeatures: "Available Features"
+    },
+    hi: {
+      title: "विशेषताएँ",
+      availableFeatures: "उपलब्ध सुविधाएँ"
+    },
+    ta: {
+      title: "சிறப்பம்சங்கள்",
+      availableFeatures: "கிடைக்கக்கூடிய அம்சங்கள்"
+    },
+    te: {
+      title: "విశేషతలు",
+      availableFeatures: "లభ్యమయ్యే లక్షణాలు"
+    },
+    ml: {
+      title: "സവിശേഷതകള്‍",
+      availableFeatures: "ലഭ്യമാകുന്ന സവിശേഷതകള്‍"
+    },
+    bn: {
+      title: "বৈশিষ্ট্য",
+      availableFeatures: "উপলব্ধ বৈশিষ্ট্য"
+    },
+    kn: {
+      title: "ವೈಶಿಷ್ಟ್ಯ",
+      availableFeatures: "ಲಭ್ಯವಿರುವ ವೈಶಿಷ್ಟ್ಯಗಳು"
+    },
+    gu: {
+      title: "લક્ષણ",
+      availableFeatures: "ઉપલબ્ધ સુવિધાઓ"
+    },
+    mr: {
+      title: "वैशिष्ट्ये",
+      availableFeatures: "उपलब्ध वैशिष्ट्ये"
+    },
+    or: {
+      title: "Features",
+      availableFeatures: "Available Features"
+    },
+    as: {
+      title: "Features",
+      availableFeatures: "Available Features"
+    },
+    pa: {
+      title: "ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ",
+      availableFeatures: "ਉਪਲਭਧ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ"
+    },
+    sd: {
+      title: "Features",
+      availableFeatures: "Available Features"
+    },
+    kok: {
+      title: "Features",
+      availableFeatures: "Available Features"
+    },
+    doi: {
+      title: "Features",
+      availableFeatures: "Available Features"
+    },
+    fr: {
+      title: "Features",
+      availableFeatures: "Available Features"
+    },
+    es: {
+      title: "Features",
+      availableFeatures: "Available Features"
+    }
+  },
+  FishingGears: {
+    en: {
+      title: "Fishing Gears",
+      selectGear: "Select Gear Type"
+    },
+    hi: {
+      title: "मछली पकड़ने के उपकरण",
+      selectGear: "उपकरण प्रकार चुनें"
+    },
+    ta: {
+      title: "மீன்பிடி உபகரணங்கள்",
+      selectGear: "கருவி வகையைத் தேர்ந்தெடுக்கவும்"
+    },
+    te: {
+      title: "చేపల వేట పరికరాలు",
+      selectGear: "పరికర రకాన్ని ఎంచుకోండి"
+    },
+    ml: {
+      title: "മത്സ്യബന്ധനത്തിനുള്ള ഉപകരണങ്ങൾ",
+      selectGear: "ഉപകരണ തരം തിരഞ്ഞെടുക്കുക"
+    },
+    bn: {
+      title: "মাছ ধরার সরঞ্জাম",
+      selectGear: "যন্ত্রের প্রকার নির্বাচন করুন।"
+    },
+    kn: {
+      title: "ಮೀನು ಹಿಡಿಯುವ ಸಲಕರಣೆಗಳು",
+      selectGear: "ಗೇರ್ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
+    },
+    gu: {
+      title: "માછીમારીનાં સાધનો",
+      selectGear: "ગિયર પ્રકાર પસંદ કરો."
+    },
+    mr: {
+      title: "मासेमारीची साधने",
+      selectGear: "उपकरण प्रकार निवडा"
+    },
+    or: {
+      title: "Fishing Gears",
+      selectGear: "Select Gear Type"
+    },
+    as: {
+      title: "Fishing Gears",
+      selectGear: "Select Gear Type"
+    },
+    pa: {
+      title: "ਮੱਛੀ ਫੜਨ ਦੇ ਸਾਧਨ",
+      selectGear: "ਗੀਅਰ ਕਿਸਮ ਚੁਣੋ।"
+    },
+    sd: {
+      title: "Fishing Gears",
+      selectGear: "Select Gear Type"
+    },
+    kok: {
+      title: "Fishing Gears",
+      selectGear: "Select Gear Type"
+    },
+    doi: {
+      title: "Fishing Gears",
+      selectGear: "Select Gear Type"
+    },
+    fr: {
+      title: "Fishing Gears",
+      selectGear: "Select Gear Type"
+    },
+    es: {
+      title: "Fishing Gears",
+      selectGear: "Select Gear Type"
+    }
+  },
+  GpsNavigationScreen: {
+    en: {
+      title: "GPS Navigation",
+      startNavigation: "Start Navigation",
+      endNavigation: "End Navigation",
+      recenter: "Recenter Map"
+    },
+    hi: {
+      title: "जीपीएस नेविगेशन",
+      startNavigation: "आरंभ करें नेविगेशन",
+      endNavigation: "अंतिम नेविगेशन",
+      recenter: "केंद्रित मानचित्र"
+    },
+    ta: {
+      title: "ஜி.பி.எஸ். வழிசெலுத்துதல்",
+      startNavigation: "தொடங்குதல்",
+      endNavigation: "முடிவுப் பயணம்",
+      recenter: "மைய வரைபடம்"
+    },
+    te: {
+      title: "నావిగేషన్",
+      startNavigation: "నడవడం ప్రారంభం",
+      endNavigation: "గమనం",
+      recenter: "కేంద్రీకృతమైన మ్యాప్"
+    },
+    ml: {
+      title: "ജിപിഎസ് നാവിഗേഷന്‍",
+      startNavigation: "നാവിഗേഷന്‍ ആരംഭിക്കുക",
+      endNavigation: "അവസാനനടപടി",
+      recenter: "മധ്യബിന്ദു"
+    },
+    bn: {
+      title: "জিপিএস নেভিগেশন",
+      startNavigation: "চালনা",
+      endNavigation: "শেষ ভ্রমণ",
+      recenter: "কেন্দ্রবিন্দু মানচিত্র"
+    },
+    kn: {
+      title: "ನ್ಯಾವಿಗೇಷನ್",
+      startNavigation: "ಆರಂಭಿಸಿ ನ್ಯಾವಿಗೇಷನ್",
+      endNavigation: "ಅಂತ್ಯ ಸಂಚಾರ",
+      recenter: "ಮಧ್ಯದ ನಕ್ಷೆ"
+    },
+    gu: {
+      title: "જી. પી. એસ.",
+      startNavigation: "આરંભ કરો નેવિગેશન",
+      endNavigation: "અંતિમ નેવિગેશન",
+      recenter: "કેન્દ્રિય નકશો"
+    },
+    mr: {
+      title: "जीपीएस नेव्हिगेशन",
+      startNavigation: "प्रारंभ नेव्हिगेशन",
+      endNavigation: "अंतिम यात्रा",
+      recenter: "केंद्रबिंदू नकाशा"
+    },
+    or: {
+      title: "GPS Navigation",
+      startNavigation: "Start Navigation",
+      endNavigation: "End Navigation",
+      recenter: "Recenter Map"
+    },
+    as: {
+      title: "GPS Navigation",
+      startNavigation: "Start Navigation",
+      endNavigation: "End Navigation",
+      recenter: "Recenter Map"
+    },
+    pa: {
+      title: "ਜੀਪੀਐੱਸ ਮਾਰਗ-ਨਿਰਦੇਸ਼",
+      startNavigation: "ਆਰੰਭੀ ਖੋਜ",
+      endNavigation: "ਅੰਤ",
+      recenter: "ਕੇਂਦਰਿਤ ਨਕਸ਼ਾ"
+    },
+    sd: {
+      title: "GPS Navigation",
+      startNavigation: "Start Navigation",
+      endNavigation: "End Navigation",
+      recenter: "Recenter Map"
+    },
+    kok: {
+      title: "GPS Navigation",
+      startNavigation: "Start Navigation",
+      endNavigation: "End Navigation",
+      recenter: "Recenter Map"
+    },
+    doi: {
+      title: "GPS Navigation",
+      startNavigation: "Start Navigation",
+      endNavigation: "End Navigation",
+      recenter: "Recenter Map"
+    },
+    fr: {
+      title: "GPS Navigation",
+      startNavigation: "Start Navigation",
+      endNavigation: "End Navigation",
+      recenter: "Recenter Map"
+    },
+    es: {
+      title: "GPS Navigation",
+      startNavigation: "Start Navigation",
+      endNavigation: "End Navigation",
+      recenter: "Recenter Map"
+    }
+  },
+  HeatmapScreen: {
+    en: {
+      title: "Fishing Heatmap",
+      legend: "Activity Intensity",
+      timeRange: "Select Time Range"
+    },
+    hi: {
+      title: "मछली पकड़ने का तापचित्र",
+      legend: "गतिविधि तीव्रता",
+      timeRange: "समय श्रेणी चुनें।"
+    },
+    ta: {
+      title: "மீன்பிடி வெப்ப வரைபடம்",
+      legend: "செயல் தீவிரம்",
+      timeRange: "நேர வரம்பைத் தேர்ந்தெடுக்கவும்."
+    },
+    te: {
+      title: "చేపలు పట్టే హీట్ మ్యాప్",
+      legend: "క్రియాశక్తి",
+      timeRange: "సమయ శ్రేణిని ఎంచుకోండి"
+    },
+    ml: {
+      title: "മത്സ്യബന്ധന താപചിത്രം",
+      legend: "പ്രവര്ത്തനക്ഷമത",
+      timeRange: "സമയപരിധി തിരഞ്ഞെടുക്കുക"
+    },
+    bn: {
+      title: "মাছ ধরার তাপমানচিত্র",
+      legend: "কার্যকলাপের তীব্রতা",
+      timeRange: "সময় পরিসীমা নির্বাচন করুন।"
+    },
+    kn: {
+      title: "ಮೀನು ಹಿಡಿಯುವ ನಕ್ಷೆ",
+      legend: "ಚಟುವಟಿಕೆಯ ತೀವ್ರತೆ",
+      timeRange: "ಸಮಯ ಶ್ರೇಣಿಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
+    },
+    gu: {
+      title: "માછીમારી હીટમેપ",
+      legend: "પ્રવૃત્તિની તીવ્રતા",
+      timeRange: "સમય શ્રેણી પસંદ કરો."
+    },
+    mr: {
+      title: "मासेमारी उष्णतामापी",
+      legend: "क्रियामान",
+      timeRange: "वेळ श्रेणी निवडा"
+    },
+    or: {
+      title: "Fishing Heatmap",
+      legend: "Activity Intensity",
+      timeRange: "Select Time Range"
+    },
+    as: {
+      title: "Fishing Heatmap",
+      legend: "Activity Intensity",
+      timeRange: "Select Time Range"
+    },
+    pa: {
+      title: "ਮੱਛੀ ਗਰਮੀਮਾਨ",
+      legend: "ਗਤੀਵਿਧੀ ਦੀ ਤੀਬਰਤਾ",
+      timeRange: "ਸਮਾਂ ਸੀਮਾ ਚੁਣੋ।"
+    },
+    sd: {
+      title: "Fishing Heatmap",
+      legend: "Activity Intensity",
+      timeRange: "Select Time Range"
+    },
+    kok: {
+      title: "Fishing Heatmap",
+      legend: "Activity Intensity",
+      timeRange: "Select Time Range"
+    },
+    doi: {
+      title: "Fishing Heatmap",
+      legend: "Activity Intensity",
+      timeRange: "Select Time Range"
+    },
+    fr: {
+      title: "Fishing Heatmap",
+      legend: "Activity Intensity",
+      timeRange: "Select Time Range"
+    },
+    es: {
+      title: "Fishing Heatmap",
+      legend: "Activity Intensity",
+      timeRange: "Select Time Range"
+    }
+  },
+  NewsScreen: {
+    en: {
+      title: "News",
+      latestNews: "Latest News",
+      readMore: "Read More"
+    },
+    hi: {
+      title: "समाचार",
+      latestNews: "नवीनतम समाचार",
+      readMore: "अधिक पढ़ें"
+    },
+    ta: {
+      title: "செய்தி",
+      latestNews: "புதிய செய்திகள்",
+      readMore: "படித்தல்"
+    },
+    te: {
+      title: "వార్తలు",
+      latestNews: "తాజా వార్తలు",
+      readMore: "మరింత చదవండి"
+    },
+    ml: {
+      title: "വാർത്ത",
+      latestNews: "ഏറ്റവും പുതിയ വാർത്തകൾ",
+      readMore: "കൂടുതൽ വായിക്കുക"
+    },
+    bn: {
+      title: "সংবাদ",
+      latestNews: "সর্বশেষ সংবাদ",
+      readMore: "আরও পড়ুন"
+    },
+    kn: {
+      title: "ಸುದ್ದಿ",
+      latestNews: "ಹೊಸ ಸುದ್ದಿಗಳು",
+      readMore: "ಹೆಚ್ಚಿನ ಮಾಹಿತಿ"
+    },
+    gu: {
+      title: "સમાચાર",
+      latestNews: "નવીનતમ સમાચાર",
+      readMore: "વધુ વાંચો"
+    },
+    mr: {
+      title: "बातमी",
+      latestNews: "नवीनतम समाचार",
+      readMore: "अधिक वाचा"
+    },
+    or: {
+      title: "News",
+      latestNews: "Latest News",
+      readMore: "Read More"
+    },
+    as: {
+      title: "News",
+      latestNews: "Latest News",
+      readMore: "Read More"
+    },
+    pa: {
+      title: "ਸਮਾਚਾਰ",
+      latestNews: "ਤਾਜ਼ਾ ਸਮਾਚਾਰ",
+      readMore: "ਹੋਰ ਪੜ੍ਹੋ"
+    },
+    sd: {
+      title: "News",
+      latestNews: "Latest News",
+      readMore: "Read More"
+    },
+    kok: {
+      title: "News",
+      latestNews: "Latest News",
+      readMore: "Read More"
+    },
+    doi: {
+      title: "News",
+      latestNews: "Latest News",
+      readMore: "Read More"
+    },
+    fr: {
+      title: "News",
+      latestNews: "Latest News",
+      readMore: "Read More"
+    },
+    es: {
+      title: "News",
+      latestNews: "Latest News",
+      readMore: "Read More"
+    }
+  },
+  NoFishingZoneScreen: {
+    en: {
+      title: "No Fishing Zones",
+      warning: "Warning: You are approaching a no-fishing zone",
+      distance: "Distance to zone boundary"
+    },
+    hi: {
+      title: "कोई मछली पकड़ने का क्षेत्र नहीं",
+      warning: "चेतावनी: आप एक मछली पकड़ने की अनुमति न होने वाले क्षेत्र के निकट पहुँच रहे हैं",
+      distance: "क्षेत्र सीमा तक की दूरी"
+    },
+    ta: {
+      title: "மீன்பிடி மண்டலங்கள் இல்லை.",
+      warning: "எச்சரிக்கை: நீங்கள் மீன்பிடிக்க அனுமதிக்கப்படாத பகுதிக்கு அருகில் செல்கிறீர்கள்.",
+      distance: "மண்டல எல்லையை நோக்கி செல்லும் தூரம்"
+    },
+    te: {
+      title: "చేపల వేటకు అనువైన ప్రాంతాలు లేవు",
+      warning: "హెచ్చరిక: మీరు చేపలు పట్టకూడని ప్రాంతానికి చేరుకుంటున్నారు",
+      distance: "మండల సరిహద్దుకు దూరం"
+    },
+    ml: {
+      title: "മത്സ്യബന്ധന മേഖലകളില്ല",
+      warning: "മുന്നറിയിപ്പ്: നിങ്ങൾ ഒരു മത്സ്യബന്ധന മേഖലയിലേക്ക് പ്രവേശിക്കുകയാണ്",
+      distance: "മേഖലയുടെ അതിരിലേക്കുള്ള ദൂരം"
+    },
+    bn: {
+      title: "মাছ ধরার জায়গা নেই",
+      warning: "সতর্কতা: আপনি একটি মাছ ধরার জায়গায় যাচ্ছেন যেখানে মাছ ধরা নিষিদ্ধ।",
+      distance: "অঞ্চল সীমানার দূরত্ব"
+    },
+    kn: {
+      title: "ಮೀನು ಹಿಡಿಯುವ ವಲಯಗಳಿಲ್ಲ",
+      warning: "ಎಚ್ಚರಿಕೆ: ನೀವು ಮೀನು ಹಿಡಿಯುವಂತಿಲ್ಲದ ವಲಯವನ್ನು ಸಮೀಪಿಸುತ್ತಿದ್ದೀರಿ.",
+      distance: "ವಲಯದ ಗಡಿ ದೂರ"
+    },
+    gu: {
+      title: "કોઈ માછીમારી ક્ષેત્ર નથી",
+      warning: "ચેતવણી: તમે નો-ફિશિંગ ઝોન તરફ જઈ રહ્યા છો.",
+      distance: "ક્ષેત્રની સીમા સુધીનું અંતર"
+    },
+    mr: {
+      title: "मत्स्यक्षेत्र नाही",
+      warning: "सावधगिरी: तुम्ही मच्छीमारी न होण्याच्या क्षेत्राच्या जवळ येत आहात.",
+      distance: "क्षेत्राच्या सीमेपर्यंतचे अंतर"
+    },
+    or: {
+      title: "No Fishing Zones",
+      warning: "Warning: You are approaching a no-fishing zone",
+      distance: "Distance to zone boundary"
+    },
+    as: {
+      title: "No Fishing Zones",
+      warning: "Warning: You are approaching a no-fishing zone",
+      distance: "Distance to zone boundary"
+    },
+    pa: {
+      title: "ਕੋਈ ਮੱਛੀ ਫੜਨ ਵਾਲਾ ਖੇਤਰ ਨਹੀਂ",
+      warning: "ਚੇਤਾਵਨੀ: ਤੁਸੀਂ ਇੱਕ ਖ਼ਾਲੀ ਮੱਛੀ ਫੜਨ ਵਾਲੇ ਖੇਤਰ ਦੇ ਨੇੜੇ ਪਹੁੰਚ ਰਹੇ ਹੋ।",
+      distance: "ਖੇਤਰ ਸੀਮਾ ਤੱਕ ਦੂਰੀ"
+    },
+    sd: {
+      title: "No Fishing Zones",
+      warning: "Warning: You are approaching a no-fishing zone",
+      distance: "Distance to zone boundary"
+    },
+    kok: {
+      title: "No Fishing Zones",
+      warning: "Warning: You are approaching a no-fishing zone",
+      distance: "Distance to zone boundary"
+    },
+    doi: {
+      title: "No Fishing Zones",
+      warning: "Warning: You are approaching a no-fishing zone",
+      distance: "Distance to zone boundary"
+    },
+    fr: {
+      title: "No Fishing Zones",
+      warning: "Warning: You are approaching a no-fishing zone",
+      distance: "Distance to zone boundary"
+    },
+    es: {
+      title: "No Fishing Zones",
+      warning: "Warning: You are approaching a no-fishing zone",
+      distance: "Distance to zone boundary"
+    }
+  },
+  SOSScreen: {
+    en: {
+      title: "Emergency SOS",
+      sendSOS: "Send SOS Signal",
+      emergency: "EMERGENCY",
+      cancelSOS: "Cancel SOS",
+      help: "Help is on the way"
+    },
+    hi: {
+      title: "आपातकालीन एस.ओ.एस.",
+      sendSOS: "एस.ओ.एस. संकेत भेजें",
+      emergency: "आपातकाल",
+      cancelSOS: "रद्द करें",
+      help: "सहायता आ रही है"
+    },
+    ta: {
+      title: "அவசர அழைப்பு",
+      sendSOS: "SOS சமிக்ஞையை அனுப்புங்கள்",
+      emergency: "அவசரநிலை",
+      cancelSOS: "ரத்துச் செய்தல்",
+      help: "உதவி விரைவில் வரும்"
+    },
+    te: {
+      title: "అత్యవసర సంకేతము",
+      sendSOS: "SOS సిగ్నల్ పంపండి",
+      emergency: "అత్యవసర పరిస్థితి",
+      cancelSOS: "రద్దు చేయి",
+      help: "సహాయం త్వరలోనే వస్తుంది"
+    },
+    ml: {
+      title: "അടിയന്തര സൂചന",
+      sendSOS: "SOS സിഗ്നൽ അയയ്ക്കുക",
+      emergency: "അടിയന്തരാവസ്ഥ",
+      cancelSOS: "വിളി അവസാനിപ്പിക്കുക",
+      help: "സഹായം എത്തിച്ചേരുന്നുണ്ട്"
+    },
+    bn: {
+      title: "জরুরী অবস্থা সংকেত",
+      sendSOS: "SOS সংকেত প্রেরণ",
+      emergency: "জরুরী",
+      cancelSOS: "বাতিল SOS",
+      help: "সাহায্য আসছে।"
+    },
+    kn: {
+      title: "ತುರ್ತು ಕರೆ",
+      sendSOS: "SOS ಸಂಕೇತ ಕಳುಹಿಸು",
+      emergency: "ತುರ್ತು ಪರಿಸ್ಥಿತಿ",
+      cancelSOS: "ರದ್ದುಮಾಡು SOS",
+      help: "ಸಹಾಯ ಬರುತ್ತಿದೆ"
+    },
+    gu: {
+      title: "કટોકટીની પરિસ્થિતિ માટે સાયરન",
+      sendSOS: "SOS સિગ્નલ મોકલવું",
+      emergency: "આપાતકાલીન સ્થિતિ",
+      cancelSOS: "રદ કરો SOS",
+      help: "મદદ આવી રહી છે"
+    },
+    mr: {
+      title: "आपत्कालीन एस.ओ.एस.",
+      sendSOS: "एस.ओ.एस. सिग्नल पाठवा",
+      emergency: "आपत्कालीन",
+      cancelSOS: "रद्द SOS",
+      help: "मदत येत आहे."
+    },
+    or: {
+      title: "Emergency SOS",
+      sendSOS: "Send SOS Signal",
+      emergency: "EMERGENCY",
+      cancelSOS: "Cancel SOS",
+      help: "Help is on the way"
+    },
+    as: {
+      title: "Emergency SOS",
+      sendSOS: "Send SOS Signal",
+      emergency: "EMERGENCY",
+      cancelSOS: "Cancel SOS",
+      help: "Help is on the way"
+    },
+    pa: {
+      title: "ਐਮਰਜੈਂਸੀ ਸੂਚਨਾਵਾਂ",
+      sendSOS: "ਸੰਦੇਸ਼ ਭੇਜੋ ਐਸ.ਓ.ਐਸ. ਸਿਗਨਲ",
+      emergency: "ਐਮਰਜੈਂਸੀ",
+      cancelSOS: "ਰੱਦ SOS",
+      help: "ਮਦਦ ਆ ਰਹੀ ਹੈ।"
+    },
+    sd: {
+      title: "Emergency SOS",
+      sendSOS: "Send SOS Signal",
+      emergency: "EMERGENCY",
+      cancelSOS: "Cancel SOS",
+      help: "Help is on the way"
+    },
+    kok: {
+      title: "Emergency SOS",
+      sendSOS: "Send SOS Signal",
+      emergency: "EMERGENCY",
+      cancelSOS: "Cancel SOS",
+      help: "Help is on the way"
+    },
+    doi: {
+      title: "Emergency SOS",
+      sendSOS: "Send SOS Signal",
+      emergency: "EMERGENCY",
+      cancelSOS: "Cancel SOS",
+      help: "Help is on the way"
+    },
+    fr: {
+      title: "Emergency SOS",
+      sendSOS: "Send SOS Signal",
+      emergency: "EMERGENCY",
+      cancelSOS: "Cancel SOS",
+      help: "Help is on the way"
+    },
+    es: {
+      title: "Emergency SOS",
+      sendSOS: "Send SOS Signal",
+      emergency: "EMERGENCY",
+      cancelSOS: "Cancel SOS",
+      help: "Help is on the way"
+    }
+  },
+  SettingsScreen: {
+    en: {
+      title: "Settings",
+      language: {
+        title: "Language",
+        select: "Select Language",
+        current: "Current Language"
+      },
+      notifications: "Notifications",
+      darkMode: "Dark Mode",
+      about: "About",
+      logout: "Logout"
+    },
+    hi: {
+      title: "सेटिंग्स",
+      language: "भाषा",
+      notifications: "सूचनाएँ",
+      darkMode: "अंधेरा मोड",
+      about: "लगभग",
+      logout: "लॉगआउट"
+    },
+    ta: {
+      title: "அமைவுகள்",
+      language: "மொழி",
+      notifications: "அறிவிப்புகள்",
+      darkMode: "இருள் முறை",
+      about: "பற்றி",
+      logout: "வெளியேறுதல்"
+    },
+    te: {
+      title: "సెట్టింగులు",
+      language: "భాష",
+      notifications: "నోటిఫికేషన్లు",
+      darkMode: "నీలి",
+      about: "సుమారు",
+      logout: "లాగిన్"
+    },
+    ml: {
+      title: "ക്രമീകരണങ്ങൾ",
+      language: "ഭാഷ",
+      notifications: "അറിയിപ്പുകള്‍",
+      darkMode: "ഇരുണ്ട രീതി",
+      about: "ഏകദേശം",
+      logout: "ലോഗ് ഔട്ട്"
+    },
+    bn: {
+      title: "সেটিংস",
+      language: "ভাষা",
+      notifications: "বিজ্ঞপ্তি",
+      darkMode: "গাঢ়",
+      about: "প্রায়",
+      logout: "লগআউট"
+    },
+    kn: {
+      title: "ಸೆಟ್ಟಿಂಗ್ಸ್",
+      language: "ಭಾಷೆ",
+      notifications: "ಅಧಿಸೂಚನೆಗಳು",
+      darkMode: "ಕತ್ತಲೆ",
+      about: "ಸುಮಾರು",
+      logout: "ಲಾಗ್ಔಟ್"
+    },
+    gu: {
+      title: "સેટિંગ્સ",
+      language: "ભાષા",
+      notifications: "સૂચનાઓ",
+      darkMode: "શ્યામ મોડ",
+      about: "આશરે",
+      logout: "લોગઆઉટ"
+    },
+    mr: {
+      title: "सेटिंग्ज",
+      language: "भाषा",
+      notifications: "सूचना",
+      darkMode: "गडद",
+      about: "सुमारे",
+      logout: "लॉगआउट"
+    },
+    or: {
+      title: "Settings",
+      language: "Language",
+      notifications: "Notifications",
+      darkMode: "Dark Mode",
+      about: "About",
+      logout: "Logout"
+    },
+    as: {
+      title: "Settings",
+      language: "Language",
+      notifications: "Notifications",
+      darkMode: "Dark Mode",
+      about: "About",
+      logout: "Logout"
+    },
+    pa: {
+      title: "ਸੈਟਿੰਗਜ਼",
+      language: "ਭਾਸ਼ਾ",
+      notifications: "ਸੂਚਨਾਵਾਂ",
+      darkMode: "ਗੂੜ੍ਹਾ ਮੋਡ",
+      about: "ਲਗਭਗ",
+      logout: "ਲੌਗਆਉਟ"
+    },
+    sd: {
+      title: "Settings",
+      language: "Language",
+      notifications: "Notifications",
+      darkMode: "Dark Mode",
+      about: "About",
+      logout: "Logout"
+    },
+    kok: {
+      title: "Settings",
+      language: "Language",
+      notifications: "Notifications",
+      darkMode: "Dark Mode",
+      about: "About",
+      logout: "Logout"
+    },
+    doi: {
+      title: "Settings",
+      language: "Language",
+      notifications: "Notifications",
+      darkMode: "Dark Mode",
+      about: "About",
+      logout: "Logout"
+    },
+    fr: {
+      title: "Settings",
+      language: "Language",
+      notifications: "Notifications",
+      darkMode: "Dark Mode",
+      about: "About",
+      logout: "Logout"
+    },
+    es: {
+      title: "Settings",
+      language: "Language",
+      notifications: "Notifications",
+      darkMode: "Dark Mode",
+      about: "About",
+      logout: "Logout"
+    }
+  },
+  ProfileScreen: {
+    en: {
+      title: "Profile",
+      edit: "Edit Profile",
+      logout: "Logout",
+      stats: "Fishing Stats",
+      settings: "Settings",
+      history: "Trip History"
+    },
+    hi: {
+      title: "जीवनी",
+      edit: "प्रोफ़ाइल संपादित करें",
+      logout: "लॉगआउट",
+      stats: "मछली पकड़ने की आँकड़े",
+      settings: "सेटिंग्स",
+      history: "यात्रा-विवरण"
+    },
+    ta: {
+      title: "சுயவிவரம்",
+      edit: "சுயவிவரத்தைப் புதுப்பிக்கவும்",
+      logout: "வெளியேறுதல்",
+      stats: "மீன்பிடி புள்ளி விவரங்கள்",
+      settings: "அமைவுகள்",
+      history: "பயணக் குறிப்பு"
+    },
+    te: {
+      title: "ప్రొఫైల్",
+      edit: "ప్రొఫైల్ సవరించు",
+      logout: "లాగిన్",
+      stats: "మత్స్యసంఖ్య",
+      settings: "సెట్టింగులు",
+      history: "యాత్ర చరిత్ర"
+    },
+    ml: {
+      title: "പ്രൊഫൈല്‍",
+      edit: "പ്രൊഫൈൽ എഡിറ്റ് ചെയ്യുക",
+      logout: "ലോഗ് ഔട്ട്",
+      stats: "മത്സ്യബന്ധന സ്ഥിതിവിവരക്കണക്കുകള്‍",
+      settings: "ക്രമീകരണങ്ങൾ",
+      history: "യാത്രാ ചരിത്രം"
+    },
+    bn: {
+      title: "প্রোফাইল",
+      edit: "প্রোফাইল সম্পাদনা করুন",
+      logout: "লগআউট",
+      stats: "মৎস্য পরিসংখ্যান",
+      settings: "সেটিংস",
+      history: "ত্রয়ীর ইতিহাস"
+    },
+    kn: {
+      title: "ಪ್ರೊಫೈಲ್",
+      edit: "ಪ್ರೊಫೈಲ್‌ಅನ್ನು ಸಂಪಾದಿಸಿ",
+      logout: "ಲಾಗ್ಔಟ್",
+      stats: "ಮೀನುಗಾರಿಕೆ ಅಂಕಿಅಂಶಗಳು",
+      settings: "ಸೆಟ್ಟಿಂಗ್ಸ್",
+      history: "ಪ್ರವಾಸದ ಇತಿಹಾಸ"
+    },
+    gu: {
+      title: "પ્રોફાઈલ",
+      edit: "પ્રોફાઇલ સંપાદિત કરો",
+      logout: "લોગઆઉટ",
+      stats: "માછીમારી",
+      settings: "સેટિંગ્સ",
+      history: "પ્રવાસ ઇતિહાસ"
+    },
+    mr: {
+      title: "परिचय",
+      edit: "प्रोफाइल संपादित करा",
+      logout: "लॉगआउट",
+      stats: "मासेमारी आकडेवारी",
+      settings: "सेटिंग्ज",
+      history: "प्रवास इतिहास"
+    },
+    or: {
+      title: "Profile",
+      edit: "Edit Profile",
+      logout: "Logout",
+      stats: "Fishing Stats",
+      settings: "Settings",
+      history: "Trip History"
+    },
+    as: {
+      title: "Profile",
+      edit: "Edit Profile",
+      logout: "Logout",
+      stats: "Fishing Stats",
+      settings: "Settings",
+      history: "Trip History"
+    },
+    pa: {
+      title: "ਜੀਵਨੀ",
+      edit: "ਪ੍ਰੋਫਾਈਲ ਸੰਪਾਦਿਤ ਕਰੋ",
+      logout: "ਲੌਗਆਉਟ",
+      stats: "ਮੱਛੀ ਫੜਨ ਸੰਬੰਧੀ ਅੰਕੜੇ",
+      settings: "ਸੈਟਿੰਗਜ਼",
+      history: "ਯਾਤਰਾ"
+    },
+    sd: {
+      title: "Profile",
+      edit: "Edit Profile",
+      logout: "Logout",
+      stats: "Fishing Stats",
+      settings: "Settings",
+      history: "Trip History"
+    },
+    kok: {
+      title: "Profile",
+      edit: "Edit Profile",
+      logout: "Logout",
+      stats: "Fishing Stats",
+      settings: "Settings",
+      history: "Trip History"
+    },
+    doi: {
+      title: "Profile",
+      edit: "Edit Profile",
+      logout: "Logout",
+      stats: "Fishing Stats",
+      settings: "Settings",
+      history: "Trip History"
+    },
+    fr: {
+      title: "Profile",
+      edit: "Edit Profile",
+      logout: "Logout",
+      stats: "Fishing Stats",
+      settings: "Settings",
+      history: "Trip History"
+    },
+    es: {
+      title: "Profile",
+      edit: "Edit Profile",
+      logout: "Logout",
+      stats: "Fishing Stats",
+      settings: "Settings",
+      history: "Trip History"
+    }
+  },
+  FishingNetsGuide: {
+    en: {
+      title: "Fishing Nets Guide",
+      categories: {
+        gillNets: "Gill Nets",
+        seineNets: "Seine Nets",
+        trawlNets: "Trawl Nets",
+        castNets: "Cast Nets"
+      },
+      details: {
+        specifications: "Specifications",
+        usage: "Usage Guidelines",
+        maintenance: "Maintenance Tips"
+      },
+      selectPrompt: "Select a net type to learn more"
+    },
+    hi: {
+      title: "जाल",
+      categories: {
+        gillNets: "जाली",
+        seineNets: "जाल",
+        trawlNets: "जाल",
+        castNets: "जाली"
+      },
+      details: {
+        specifications: "विनिर्देश",
+        usage: "उपयोग-नियम",
+        maintenance: "देखभाल के उपाय"
+      },
+      selectPrompt: "अधिक जानने के लिए नेट का प्रकार चुनें।"
+    },
+    ta: {
+      title: "மீன்பிடி வலை வழிகாட்டி",
+      categories: {
+        gillNets: "வலை",
+        seineNets: "வலை",
+        trawlNets: "வலை",
+        castNets: "வலை"
+      },
+      details: {
+        specifications: "விவரம்",
+        usage: "உபயோக வழிகாட்டுதல்கள்",
+        maintenance: "பராமரிப்பு குறிப்புகள்"
+      },
+      selectPrompt: "வலை வகையைத் தேர்ந்தெடுத்தால், அதைப் பற்றி மேலும் தெரிந்து கொள்ளலாம்."
+    },
+    te: {
+      title: "వలల గైడ్",
+      categories: {
+        gillNets: "వల",
+        seineNets: "వలలు",
+        trawlNets: "వల",
+        castNets: "వల"
+      },
+      details: {
+        specifications: "లక్షణాలు",
+        usage: "వాడుక మార్గదర్శకాలు",
+        maintenance: "సంరక్షణ సూచనలు"
+      },
+      selectPrompt: "మరింత తెలుసుకోవడానికి నెట్ రకాన్ని ఎంచుకోండి."
+    },
+    ml: {
+      title: "വലകളുടെ ഗൈഡ്",
+      categories: {
+        gillNets: "വല",
+        seineNets: "വല",
+        trawlNets: "വല",
+        castNets: "വല"
+      },
+      details: {
+        specifications: "സവിശേഷതകള്‍",
+        usage: "ഉപയോഗരേഖ",
+        maintenance: "പരിപാലന നിർദേശങ്ങൾ"
+      },
+      selectPrompt: "കൂടുതൽ അറിയുന്നതിനായി ഒരു നെറ്റ് തരം തിരഞ്ഞെടുക്കുക."
+    },
+    bn: {
+      title: "জাল নির্দেশিকা",
+      categories: {
+        gillNets: "জাল",
+        seineNets: "জাল",
+        trawlNets: "জাল",
+        castNets: "জাল"
+      },
+      details: {
+        specifications: "বৈশিষ্ট্য",
+        usage: "ব্যবহার নির্দেশিকা",
+        maintenance: "देखभाली টিপস"
+      },
+      selectPrompt: "আরও জানতে কোন নেট ধরন নির্বাচন করুন।"
+    },
+    kn: {
+      title: "ಮೀನುಗಾರಿಕೆ ಜಾಲ",
+      categories: {
+        gillNets: "ಗಿಲ್ ಜಾಲ",
+        seineNets: "ಹಾಯಿ ದೋಣಿ",
+        trawlNets: "ಹಿಡಿಯುವ ಜಾಲ",
+        castNets: "ಜಾಲ"
+      },
+      details: {
+        specifications: "ವಿಶೇಷಣ",
+        usage: "ಬಳಕೆಯ ಮಾರ್ಗಸೂಚಿಗಳು",
+        maintenance: "ಆರೈಕೆ ಸಲಹೆಗಳು"
+      },
+      selectPrompt: "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ಜಾಲದ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ."
+    },
+    gu: {
+      title: "માછીમારી ગાઇડ",
+      categories: {
+        gillNets: "ગિલ નેટ",
+        seineNets: "નાળીયાર",
+        trawlNets: "જાળ",
+        castNets: "જાળી"
+      },
+      details: {
+        specifications: "સ્પષ્ટીકરણ",
+        usage: "ઉપયોગની માર્ગદર્શિકા",
+        maintenance: "देखभाल टिप्स"
+      },
+      selectPrompt: "વધુ જાણવા માટે નેટનો પ્રકાર પસંદ કરો."
+    },
+    mr: {
+      title: "मासेमारी जाळे",
+      categories: {
+        gillNets: "जाळे",
+        seineNets: "जाळे",
+        trawlNets: "जाल",
+        castNets: "जाळे"
+      },
+      details: {
+        specifications: "वैशिष्ट्ये",
+        usage: "उपयोगाचे नियम",
+        maintenance: "देखभाल सूचना"
+      },
+      selectPrompt: "अधिक जाणून घेण्यासाठी जाळीचा प्रकार निवडा."
+    },
+    or: {
+      title: "Fishing Nets Guide",
+      categories: {
+        gillNets: "Gill Nets",
+        seineNets: "Seine Nets",
+        trawlNets: "Trawl Nets",
+        castNets: "Cast Nets"
+      },
+      details: {
+        specifications: "Specifications",
+        usage: "Usage Guidelines",
+        maintenance: "Maintenance Tips"
+      },
+      selectPrompt: "Select a net type to learn more"
+    },
+    as: {
+      title: "Fishing Nets Guide",
+      categories: {
+        gillNets: "Gill Nets",
+        seineNets: "Seine Nets",
+        trawlNets: "Trawl Nets",
+        castNets: "Cast Nets"
+      },
+      details: {
+        specifications: "Specifications",
+        usage: "Usage Guidelines",
+        maintenance: "Maintenance Tips"
+      },
+      selectPrompt: "Select a net type to learn more"
+    },
+    pa: {
+      title: "ਜਾਲ",
+      categories: {
+        gillNets: "ਜਾਲ",
+        seineNets: "ਜਾਲ",
+        trawlNets: "ਜਾਲ",
+        castNets: "ਜਾਲ"
+      },
+      details: {
+        specifications: "ਨਿਰਧਾਰਨ",
+        usage: "ਵਰਤੋਂ ਦੇ ਨਿਯਮ",
+        maintenance: "ਰੱਖ-ਰਖਾਵ ਦੀਆਂ ਸਲਾਹਾਂ"
+      },
+      selectPrompt: "ਹੋਰ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਜਾਲ ਦੀ ਕਿਸਮ ਚੁਣੋ।"
+    },
+    sd: {
+      title: "Fishing Nets Guide",
+      categories: {
+        gillNets: "Gill Nets",
+        seineNets: "Seine Nets",
+        trawlNets: "Trawl Nets",
+        castNets: "Cast Nets"
+      },
+      details: {
+        specifications: "Specifications",
+        usage: "Usage Guidelines",
+        maintenance: "Maintenance Tips"
+      },
+      selectPrompt: "Select a net type to learn more"
+    },
+    kok: {
+      title: "Fishing Nets Guide",
+      categories: {
+        gillNets: "Gill Nets",
+        seineNets: "Seine Nets",
+        trawlNets: "Trawl Nets",
+        castNets: "Cast Nets"
+      },
+      details: {
+        specifications: "Specifications",
+        usage: "Usage Guidelines",
+        maintenance: "Maintenance Tips"
+      },
+      selectPrompt: "Select a net type to learn more"
+    },
+    doi: {
+      title: "Fishing Nets Guide",
+      categories: {
+        gillNets: "Gill Nets",
+        seineNets: "Seine Nets",
+        trawlNets: "Trawl Nets",
+        castNets: "Cast Nets"
+      },
+      details: {
+        specifications: "Specifications",
+        usage: "Usage Guidelines",
+        maintenance: "Maintenance Tips"
+      },
+      selectPrompt: "Select a net type to learn more"
+    },
+    fr: {
+      title: "Fishing Nets Guide",
+      categories: {
+        gillNets: "Gill Nets",
+        seineNets: "Seine Nets",
+        trawlNets: "Trawl Nets",
+        castNets: "Cast Nets"
+      },
+      details: {
+        specifications: "Specifications",
+        usage: "Usage Guidelines",
+        maintenance: "Maintenance Tips"
+      },
+      selectPrompt: "Select a net type to learn more"
+    },
+    es: {
+      title: "Fishing Nets Guide",
+      categories: {
+        gillNets: "Gill Nets",
+        seineNets: "Seine Nets",
+        trawlNets: "Trawl Nets",
+        castNets: "Cast Nets"
+      },
+      details: {
+        specifications: "Specifications",
+        usage: "Usage Guidelines",
+        maintenance: "Maintenance Tips"
+      },
+      selectPrompt: "Select a net type to learn more"
+    }
+  },
+  FishingOptimizationHub: {
+    en: {
+      title: "Fishing Optimization",
+      sections: {
+        weather: "Weather Conditions",
+        fishingZones: "Potential Fishing Zones",
+        seasonalTips: "Seasonal Tips",
+        equipment: "Equipment Recommendations"
+      },
+      analytics: {
+        catchRate: "Catch Rate Analysis",
+        bestTimes: "Best Fishing Times",
+        tideInfo: "Tide Information"
+      },
+      insights: "Fishing Insights"
+    },
+    hi: {
+      title: "मछली पकड़ने का अनुकूलन",
+      sections: {
+        weather: "मौसम",
+        fishingZones: "संभावित मछली पकड़ने वाले क्षेत्र",
+        seasonalTips: "मौसमी सुझाव",
+        equipment: "उपकरण सुझाव"
+      },
+      analytics: {
+        catchRate: "पकड़ दर विश्लेषण",
+        bestTimes: "सबसे अच्छा मछली पकड़ने का समय",
+        tideInfo: "ज्वार-सूची"
+      },
+      insights: "मछली पकड़ने की जानकारी"
+    },
+    ta: {
+      title: "மீன்பிடித்தல்",
+      sections: {
+        weather: "வானிலை",
+        fishingZones: "மீன்பிடி மண்டலங்கள்",
+        seasonalTips: "பருவகால ஆலோசனைகள்",
+        equipment: "உபகரண பரிந்துரைகள்"
+      },
+      analytics: {
+        catchRate: "பிடிப்பு வீதம் பகுப்பாய்வு",
+        bestTimes: "சிறந்த மீன்பிடி நேரங்கள்",
+        tideInfo: "அலை தகவல்"
+      },
+      insights: "மீன்பிடித் தகவல்"
+    },
+    te: {
+      title: "మత్స్యసంవృద్ధి",
+      sections: {
+        weather: "వాతావరణ పరిస్థితులు",
+        fishingZones: "చేపల వేట ప్రాంతాలు",
+        seasonalTips: "ఋతు సూచనలు",
+        equipment: "పరికరాల సిఫార్సులు"
+      },
+      analytics: {
+        catchRate: "క్యాచ్ రేటు విశ్లేషణ",
+        bestTimes: "ఉత్తమ ఫిషింగ్ సమయాలు",
+        tideInfo: "అలల సమాచారం"
+      },
+      insights: "మత్స్యశాస్త్ర సమాచారం"
+    },
+    ml: {
+      title: "മത്സ്യബന്ധനം",
+      sections: {
+        weather: "കാലാവസ്ഥ",
+        fishingZones: "മത്സ്യബന്ധന മേഖലകള്‍",
+        seasonalTips: "ഋതുസംബന്ധിയായ നിർദ്ദേശങ്ങൾ",
+        equipment: "ഉപകരണങ്ങളുടെ ശുപാർശകൾ"
+      },
+      analytics: {
+        catchRate: "പിടിക്കല് നിരക്ക് വിശകലനം",
+        bestTimes: "ഏറ്റവും നല്ല മത്സ്യബന്ധന സമയം",
+        tideInfo: "വേലിയേറ്റത്തെക്കുറിച്ചുള്ള വിവരങ്ങള്"
+      },
+      insights: "മത്സ്യബന്ധനവിവരങ്ങൾ"
+    },
+    bn: {
+      title: "মৎস্য আহরণ",
+      sections: {
+        weather: "আবহাওয়া",
+        fishingZones: "সম্ভাব্য মাছ ধরার অঞ্চল",
+        seasonalTips: "ঋতুকালীন পরামর্শ",
+        equipment: "সরঞ্জাম"
+      },
+      analytics: {
+        catchRate: "ক্যাচ রেট বিশ্লেষণ",
+        bestTimes: "সেরা মাছ ধরার সময়",
+        tideInfo: "জোয়ার-ভাটা সংক্রান্ত তথ্য"
+      },
+      insights: "মৎস্যবিজ্ঞান"
+    },
+    kn: {
+      title: "ಮೀನು ಹಿಡಿಯುವಿಕೆ",
+      sections: {
+        weather: "ವಾತಾವರಣ",
+        fishingZones: "ಮೀನು ಹಿಡಿಯುವ ಸಾಧ್ಯತೆ ಇರುವ ವಲಯಗಳು",
+        seasonalTips: "ಋತುಮಾನದ ಸಲಹೆಗಳು",
+        equipment: "ಸಲಕರಣೆಗಳ ಶಿಫಾರಸುಗಳು"
+      },
+      analytics: {
+        catchRate: "ಕ್ಯಾಚ್ ದರದ ವಿಶ್ಲೇಷಣೆ",
+        bestTimes: "ಅತ್ಯುತ್ತಮ ಮೀನುಗಾರಿಕೆ ಸಮಯ",
+        tideInfo: "ಉಬ್ಬರವಿಳಿತದ ಮಾಹಿತಿ"
+      },
+      insights: "ಮೀನುಗಾರಿಕೆ ವಿಚಾರ"
+    },
+    gu: {
+      title: "માછીમારી",
+      sections: {
+        weather: "હવામાન",
+        fishingZones: "સંભવિત માછીમારી ક્ષેત્ર",
+        seasonalTips: "મોસમી સૂચનો",
+        equipment: "સાધન સૂચનો"
+      },
+      analytics: {
+        catchRate: "પકડ દર વિશ્લેષણ",
+        bestTimes: "શ્રેષ્ઠ માછીમારી સમય",
+        tideInfo: "ભરતી-નીચી ભરતીની માહિતી"
+      },
+      insights: "મત્સ્યજ્ઞાન"
+    },
+    mr: {
+      title: "मासेमारी",
+      sections: {
+        weather: "हवामान",
+        fishingZones: "संभाव्य मासेमारी क्षेत्र",
+        seasonalTips: "मौसमी सूचना",
+        equipment: "उपकरणांची शिफारस"
+      },
+      analytics: {
+        catchRate: "पकड दर विश्लेषण",
+        bestTimes: "सर्वोत्तम मासेमारीचा वेळ",
+        tideInfo: "लाटांची माहिती"
+      },
+      insights: "मासेमारी संबंधी माहिती"
+    },
+    or: {
+      title: "Fishing Optimization",
+      sections: {
+        weather: "Weather Conditions",
+        fishingZones: "Potential Fishing Zones",
+        seasonalTips: "Seasonal Tips",
+        equipment: "Equipment Recommendations"
+      },
+      analytics: {
+        catchRate: "Catch Rate Analysis",
+        bestTimes: "Best Fishing Times",
+        tideInfo: "Tide Information"
+      },
+      insights: "Fishing Insights"
+    },
+    as: {
+      title: "Fishing Optimization",
+      sections: {
+        weather: "Weather Conditions",
+        fishingZones: "Potential Fishing Zones",
+        seasonalTips: "Seasonal Tips",
+        equipment: "Equipment Recommendations"
+      },
+      analytics: {
+        catchRate: "Catch Rate Analysis",
+        bestTimes: "Best Fishing Times",
+        tideInfo: "Tide Information"
+      },
+      insights: "Fishing Insights"
+    },
+    pa: {
+      title: "ਮੱਛੀ ਪਾਲਣ",
+      sections: {
+        weather: "ਮੌਸਮ",
+        fishingZones: "ਸੰਭਾਵੀ ਮੱਛੀ ਫੜਨ ਵਾਲੇ ਖੇਤਰ",
+        seasonalTips: "ਮੌਸਮੀ ਸੁਝਾਅ",
+        equipment: "ਸਾਧਨ ਸੁਝਾਅ"
+      },
+      analytics: {
+        catchRate: "ਕੈਚ ਦਰ ਵਿਸ਼ਲੇਸ਼ਣ",
+        bestTimes: "ਸਭ ਤੋਂ ਵਧੀਆ ਮੱਛੀ ਫੜਨ ਦਾ ਸਮਾਂ",
+        tideInfo: "ਲਹਿਰ ਸੰਬੰਧੀ ਜਾਣਕਾਰੀ"
+      },
+      insights: "ਮੱਛੀ ਫੜਨ ਸੰਬੰਧੀ ਜਾਣਕਾਰੀ"
+    },
+    sd: {
+      title: "Fishing Optimization",
+      sections: {
+        weather: "Weather Conditions",
+        fishingZones: "Potential Fishing Zones",
+        seasonalTips: "Seasonal Tips",
+        equipment: "Equipment Recommendations"
+      },
+      analytics: {
+        catchRate: "Catch Rate Analysis",
+        bestTimes: "Best Fishing Times",
+        tideInfo: "Tide Information"
+      },
+      insights: "Fishing Insights"
+    },
+    kok: {
+      title: "Fishing Optimization",
+      sections: {
+        weather: "Weather Conditions",
+        fishingZones: "Potential Fishing Zones",
+        seasonalTips: "Seasonal Tips",
+        equipment: "Equipment Recommendations"
+      },
+      analytics: {
+        catchRate: "Catch Rate Analysis",
+        bestTimes: "Best Fishing Times",
+        tideInfo: "Tide Information"
+      },
+      insights: "Fishing Insights"
+    },
+    doi: {
+      title: "Fishing Optimization",
+      sections: {
+        weather: "Weather Conditions",
+        fishingZones: "Potential Fishing Zones",
+        seasonalTips: "Seasonal Tips",
+        equipment: "Equipment Recommendations"
+      },
+      analytics: {
+        catchRate: "Catch Rate Analysis",
+        bestTimes: "Best Fishing Times",
+        tideInfo: "Tide Information"
+      },
+      insights: "Fishing Insights"
+    },
+    fr: {
+      title: "Fishing Optimization",
+      sections: {
+        weather: "Weather Conditions",
+        fishingZones: "Potential Fishing Zones",
+        seasonalTips: "Seasonal Tips",
+        equipment: "Equipment Recommendations"
+      },
+      analytics: {
+        catchRate: "Catch Rate Analysis",
+        bestTimes: "Best Fishing Times",
+        tideInfo: "Tide Information"
+      },
+      insights: "Fishing Insights"
+    },
+    es: {
+      title: "Fishing Optimization",
+      sections: {
+        weather: "Weather Conditions",
+        fishingZones: "Potential Fishing Zones",
+        seasonalTips: "Seasonal Tips",
+        equipment: "Equipment Recommendations"
+      },
+      analytics: {
+        catchRate: "Catch Rate Analysis",
+        bestTimes: "Best Fishing Times",
+        tideInfo: "Tide Information"
+      },
+      insights: "Fishing Insights"
+    }
+  },
+  IBLAlertsScreen: {
+    en: {
+      title: "IBL Alerts",
+      warnings: {
+        boundary: "International Boundary Line Warning",
+        approaching: "Approaching IBL",
+        distance: "Distance to IBL"
+      },
+      alerts: {
+        high: "High Risk Area",
+        medium: "Medium Risk Area",
+        low: "Safe Zone"
+      },
+      actions: {
+        acknowledge: "Acknowledge Alert",
+        navigate: "Navigate to Safe Zone",
+        emergency: "Emergency Contact"
+      }
+    },
+    hi: {
+      title: "सूचना",
+      warnings: {
+        boundary: "अंतर्राष्ट्रीय सीमा रेखा चेतावनी",
+        approaching: "निकटवर्ती आई.बी.एल.",
+        distance: "आई.बी.एल. तक की दूरी"
+      },
+      alerts: {
+        high: "खतरनाक क्षेत्र",
+        medium: "मध्यम जोखिम क्षेत्र",
+        low: "सुरक्षित स्थान"
+      },
+      actions: {
+        acknowledge: "सूचना",
+        navigate: "सुरक्षित क्षेत्र की ओर अग्रसर हों।",
+        emergency: "आपातकालीन संपर्क"
+      }
+    },
+    ta: {
+      title: "எச்சரிக்கைகள்",
+      warnings: {
+        boundary: "சர்வதேச எல்லைக் கோடு எச்சரிக்கை",
+        approaching: "நெருங்குவது",
+        distance: "ஐபிஎல் தூரம்"
+      },
+      alerts: {
+        high: "ஆபத்தான பகுதி",
+        medium: "மிதமான ஆபத்து பகுதி",
+        low: "பாதுகாப்பான பகுதி"
+      },
+      actions: {
+        acknowledge: "எச்சரிக்கை",
+        navigate: "பாதுகாப்பான பகுதிக்குச் செல்லவும்.",
+        emergency: "அவசரகாலத் தொடர்பு"
+      }
+    },
+    te: {
+      title: "హెచ్చరికలు",
+      warnings: {
+        boundary: "అంతర్జాతీయ సరిహద్దు హెచ్చరిక",
+        approaching: "సమీపించడం",
+        distance: "ఐబిఎల్ దూరం"
+      },
+      alerts: {
+        high: "ప్రమాదకరమైన ప్రాంతం",
+        medium: "మధ్యస్థ ప్రమాదం గల ప్రాంతం",
+        low: "సురక్షితమైన ప్రదేశం"
+      },
+      actions: {
+        acknowledge: "హెచ్చరికను గుర్తించడం",
+        navigate: "సురక్షిత ప్రాంతానికి వెళ్ళండి.",
+        emergency: "అత్యవసర సంప్రదింపు"
+      }
+    },
+    ml: {
+      title: "മുന്നറിയിപ്പുകൾ",
+      warnings: {
+        boundary: "അന്താരാഷ്‌ട്ര അതിർത്തി മുന്നറിയിപ്പ്",
+        approaching: "അടുക്കുന്ന",
+        distance: "ഐ.ബി.എല്ലിലേക്കുള്ള ദൂരം"
+      },
+      alerts: {
+        high: "അപകടകരമായ പ്രദേശം",
+        medium: "മദ്ധ്യമ അപകടസാധ്യതയുള്ള പ്രദേശം",
+        low: "സുരക്ഷിതസ്ഥാനം"
+      },
+      actions: {
+        acknowledge: "മുന്നറിയിപ്പ്",
+        navigate: "സുരക്ഷിത മേഖലയിലേക്ക് നാവിഗേറ്റ് ചെയ്യുക.",
+        emergency: "അടിയന്തിര ബന്ധു"
+      }
+    },
+    bn: {
+      title: "সতর্কবার্তা",
+      warnings: {
+        boundary: "আন্তর্জাতিক সীমানা রেখার সতর্কতা",
+        approaching: "আগন্তুক",
+        distance: "আই.বি.এল-এর দূরত্ব"
+      },
+      alerts: {
+        high: "ঝুঁকিপূর্ণ এলাকা",
+        medium: "মধ্যম ঝুঁকিপূর্ণ এলাকা",
+        low: "নিরাপদ স্থান"
+      },
+      actions: {
+        acknowledge: "সতর্কতা",
+        navigate: "নিরাপদ অঞ্চলে যান।",
+        emergency: "জরুরী যোগাযোগ"
+      }
+    },
+    kn: {
+      title: "ಎಚ್ಚರಿಕೆ",
+      warnings: {
+        boundary: "ಅಂತಾರಾಷ್ಟ್ರೀಯ ಗಡಿ ಎಚ್ಚರಿಕೆ",
+        approaching: "ಸಮೀಪಿಸುತ್ತಿರುವ",
+        distance: "ಐ.ಬಿ.ಎಲ್. ದೂರ"
+      },
+      alerts: {
+        high: "ಅಪಾಯದ ಪ್ರದೇಶ",
+        medium: "ಮಧ್ಯಮ ಅಪಾಯದ ಪ್ರದೇಶ",
+        low: "ಸುರಕ್ಷಿತ ಪ್ರದೇಶ"
+      },
+      actions: {
+        acknowledge: "ಅಧಿಸೂಚನೆ",
+        navigate: "ಸುರಕ್ಷಿತ ಪ್ರದೇಶಕ್ಕೆ ಹೋಗಿ.",
+        emergency: "ತುರ್ತು ಸಂಪರ್ಕ"
+      }
+    },
+    gu: {
+      title: "ચેતવણી",
+      warnings: {
+        boundary: "આંતરરાષ્ટ્રીય સીમા રેખાની ચેતવણી",
+        approaching: "નજીક આવવું",
+        distance: "આઈ.બી.એલ. અંતર"
+      },
+      alerts: {
+        high: "જોખમી વિસ્તાર",
+        medium: "મધ્યમ જોખમ વિસ્તાર",
+        low: "સુરક્ષિત સ્થળ"
+      },
+      actions: {
+        acknowledge: "ચેતવણી",
+        navigate: "સુરક્ષિત વિસ્તાર તરફ આગળ વધો.",
+        emergency: "કટોકટી સંપર્ક"
+      }
+    },
+    mr: {
+      title: "इब्ल्लारचे संदेश",
+      warnings: {
+        boundary: "आंतरराष्ट्रीय सीमा चेतावणी",
+        approaching: "जवळ आलेला",
+        distance: "आय.बी.एल. अंतर"
+      },
+      alerts: {
+        high: "धोकादायक क्षेत्र",
+        medium: "मध्यम धोका क्षेत्र",
+        low: "सुरक्षित जागा"
+      },
+      actions: {
+        acknowledge: "सूचना",
+        navigate: "सुरक्षित क्षेत्रात जा",
+        emergency: "आपत्कालीन संपर्क"
+      }
+    },
+    or: {
+      title: "IBL Alerts",
+      warnings: {
+        boundary: "International Boundary Line Warning",
+        approaching: "Approaching IBL",
+        distance: "Distance to IBL"
+      },
+      alerts: {
+        high: "High Risk Area",
+        medium: "Medium Risk Area",
+        low: "Safe Zone"
+      },
+      actions: {
+        acknowledge: "Acknowledge Alert",
+        navigate: "Navigate to Safe Zone",
+        emergency: "Emergency Contact"
+      }
+    },
+    as: {
+      title: "IBL Alerts",
+      warnings: {
+        boundary: "International Boundary Line Warning",
+        approaching: "Approaching IBL",
+        distance: "Distance to IBL"
+      },
+      alerts: {
+        high: "High Risk Area",
+        medium: "Medium Risk Area",
+        low: "Safe Zone"
+      },
+      actions: {
+        acknowledge: "Acknowledge Alert",
+        navigate: "Navigate to Safe Zone",
+        emergency: "Emergency Contact"
+      }
+    },
+    pa: {
+      title: "ਅਲਰਟ",
+      warnings: {
+        boundary: "ਅੰਤਰਰਾਸ਼ਟਰੀ ਸੀਮਾ ਲਾਈਨ ਦੀ ਚਿਤਾਵਨੀ",
+        approaching: "ਨੇੜੇ ਆ ਰਿਹਾ",
+        distance: "ਆਈ.ਬੀ.ਐੱਲ. ਤੱਕ ਦੀ ਦੂਰੀ"
+      },
+      alerts: {
+        high: "ਖਤਰਨਾਕ ਖੇਤਰ",
+        medium: "ਮੱਧਮ ਜੋਖਮ ਵਾਲਾ ਖੇਤਰ",
+        low: "ਸੁਰੱਖਿਅਤ ਅਸਥਾਨ"
+      },
+      actions: {
+        acknowledge: "ਸੂਚਨਾ",
+        navigate: "ਸੁਰੱਖਿਅਤ ਖੇਤਰ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰੋ।",
+        emergency: "ਸੰਕਟਕਾਲ ਸੰਪਰਕ"
+      }
+    },
+    sd: {
+      title: "IBL Alerts",
+      warnings: {
+        boundary: "International Boundary Line Warning",
+        approaching: "Approaching IBL",
+        distance: "Distance to IBL"
+      },
+      alerts: {
+        high: "High Risk Area",
+        medium: "Medium Risk Area",
+        low: "Safe Zone"
+      },
+      actions: {
+        acknowledge: "Acknowledge Alert",
+        navigate: "Navigate to Safe Zone",
+        emergency: "Emergency Contact"
+      }
+    },
+    kok: {
+      title: "IBL Alerts",
+      warnings: {
+        boundary: "International Boundary Line Warning",
+        approaching: "Approaching IBL",
+        distance: "Distance to IBL"
+      },
+      alerts: {
+        high: "High Risk Area",
+        medium: "Medium Risk Area",
+        low: "Safe Zone"
+      },
+      actions: {
+        acknowledge: "Acknowledge Alert",
+        navigate: "Navigate to Safe Zone",
+        emergency: "Emergency Contact"
+      }
+    },
+    doi: {
+      title: "IBL Alerts",
+      warnings: {
+        boundary: "International Boundary Line Warning",
+        approaching: "Approaching IBL",
+        distance: "Distance to IBL"
+      },
+      alerts: {
+        high: "High Risk Area",
+        medium: "Medium Risk Area",
+        low: "Safe Zone"
+      },
+      actions: {
+        acknowledge: "Acknowledge Alert",
+        navigate: "Navigate to Safe Zone",
+        emergency: "Emergency Contact"
+      }
+    },
+    fr: {
+      title: "IBL Alerts",
+      warnings: {
+        boundary: "International Boundary Line Warning",
+        approaching: "Approaching IBL",
+        distance: "Distance to IBL"
+      },
+      alerts: {
+        high: "High Risk Area",
+        medium: "Medium Risk Area",
+        low: "Safe Zone"
+      },
+      actions: {
+        acknowledge: "Acknowledge Alert",
+        navigate: "Navigate to Safe Zone",
+        emergency: "Emergency Contact"
+      }
+    },
+    es: {
+      title: "IBL Alerts",
+      warnings: {
+        boundary: "International Boundary Line Warning",
+        approaching: "Approaching IBL",
+        distance: "Distance to IBL"
+      },
+      alerts: {
+        high: "High Risk Area",
+        medium: "Medium Risk Area",
+        low: "Safe Zone"
+      },
+      actions: {
+        acknowledge: "Acknowledge Alert",
+        navigate: "Navigate to Safe Zone",
+        emergency: "Emergency Contact"
+      }
+    }
+  },
+  ImportantContactsScreen: {
+    en: {
+      title: "Important Contacts",
+      categories: {
+        emergency: "Emergency Contacts",
+        coastGuard: "Coast Guard",
+        ports: "Port Authorities",
+        weather: "Weather Services"
+      },
+      actions: {
+        call: "Call",
+        message: "Send Message",
+        save: "Save Contact"
+      },
+      labels: {
+        name: "Name",
+        number: "Phone Number",
+        description: "Description"
+      }
+    },
+    hi: {
+      title: "महत्वपूर्ण संपर्क",
+      categories: {
+        emergency: "आपातकालीन संपर्क",
+        coastGuard: "तटरक्षक बल",
+        ports: "पोत-प्रबंधक",
+        weather: "मौसम सेवा"
+      },
+      actions: {
+        call: "कॉल",
+        message: "संदेश भेजें",
+        save: "संपर्क सहेज लीजिए"
+      },
+      labels: {
+        name: "नाम",
+        number: "फ़ोन नंबर",
+        description: "विवरण"
+      }
+    },
+    ta: {
+      title: "முக்கியமான தொடர்புகள்",
+      categories: {
+        emergency: "அவசரகாலத் தொடர்புகள்",
+        coastGuard: "கடலோர காவல் படை",
+        ports: "துறைமுக ஆணையம்",
+        weather: "வானிலை சேவை"
+      },
+      actions: {
+        call: "அழைப்பு",
+        message: "செய்தி அனுப்புக",
+        save: "தொடர்பு சேமி"
+      },
+      labels: {
+        name: "பெயர்",
+        number: "தொலைபேசி எண்",
+        description: "விளக்கம்"
+      }
+    },
+    te: {
+      title: "ముఖ్యమైన పరిచయాలు",
+      categories: {
+        emergency: "అత్యవసర పరిచయాలు",
+        coastGuard: "కోస్ట్ గార్డ్",
+        ports: "ఓడరేవులు",
+        weather: "వాతావరణ సేవ"
+      },
+      actions: {
+        call: "ఫోన్ కాల్",
+        message: "సందేశం పంపడం",
+        save: "పరిచయాన్ని భద్రపరుచు"
+      },
+      labels: {
+        name: "పేరు",
+        number: "ఫోన్ నంబరు",
+        description: "వివరణ"
+      }
+    },
+    ml: {
+      title: "പ്രധാനപ്പെട്ട ബന്ധങ്ങൾ",
+      categories: {
+        emergency: "അടിയന്തിര ബന്ധങ്ങൾ",
+        coastGuard: "തീരസംരക്ഷണ സേന",
+        ports: "തുറമുഖം",
+        weather: "കാലാവസ്ഥാ സേവനം"
+      },
+      actions: {
+        call: "വിളി",
+        message: "സന്ദേശം അയയ്ക്കുക",
+        save: "കോൺടാക്റ്റ് സേവ് ചെയ്യുക"
+      },
+      labels: {
+        name: "പേര്",
+        number: "ഫോൺ നമ്പർ",
+        description: "വിവരണം"
+      }
+    },
+    bn: {
+      title: "গুরুত্বপূর্ণ যোগাযোগ",
+      categories: {
+        emergency: "জরুরী যোগাযোগ",
+        coastGuard: "উপকূলরক্ষী বাহিনী",
+        ports: "বন্দর কর্তৃপক্ষ",
+        weather: "আবহাওয়া পরিষেবা"
+      },
+      actions: {
+        call: "ফোনকল",
+        message: "বার্তা প্রেরণ",
+        save: "পরিচিতিকে সংরক্ষণ করুন।"
+      },
+      labels: {
+        name: "নাম",
+        number: "ফোন নম্বর",
+        description: "বিবরণ"
+      }
+    },
+    kn: {
+      title: "ಪ್ರಮುಖ ಸಂಪರ್ಕಗಳು",
+      categories: {
+        emergency: "ತುರ್ತು ಸಂಪರ್ಕಗಳು",
+        coastGuard: "ಕರಾವಳಿ ಕಾವಲು ಪಡೆ",
+        ports: "ಬಂದರುಗಳ ಪ್ರಾಧಿಕಾರ",
+        weather: "ಹವಾಮಾನ ಸೇವೆ"
+      },
+      actions: {
+        call: "ಕರೆ",
+        message: "ಸಂದೇಶ ಕಳುಹಿಸುವುದು",
+        save: "ಸಂಪರ್ಕದ ನಮೂನೆಯನ್ನು ಉಳಿಸಿ."
+      },
+      labels: {
+        name: "ಹೆಸರು",
+        number: "ದೂರವಾಣಿ ಸಂಖ್ಯೆ",
+        description: "ವಿವರಣೆ"
+      }
+    },
+    gu: {
+      title: "મહત્વપૂર્ણ સંપર્કો",
+      categories: {
+        emergency: "આપાતકાલીન સંપર્ક",
+        coastGuard: "તટરક્ષક દળ",
+        ports: "બંદરો",
+        weather: "હવામાન સેવા"
+      },
+      actions: {
+        call: "કૉલ",
+        message: "સંદેશ મોકલવો",
+        save: "સંપર્ક સાધો"
+      },
+      labels: {
+        name: "નામ",
+        number: "ફોન નંબર",
+        description: "વર્ણન"
+      }
+    },
+    mr: {
+      title: "महत्त्वाचे संपर्क",
+      categories: {
+        emergency: "आपत्कालीन संपर्क",
+        coastGuard: "तटरक्षक दल",
+        ports: "बंदर",
+        weather: "हवामान सेवा"
+      },
+      actions: {
+        call: "दूरध्वनी संवाद",
+        message: "संदेश पाठवा",
+        save: "संपर्क जतन करा."
+      },
+      labels: {
+        name: "नाव",
+        number: "दूरध्वनी क्रमांक",
+        description: "वर्णन"
+      }
+    },
+    or: {
+      title: "Important Contacts",
+      categories: {
+        emergency: "Emergency Contacts",
+        coastGuard: "Coast Guard",
+        ports: "Port Authorities",
+        weather: "Weather Services"
+      },
+      actions: {
+        call: "Call",
+        message: "Send Message",
+        save: "Save Contact"
+      },
+      labels: {
+        name: "Name",
+        number: "Phone Number",
+        description: "Description"
+      }
+    },
+    as: {
+      title: "Important Contacts",
+      categories: {
+        emergency: "Emergency Contacts",
+        coastGuard: "Coast Guard",
+        ports: "Port Authorities",
+        weather: "Weather Services"
+      },
+      actions: {
+        call: "Call",
+        message: "Send Message",
+        save: "Save Contact"
+      },
+      labels: {
+        name: "Name",
+        number: "Phone Number",
+        description: "Description"
+      }
+    },
+    pa: {
+      title: "ਮਹੱਤਵਪੂਰਨ ਸੰਪਰਕ",
+      categories: {
+        emergency: "ਐਮਰਜੈਂਸੀ ਸੰਪਰਕ",
+        coastGuard: "ਤੱਟ ਰੱਖਿਅਕ",
+        ports: "ਪੋਰਟ",
+        weather: "ਮੌਸਮ ਵਿਭਾਗ"
+      },
+      actions: {
+        call: "ਫੋਨ ਕਾਲ",
+        message: "ਸੁਨੇਹਾ ਭੇਜਣਾ",
+        save: "ਸੰਪਰਕ ਸੁਰੱਖਿਅਤ ਕਰੋ।"
+      },
+      labels: {
+        name: "ਨਾਮ",
+        number: "ਫੋਨ ਨੰਬਰ",
+        description: "ਵਰਣਨ"
+      }
+    },
+    sd: {
+      title: "Important Contacts",
+      categories: {
+        emergency: "Emergency Contacts",
+        coastGuard: "Coast Guard",
+        ports: "Port Authorities",
+        weather: "Weather Services"
+      },
+      actions: {
+        call: "Call",
+        message: "Send Message",
+        save: "Save Contact"
+      },
+      labels: {
+        name: "Name",
+        number: "Phone Number",
+        description: "Description"
+      }
+    },
+    kok: {
+      title: "Important Contacts",
+      categories: {
+        emergency: "Emergency Contacts",
+        coastGuard: "Coast Guard",
+        ports: "Port Authorities",
+        weather: "Weather Services"
+      },
+      actions: {
+        call: "Call",
+        message: "Send Message",
+        save: "Save Contact"
+      },
+      labels: {
+        name: "Name",
+        number: "Phone Number",
+        description: "Description"
+      }
+    },
+    doi: {
+      title: "Important Contacts",
+      categories: {
+        emergency: "Emergency Contacts",
+        coastGuard: "Coast Guard",
+        ports: "Port Authorities",
+        weather: "Weather Services"
+      },
+      actions: {
+        call: "Call",
+        message: "Send Message",
+        save: "Save Contact"
+      },
+      labels: {
+        name: "Name",
+        number: "Phone Number",
+        description: "Description"
+      }
+    },
+    fr: {
+      title: "Important Contacts",
+      categories: {
+        emergency: "Emergency Contacts",
+        coastGuard: "Coast Guard",
+        ports: "Port Authorities",
+        weather: "Weather Services"
+      },
+      actions: {
+        call: "Call",
+        message: "Send Message",
+        save: "Save Contact"
+      },
+      labels: {
+        name: "Name",
+        number: "Phone Number",
+        description: "Description"
+      }
+    },
+    es: {
+      title: "Important Contacts",
+      categories: {
+        emergency: "Emergency Contacts",
+        coastGuard: "Coast Guard",
+        ports: "Port Authorities",
+        weather: "Weather Services"
+      },
+      actions: {
+        call: "Call",
+        message: "Send Message",
+        save: "Save Contact"
+      },
+      labels: {
+        name: "Name",
+        number: "Phone Number",
+        description: "Description"
+      }
+    }
+  },
+  LogNewCatchScreen: {
+    en: {
+      title: "Log New Catch",
+      form: {
+        species: "Fish Species",
+        weight: "Weight (kg)",
+        quantity: "Quantity",
+        location: "Catch Location",
+        time: "Time of Catch",
+        method: "Fishing Method"
+      },
+      buttons: {
+        add: "Add Catch",
+        photo: "Add Photo",
+        save: "Save Log",
+        cancel: "Cancel"
+      },
+      messages: {
+        success: "Catch logged successfully",
+        error: "Error logging catch"
+      }
+    },
+    hi: {
+      title: "नया कैच दर्ज किया गया है।",
+      form: {
+        species: "मछली",
+        weight: "वजन (किलोग्राम)",
+        quantity: "मात्रा",
+        location: "कैच स्थान",
+        time: "पकड़ का समय",
+        method: "मछली पकड़ने का तरीका"
+      },
+      buttons: {
+        add: "जोड़ना",
+        photo: "फोटो जोड़ें",
+        save: "लॉग सहेजें।",
+        cancel: "रद्द"
+      },
+      messages: {
+        success: "कैच लॉग किया गया सफलतापूर्वक।",
+        error: "त्रुटि लॉगिंग कैच"
+      }
+    },
+    ta: {
+      title: "புதிய நிகழ்வு பதிவு செய்யப்பட்டுள்ளது.",
+      form: {
+        species: "மீன்",
+        weight: "எடை (கிலோ)",
+        quantity: "அளவு",
+        location: "இலக்க இடம்",
+        time: "பிடிப்பு நேரம்",
+        method: "மீன்பிடி முறை"
+      },
+      buttons: {
+        add: "சேர்க்கவும்",
+        photo: "புகைப்படத்தைச் சேர்க்கவும்.",
+        save: "பதிவுச் செய்தியை சேமி செய்யவும்.",
+        cancel: "ரத்து"
+      },
+      messages: {
+        success: "பதிவு வெற்றிகரமாகச் செய்யப்பட்டுள்ளது.",
+        error: "பிழை பதிவு பிடித்தம்"
+      }
+    },
+    te: {
+      title: "కొత్త లాగింగ్",
+      form: {
+        species: "చేపల జాతులు",
+        weight: "బరువు (కిలోగ్రాములు)",
+        quantity: "పరిమాణం",
+        location: "పట్టుకునే ప్రదేశం",
+        time: "పట్టుట సమయం",
+        method: "చేపలు పట్టడం"
+      },
+      buttons: {
+        add: "చేర్పు",
+        photo: "ఫోటో జోడించండి.",
+        save: "లాగ్ సేవ్ చేయండి.",
+        cancel: "రద్దు"
+      },
+      messages: {
+        success: "లాగ్ చేయబడినది.",
+        error: "లోపం లాగింగ్ క్యాచ్"
+      }
+    },
+    ml: {
+      title: "പുതിയ പിടിക്കല്‍ രേഖപ്പെടുത്തുന്നു.",
+      form: {
+        species: "മത്സ്യ ഇനം",
+        weight: "ഭാരം (കിലോഗ്രാം)",
+        quantity: "അളവ്",
+        location: "ലക്ഷ്യസ്ഥാനം",
+        time: "പിടിക്കുന്ന സമയം",
+        method: "മത്സ്യബന്ധന രീതി"
+      },
+      buttons: {
+        add: "ചേര്ക്കല്",
+        photo: "ഫോട്ടോ ചേർക്കുക",
+        save: "സേവ് ലോഗ്",
+        cancel: "ഉപേക്ഷിക്കുക"
+      },
+      messages: {
+        success: "ക്യാച്ച് ലോഗ് ചെയ്തു വിജയകരമായി.",
+        error: "പിശക് ലോഗിങ് പിടിക്കല്‍"
+      }
+    },
+    bn: {
+      title: "লগ নতুন ক্যাচ",
+      form: {
+        species: "মাছের প্রজাতি",
+        weight: "ওজন (কেজি)",
+        quantity: "পরিমাণ",
+        location: "ক্যাচ করার স্থান",
+        time: "ধরা",
+        method: "মৎস্য আহরণ পদ্ধতি"
+      },
+      buttons: {
+        add: "ক্যাচ",
+        photo: "ছবি যোগ করুন।",
+        save: "লগ সংরক্ষণ করো।",
+        cancel: "বাতিল"
+      },
+      messages: {
+        success: "ক্যাচ লগড সফলভাবে সম্পন্ন হয়েছে।",
+        error: "ত্রুটি লগিং ক্যাচ"
+      }
+    },
+    kn: {
+      title: "ಹೊಸದಾಗಿ ಹಿಡಿಯುವಿಕೆ ದಾಖಲಿಸಲಾಗಿದೆ.",
+      form: {
+        species: "ಮೀನು",
+        weight: "ತೂಕ (ಕೆಜಿ)",
+        quantity: "ಪ್ರಮಾಣ",
+        location: "ಗುರಿ ಸ್ಥಳ",
+        time: "ಹಿಡಿಯುವ ಸಮಯ",
+        method: "ಮೀನು ಹಿಡಿಯುವ ವಿಧಾನ"
+      },
+      buttons: {
+        add: "ಸೇರಿಸುವುದು",
+        photo: "ಛಾಯಾಚಿತ್ರ ಸೇರಿಸಿ.",
+        save: "ಲಾಗ್‌ಅನ್ನು ಸೇವ್‌ ಮಾಡಿ.",
+        cancel: "ರದ್ದುಗೊಳಿಸು"
+      },
+      messages: {
+        success: "ಹಿಡಿಯಲಾಗಿದೆ ಯಶಸ್ವಿಯಾಗಿ.",
+        error: "ದೋಷ ದಾಖಲಿಸುವಿಕೆ ಹಿಡಿಯುವಿಕೆ"
+      }
+    },
+    gu: {
+      title: "નવો પકડ નોંધાયો.",
+      form: {
+        species: "માછલી",
+        weight: "વજન (કિ.મી.)",
+        quantity: "માત્રા",
+        location: "નિશાન",
+        time: "પકડવાંનો સમય",
+        method: "માછીમારી"
+      },
+      buttons: {
+        add: "ઉમેરો",
+        photo: "ફોટો ઉમેરો.",
+        save: "લોગ સાચવો.",
+        cancel: "રદ"
+      },
+      messages: {
+        success: "લખાણ સફળતાપૂર્વક નોંધાયું.",
+        error: "ભૂલ લોગિંગ પકડ"
+      }
+    },
+    mr: {
+      title: "लॉग न्यू कॅच",
+      form: {
+        species: "मासे",
+        weight: "वजन (कि.ग्रा.)",
+        quantity: "संख्या",
+        location: "लक्ष्यस्थान",
+        time: "पकडण्याचा वेळ",
+        method: "मासेमारी"
+      },
+      buttons: {
+        add: "अडवणूक",
+        photo: "छायाचित्र जोडा.",
+        save: "लॉग सेव्ह करा",
+        cancel: "नाकारणे"
+      },
+      messages: {
+        success: "कॅच लॉग यशस्वीरित्या झाला.",
+        error: "त्रुटी लॉगिंग पकड"
+      }
+    },
+    or: {
+      title: "Log New Catch",
+      form: {
+        species: "Fish Species",
+        weight: "Weight (kg)",
+        quantity: "Quantity",
+        location: "Catch Location",
+        time: "Time of Catch",
+        method: "Fishing Method"
+      },
+      buttons: {
+        add: "Add Catch",
+        photo: "Add Photo",
+        save: "Save Log",
+        cancel: "Cancel"
+      },
+      messages: {
+        success: "Catch logged successfully",
+        error: "Error logging catch"
+      }
+    },
+    as: {
+      title: "Log New Catch",
+      form: {
+        species: "Fish Species",
+        weight: "Weight (kg)",
+        quantity: "Quantity",
+        location: "Catch Location",
+        time: "Time of Catch",
+        method: "Fishing Method"
+      },
+      buttons: {
+        add: "Add Catch",
+        photo: "Add Photo",
+        save: "Save Log",
+        cancel: "Cancel"
+      },
+      messages: {
+        success: "Catch logged successfully",
+        error: "Error logging catch"
+      }
+    },
+    pa: {
+      title: "ਲਾਗ ਨਵਾਂ ਕੈਚ",
+      form: {
+        species: "ਮੱਛੀ",
+        weight: "ਭਾਰ (ਕਿਲੋਗ੍ਰਾਮ)",
+        quantity: "ਮਾਤਰਾ",
+        location: "ਨਿਸ਼ਾਨਾ ਸਥਾਨ",
+        time: "ਫੜਣ ਦਾ ਸਮਾਂ",
+        method: "ਮੱਛੀ ਫੜਨ ਦਾ ਢੰਗ"
+      },
+      buttons: {
+        add: "ਜੁਆਬ",
+        photo: "ਫੋਟੋ ਸ਼ਾਮਲ ਕਰੋ।",
+        save: "ਲਾਗ ਸੰਭਾਲੋ।",
+        cancel: "ਰੱਦ"
+      },
+      messages: {
+        success: "ਲਾਗਇਨ ਸਫ਼ਲ हुआ।",
+        error: "ਗਲਤੀ ਲਾਗਿੰਗ ਕੈਚ"
+      }
+    },
+    sd: {
+      title: "Log New Catch",
+      form: {
+        species: "Fish Species",
+        weight: "Weight (kg)",
+        quantity: "Quantity",
+        location: "Catch Location",
+        time: "Time of Catch",
+        method: "Fishing Method"
+      },
+      buttons: {
+        add: "Add Catch",
+        photo: "Add Photo",
+        save: "Save Log",
+        cancel: "Cancel"
+      },
+      messages: {
+        success: "Catch logged successfully",
+        error: "Error logging catch"
+      }
+    },
+    kok: {
+      title: "Log New Catch",
+      form: {
+        species: "Fish Species",
+        weight: "Weight (kg)",
+        quantity: "Quantity",
+        location: "Catch Location",
+        time: "Time of Catch",
+        method: "Fishing Method"
+      },
+      buttons: {
+        add: "Add Catch",
+        photo: "Add Photo",
+        save: "Save Log",
+        cancel: "Cancel"
+      },
+      messages: {
+        success: "Catch logged successfully",
+        error: "Error logging catch"
+      }
+    },
+    doi: {
+      title: "Log New Catch",
+      form: {
+        species: "Fish Species",
+        weight: "Weight (kg)",
+        quantity: "Quantity",
+        location: "Catch Location",
+        time: "Time of Catch",
+        method: "Fishing Method"
+      },
+      buttons: {
+        add: "Add Catch",
+        photo: "Add Photo",
+        save: "Save Log",
+        cancel: "Cancel"
+      },
+      messages: {
+        success: "Catch logged successfully",
+        error: "Error logging catch"
+      }
+    },
+    fr: {
+      title: "Log New Catch",
+      form: {
+        species: "Fish Species",
+        weight: "Weight (kg)",
+        quantity: "Quantity",
+        location: "Catch Location",
+        time: "Time of Catch",
+        method: "Fishing Method"
+      },
+      buttons: {
+        add: "Add Catch",
+        photo: "Add Photo",
+        save: "Save Log",
+        cancel: "Cancel"
+      },
+      messages: {
+        success: "Catch logged successfully",
+        error: "Error logging catch"
+      }
+    },
+    es: {
+      title: "Log New Catch",
+      form: {
+        species: "Fish Species",
+        weight: "Weight (kg)",
+        quantity: "Quantity",
+        location: "Catch Location",
+        time: "Time of Catch",
+        method: "Fishing Method"
+      },
+      buttons: {
+        add: "Add Catch",
+        photo: "Add Photo",
+        save: "Save Log",
+        cancel: "Cancel"
+      },
+      messages: {
+        success: "Catch logged successfully",
+        error: "Error logging catch"
+      }
+    }
+  },
+  Maps: {
+    en: {
+      title: "Maps",
+      layers: {
+        satellite: "Satellite View",
+        terrain: "Terrain View",
+        weather: "Weather Layer",
+        fishing: "Fishing Zones"
+      },
+      controls: {
+        zoom: "Zoom",
+        recenter: "Recenter",
+        track: "Track Location"
+      },
+      markers: {
+        current: "Current Location",
+        destination: "Destination",
+        warning: "Warning Zone"
+      }
+    },
+    hi: {
+      title: "मानचित्र",
+      layers: {
+        satellite: "उपग्रह दृश्य",
+        terrain: "भू-भाग दृश्य",
+        weather: "मौसम परत",
+        fishing: "मछली पकड़ने का क्षेत्र"
+      },
+      controls: {
+        zoom: "ज़ूम",
+        recenter: "केंद्र",
+        track: "ट्रैक स्थान"
+      },
+      markers: {
+        current: "वर्तमान स्थान",
+        destination: "गंतव्य",
+        warning: "चेतावनी क्षेत्र"
+      }
+    },
+    ta: {
+      title: "வரைபடங்கள்",
+      layers: {
+        satellite: "செயற்கைக்கோள் காட்சி",
+        terrain: "நிலப்பரப்பு காட்சி",
+        weather: "வானிலை அடுக்கு",
+        fishing: "மீன்பிடி பகுதிகள்"
+      },
+      controls: {
+        zoom: "ஜூம்",
+        recenter: "மையப்படுத்த",
+        track: "இடப்பொருள்"
+      },
+      markers: {
+        current: "தற்போதைய இருப்பிடம்",
+        destination: "இலக்கு",
+        warning: "எச்சரிக்கை மண்டலம்"
+      }
+    },
+    te: {
+      title: "పటాలు",
+      layers: {
+        satellite: "ఉపగ్రహ దృశ్యం",
+        terrain: "భూభాగ దృశ్యం",
+        weather: "వాతావరణం",
+        fishing: "చేపల వేట ప్రాంతాలు"
+      },
+      controls: {
+        zoom: "జూమ్",
+        recenter: "కేంద్రీకృతమైన",
+        track: "ట్రాక్ స్థానం"
+      },
+      markers: {
+        current: "ప్రస్తుత నివాసం",
+        destination: "గమ్యస్థానం",
+        warning: "హెచ్చరిక ప్రాంతం"
+      }
+    },
+    ml: {
+      title: "ഭൂപടങ്ങള്‍",
+      layers: {
+        satellite: "ഉപഗ്രഹദൃശ്യം",
+        terrain: "ഭൂപ്രകൃതിദൃശ്യം",
+        weather: "കാലാവസ്ഥാ പാളി",
+        fishing: "മത്സ്യബന്ധന മേഖല"
+      },
+      controls: {
+        zoom: "സൂം",
+        recenter: "കേന്ദ്രീകരിക്കുക",
+        track: "ട്രാക്ക് സ്ഥാനം"
+      },
+      markers: {
+        current: "ഇപ്പോഴത്തെ സ്ഥാനം",
+        destination: "ലക്ഷ്യസ്ഥാനം",
+        warning: "മുന്നറിയിപ്പ് മേഖല"
+      }
+    },
+    bn: {
+      title: "মানচিত্র",
+      layers: {
+        satellite: "উপগ্রহ দৃশ্য",
+        terrain: "ভূমি দৃশ্য",
+        weather: "আবহাওয়া স্তর",
+        fishing: "মৎস্য-আবাস"
+      },
+      controls: {
+        zoom: "জুম",
+        recenter: "কেন্দ্র",
+        track: "ট্র্যাকের অবস্থান"
+      },
+      markers: {
+        current: "বর্তমান অবস্থান",
+        destination: "গন্তব্য",
+        warning: "সতর্কীকরণ অঞ্চল"
+      }
+    },
+    kn: {
+      title: "ನಕ್ಷೆಗಳು",
+      layers: {
+        satellite: "ಉಪಗ್ರಹ ವೀಕ್ಷಣೆ",
+        terrain: "ಭೂದೃಶ್ಯದ ನೋಟ",
+        weather: "ವಾತಾವರಣ",
+        fishing: "ಮೀನುಗಾರಿಕೆ ವಲಯ"
+      },
+      controls: {
+        zoom: "ಜೂಮ್",
+        recenter: "ಕೇಂದ್ರೀಕೃತ",
+        track: "ಟ್ರ್ಯಾಕ್ ಸ್ಥಳ"
+      },
+      markers: {
+        current: "ಪ್ರಸ್ತುತ ಸ್ಥಳ",
+        destination: "ಗಮ್ಯಸ್ಥಳ",
+        warning: "ಎಚ್ಚರಿಕೆ ವಲಯ"
+      }
+    },
+    gu: {
+      title: "નકશા",
+      layers: {
+        satellite: "ઉપગ્રહ દૃશ્ય",
+        terrain: "ભૂપ્રદેશ દૃશ્ય",
+        weather: "હવામાન સ્તર",
+        fishing: "માછીમારી ક્ષેત્ર"
+      },
+      controls: {
+        zoom: "ઝૂમ",
+        recenter: "કેન્દ્ર",
+        track: "સ્થાન"
+      },
+      markers: {
+        current: "હાલનું સ્થાન",
+        destination: "ગંતવ્ય",
+        warning: "ચેતવણી ક્ષેત્ર"
+      }
+    },
+    mr: {
+      title: "नकाशे",
+      layers: {
+        satellite: "उपग्रह दृश्य",
+        terrain: "भूभागाचे दृश्य",
+        weather: "हवामान स्तर",
+        fishing: "मासेमारी क्षेत्र"
+      },
+      controls: {
+        zoom: "झूम",
+        recenter: "केंद्रस्थानी",
+        track: "स्थानाचा मजकूर"
+      },
+      markers: {
+        current: "सध्याचे स्थान",
+        destination: "गंतव्यस्थान",
+        warning: "चेतावणी क्षेत्र"
+      }
+    },
+    or: {
+      title: "Maps",
+      layers: {
+        satellite: "Satellite View",
+        terrain: "Terrain View",
+        weather: "Weather Layer",
+        fishing: "Fishing Zones"
+      },
+      controls: {
+        zoom: "Zoom",
+        recenter: "Recenter",
+        track: "Track Location"
+      },
+      markers: {
+        current: "Current Location",
+        destination: "Destination",
+        warning: "Warning Zone"
+      }
+    },
+    as: {
+      title: "Maps",
+      layers: {
+        satellite: "Satellite View",
+        terrain: "Terrain View",
+        weather: "Weather Layer",
+        fishing: "Fishing Zones"
+      },
+      controls: {
+        zoom: "Zoom",
+        recenter: "Recenter",
+        track: "Track Location"
+      },
+      markers: {
+        current: "Current Location",
+        destination: "Destination",
+        warning: "Warning Zone"
+      }
+    },
+    pa: {
+      title: "ਨਕਸ਼ੇ",
+      layers: {
+        satellite: "ਉਪਗ੍ਰਹਿ ਦ੍ਰਿਸ਼",
+        terrain: "ਭੂ-ਦ੍ਰਿਸ਼",
+        weather: "ਮੌਸਮ ਪਰਤ",
+        fishing: "ਮੱਛੀ ਫੜਨ ਵਾਲੇ ਖੇਤਰ"
+      },
+      controls: {
+        zoom: "ਜ਼ੂਮ",
+        recenter: "ਕੇਂਦਰ",
+        track: "ਟਰੈਕ ਸਥਾਨ"
+      },
+      markers: {
+        current: "ਮੌਜੂਦਾ ਸਥਾਨ",
+        destination: "ਮੰਜ਼ਿਲ",
+        warning: "ਚੇਤਾਵਨੀ ਖੇਤਰ"
+      }
+    },
+    sd: {
+      title: "Maps",
+      layers: {
+        satellite: "Satellite View",
+        terrain: "Terrain View",
+        weather: "Weather Layer",
+        fishing: "Fishing Zones"
+      },
+      controls: {
+        zoom: "Zoom",
+        recenter: "Recenter",
+        track: "Track Location"
+      },
+      markers: {
+        current: "Current Location",
+        destination: "Destination",
+        warning: "Warning Zone"
+      }
+    },
+    kok: {
+      title: "Maps",
+      layers: {
+        satellite: "Satellite View",
+        terrain: "Terrain View",
+        weather: "Weather Layer",
+        fishing: "Fishing Zones"
+      },
+      controls: {
+        zoom: "Zoom",
+        recenter: "Recenter",
+        track: "Track Location"
+      },
+      markers: {
+        current: "Current Location",
+        destination: "Destination",
+        warning: "Warning Zone"
+      }
+    },
+    doi: {
+      title: "Maps",
+      layers: {
+        satellite: "Satellite View",
+        terrain: "Terrain View",
+        weather: "Weather Layer",
+        fishing: "Fishing Zones"
+      },
+      controls: {
+        zoom: "Zoom",
+        recenter: "Recenter",
+        track: "Track Location"
+      },
+      markers: {
+        current: "Current Location",
+        destination: "Destination",
+        warning: "Warning Zone"
+      }
+    },
+    fr: {
+      title: "Maps",
+      layers: {
+        satellite: "Satellite View",
+        terrain: "Terrain View",
+        weather: "Weather Layer",
+        fishing: "Fishing Zones"
+      },
+      controls: {
+        zoom: "Zoom",
+        recenter: "Recenter",
+        track: "Track Location"
+      },
+      markers: {
+        current: "Current Location",
+        destination: "Destination",
+        warning: "Warning Zone"
+      }
+    },
+    es: {
+      title: "Maps",
+      layers: {
+        satellite: "Satellite View",
+        terrain: "Terrain View",
+        weather: "Weather Layer",
+        fishing: "Fishing Zones"
+      },
+      controls: {
+        zoom: "Zoom",
+        recenter: "Recenter",
+        track: "Track Location"
+      },
+      markers: {
+        current: "Current Location",
+        destination: "Destination",
+        warning: "Warning Zone"
+      }
+    }
+  },
+  OnboardingScreen: {
+    en: {
+      title: "Welcome to SeaGuard",
+      slides: {
+        safety: {
+          title: "Safety First",
+          description: "Your maritime safety companion"
+        },
+        features: {
+          title: "Smart Features",
+          description: "Everything you need for safe fishing"
+        },
+        community: {
+          title: "Join the Community",
+          description: "Connect with fellow fishermen"
+        }
+      },
+      buttons: {
+        next: "Next",
+        skip: "Skip",
+        getStarted: "Get Started"
+      }
+    },
+    hi: {
+      title: "सीगार्ड में आपका स्वागत है।",
+      slides: {
+        safety: {
+          title: "सुरक्षा पहले",
+          description: "आपकी समुद्री सुरक्षा सहयोगी"
+        },
+        features: {
+          title: "स्मार्ट विशेषताएँ",
+          description: "सुरक्षित मछली पकड़ने के लिए आपको जो कुछ भी चाहिए"
+        },
+        community: {
+          title: "समुदाय में शामिल हो जाइए।",
+          description: "साथी मछुआरों से संपर्क करें।"
+        }
+      },
+      buttons: {
+        next: "अगला",
+        skip: "छोड़ना",
+        getStarted: "आरंभ करें"
+      }
+    },
+    ta: {
+      title: "சீகார்ட் இணையதளத்திற்கு வருக.",
+      slides: {
+        safety: {
+          title: "பாதுகாப்புக்கு முன்னுரிமை",
+          description: "உங்களுடைய கடல்சார் பாதுகாப்பு கூட்டாளி."
+        },
+        features: {
+          title: "புத்திசாலித்தனமான அம்சங்கள்",
+          description: "பாதுகாப்பான மீன்பிடித்தலுக்குத் தேவையான அனைத்தும்"
+        },
+        community: {
+          title: "சமூகத்தில் இணையுங்கள்.",
+          description: "சக மீனவர்களுடன் பழகுங்கள்."
+        }
+      },
+      buttons: {
+        next: "அடுத்த",
+        skip: "தவிர்க்க",
+        getStarted: "தொடங்குங்கள்"
+      }
+    },
+    te: {
+      title: "SeaGuard కు స్వాగతం.",
+      slides: {
+        safety: {
+          title: "భద్రత ముందు",
+          description: "మీ సముద్రయాన భద్రత సహచరులు"
+        },
+        features: {
+          title: "స్మార్ట్ ఫీచర్లు",
+          description: "సురక్షితమైన చేపలు పట్టడానికి మీకు అవసరమైనవన్నీ"
+        },
+        community: {
+          title: "సమాజంలో చేరండి",
+          description: "మత్స్యకారులతో కలసి ఉండండి."
+        }
+      },
+      buttons: {
+        next: "తదుపరి",
+        skip: "దాటవేయు",
+        getStarted: "ప్రారంభించండి"
+      }
+    },
+    ml: {
+      title: "സീഗാർഡിൽ സ്വാഗതം.",
+      slides: {
+        safety: {
+          title: "സുരക്ഷയ്ക്ക് മുൻഗണന",
+          description: "താങ്കളുടെ സമുദ്ര സുരക്ഷാ കൂട്ടാളിയായ"
+        },
+        features: {
+          title: "ബുദ്ധിശാലികള്",
+          description: "സുരക്ഷിതമായി മീൻപിടിക്കാൻ ആവശ്യമായതെല്ലാം"
+        },
+        community: {
+          title: "സമൂഹത്തിൽ ചേരുക",
+          description: "കൂട്ടുകാരുമായി മീൻപിടുത്തം നടത്തുക."
+        }
+      },
+      buttons: {
+        next: "അടുത്ത",
+        skip: "ഒഴിവ്",
+        getStarted: "ആരംഭിക്കുക"
+      }
+    },
+    bn: {
+      title: "সিগার্ড-এ আপনাকে স্বাগত।",
+      slides: {
+        safety: {
+          title: "নিরাপত্তার দিকে প্রথমেই নজর",
+          description: "আপনার সামুদ্রিক নিরাপত্তা সঙ্গী।"
+        },
+        features: {
+          title: "স্মার্ট বৈশিষ্ট্য",
+          description: "নিরাপদ মাছ ধরার জন্য আপনার যা যা প্রয়োজন"
+        },
+        community: {
+          title: "সম্প্রদায়ে যোগদান করুন।",
+          description: "সহকর্মী মৎস্যজীবীদের সাথে যোগাযোগ করুন।"
+        }
+      },
+      buttons: {
+        next: "পরবর্তী",
+        skip: "পাশ কাটা",
+        getStarted: "শুরু করুন"
+      }
+    },
+    kn: {
+      title: "ಸೀಗಾರ್ಡ್‌ಗೆ ಸ್ವಾಗತ.",
+      slides: {
+        safety: {
+          title: "ಸುರಕ್ಷತೆ ಮೊದಲು",
+          description: "ನಿಮ್ಮ ಕಡಲ ಸುರಕ್ಷತಾ ಸಹಚರ"
+        },
+        features: {
+          title: "ಸ್ಮಾರ್ಟ್ ವೈಶಿಷ್ಟ್ಯಗಳು",
+          description: "ಸುರಕ್ಷಿತ ಮೀನುಗಾರಿಕೆಗೆ ಅಗತ್ಯವಿರುವ ಎಲ್ಲವೂ"
+        },
+        community: {
+          title: "ಸಮುದಾಯಕ್ಕೆ ಸೇರಿ",
+          description: "ಮೀನುಗಾರರ ಜೊತೆ ಸಂಪರ್ಕ ಸಾಧಿಸಿ."
+        }
+      },
+      buttons: {
+        next: "ಮುಂದಿನ",
+        skip: "ಬಿಟ್ಟು",
+        getStarted: "ಪ್ರಾರಂಭಿಸಿ"
+      }
+    },
+    gu: {
+      title: "સીગાર્ડમાં આપનું સ્વાગત છે.",
+      slides: {
+        safety: {
+          title: "સલામતી પહેલા",
+          description: "આપની દરિયાઈ સુરક્ષા સાથી"
+        },
+        features: {
+          title: "સ્માર્ટ સુવિધાઓ",
+          description: "સલામત માછીમારી માટે તમને જે જોઈએ તે બધું"
+        },
+        community: {
+          title: "સમુદાયમાં જોડાઓ",
+          description: "સાથી માછીમારો સાથે જોડાઓ."
+        }
+      },
+      buttons: {
+        next: "આગળ",
+        skip: "છોડી દેવું",
+        getStarted: "આરંભ કરો"
+      }
+    },
+    mr: {
+      title: "सीगार्ड मध्ये आपले स्वागत आहे.",
+      slides: {
+        safety: {
+          title: "सुरक्षेला प्रथम स्थान",
+          description: "आपल्या सागरी सुरक्षा साथीदार"
+        },
+        features: {
+          title: "स्मार्ट वैशिष्ट्ये",
+          description: "सुरक्षित मासेमारीसाठी आवश्यक असलेली सर्वकाही"
+        },
+        community: {
+          title: "समुदायामध्ये सामील व्हा",
+          description: "सहकारी मच्छीमारांशी संपर्क साधा."
+        }
+      },
+      buttons: {
+        next: "पुढचा",
+        skip: "सोडून देणे",
+        getStarted: "सुरुवात करा"
+      }
+    },
+    or: {
+      title: "Welcome to SeaGuard",
+      slides: {
+        safety: {
+          title: "Safety First",
+          description: "Your maritime safety companion"
+        },
+        features: {
+          title: "Smart Features",
+          description: "Everything you need for safe fishing"
+        },
+        community: {
+          title: "Join the Community",
+          description: "Connect with fellow fishermen"
+        }
+      },
+      buttons: {
+        next: "Next",
+        skip: "Skip",
+        getStarted: "Get Started"
+      }
+    },
+    as: {
+      title: "Welcome to SeaGuard",
+      slides: {
+        safety: {
+          title: "Safety First",
+          description: "Your maritime safety companion"
+        },
+        features: {
+          title: "Smart Features",
+          description: "Everything you need for safe fishing"
+        },
+        community: {
+          title: "Join the Community",
+          description: "Connect with fellow fishermen"
+        }
+      },
+      buttons: {
+        next: "Next",
+        skip: "Skip",
+        getStarted: "Get Started"
+      }
+    },
+    pa: {
+      title: "ਸੀਗਾਰਡ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ।",
+      slides: {
+        safety: {
+          title: "ਸੁਰੱਖਿਆ ਪਹਿਲਾਂ",
+          description: "ਤੁਹਾਡੀ ਸਮੁੰਦਰੀ ਸੁਰੱਖਿਆ ਸਾਥੀ"
+        },
+        features: {
+          title: "ਸਮਾਰਟ ਫੀਚਰਜ਼",
+          description: "ਸੁਰੱਖਿਅਤ ਮੱਛੀ ਫੜਨ ਲਈ ਤੁਹਾਨੂੰ ਜੋ ਵੀ ਚੀਜ਼ ਚਾਹੀਦੀ ਹੈ।"
+        },
+        community: {
+          title: "ਸਮਾਜ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ।",
+          description: "ਸਾਥੀ ਮਛੇਰਿਆਂ ਨਾਲ ਜੁੜੋ।"
+        }
+      },
+      buttons: {
+        next: "ਅਗਲਾ",
+        skip: "ਛੱਡਣਾ",
+        getStarted: "ਆਰੰਭ ਕਰੋ।"
+      }
+    },
+    sd: {
+      title: "Welcome to SeaGuard",
+      slides: {
+        safety: {
+          title: "Safety First",
+          description: "Your maritime safety companion"
+        },
+        features: {
+          title: "Smart Features",
+          description: "Everything you need for safe fishing"
+        },
+        community: {
+          title: "Join the Community",
+          description: "Connect with fellow fishermen"
+        }
+      },
+      buttons: {
+        next: "Next",
+        skip: "Skip",
+        getStarted: "Get Started"
+      }
+    },
+    kok: {
+      title: "Welcome to SeaGuard",
+      slides: {
+        safety: {
+          title: "Safety First",
+          description: "Your maritime safety companion"
+        },
+        features: {
+          title: "Smart Features",
+          description: "Everything you need for safe fishing"
+        },
+        community: {
+          title: "Join the Community",
+          description: "Connect with fellow fishermen"
+        }
+      },
+      buttons: {
+        next: "Next",
+        skip: "Skip",
+        getStarted: "Get Started"
+      }
+    },
+    doi: {
+      title: "Welcome to SeaGuard",
+      slides: {
+        safety: {
+          title: "Safety First",
+          description: "Your maritime safety companion"
+        },
+        features: {
+          title: "Smart Features",
+          description: "Everything you need for safe fishing"
+        },
+        community: {
+          title: "Join the Community",
+          description: "Connect with fellow fishermen"
+        }
+      },
+      buttons: {
+        next: "Next",
+        skip: "Skip",
+        getStarted: "Get Started"
+      }
+    },
+    fr: {
+      title: "Welcome to SeaGuard",
+      slides: {
+        safety: {
+          title: "Safety First",
+          description: "Your maritime safety companion"
+        },
+        features: {
+          title: "Smart Features",
+          description: "Everything you need for safe fishing"
+        },
+        community: {
+          title: "Join the Community",
+          description: "Connect with fellow fishermen"
+        }
+      },
+      buttons: {
+        next: "Next",
+        skip: "Skip",
+        getStarted: "Get Started"
+      }
+    },
+    es: {
+      title: "Welcome to SeaGuard",
+      slides: {
+        safety: {
+          title: "Safety First",
+          description: "Your maritime safety companion"
+        },
+        features: {
+          title: "Smart Features",
+          description: "Everything you need for safe fishing"
+        },
+        community: {
+          title: "Join the Community",
+          description: "Connect with fellow fishermen"
+        }
+      },
+      buttons: {
+        next: "Next",
+        skip: "Skip",
+        getStarted: "Get Started"
+      }
+    }
+  },
+  OtherServicesScreen: {
+    en: {
+      title: "Other Services",
+      services: {
+        insurance: "Insurance Services",
+        maintenance: "Boat Maintenance",
+        training: "Safety Training",
+        market: "Market Prices"
+      },
+      actions: {
+        book: "Book Service",
+        inquire: "Make Inquiry",
+        contact: "Contact Provider"
+      }
+    },
+    hi: {
+      title: "अन्य सेवाएँ",
+      services: {
+        insurance: "बीमा सेवाएँ",
+        maintenance: "नौका-संचालन",
+        training: "सुरक्षा प्रशिक्षण",
+        market: "बाजार मूल्य"
+      },
+      actions: {
+        book: "पुस्तक सेवा",
+        inquire: "पूछताछ",
+        contact: "संपर्क प्रदाता"
+      }
+    },
+    ta: {
+      title: "பிற சேவைகள்",
+      services: {
+        insurance: "காப்பீட்டுத் திட்டங்கள்",
+        maintenance: "படகு பராமரிப்பு",
+        training: "பாதுகாப்புப் பயிற்சி",
+        market: "சந்தை விலை"
+      },
+      actions: {
+        book: "நூல் சேவை",
+        inquire: "விசாரித்தல்",
+        contact: "தொடர்பு கொள்ளுபவர்"
+      }
+    },
+    te: {
+      title: "ఇతర సేవలు",
+      services: {
+        insurance: "బీమా సేవలు",
+        maintenance: "పడవ నిర్వహణ",
+        training: "భద్రతా శిక్షణ",
+        market: "మార్కెట్ ధరలు"
+      },
+      actions: {
+        book: "గ్రంథాలయం",
+        inquire: "విచారణ",
+        contact: "సంప్రదింపు"
+      }
+    },
+    ml: {
+      title: "മറ്റ് സേവനങ്ങൾ",
+      services: {
+        insurance: "ഇൻഷുറൻസ്",
+        maintenance: "ബോട്ട് പരിപാലനം",
+        training: "സുരക്ഷാ പരിശീലനം",
+        market: "വിപണി വില"
+      },
+      actions: {
+        book: "ഗ്രന്ഥസഞ്ചയം",
+        inquire: "അന്വേഷണം",
+        contact: "ബന്ധപ്പെടേണ്ടയാളെ അറിയിക്കുക"
+      }
+    },
+    bn: {
+      title: "অন্যান্য পরিষেবা",
+      services: {
+        insurance: "बीमा सेवाएँ",
+        maintenance: "নৌকা রক্ষণাবেক্ষণ",
+        training: "নিরাপত্তা প্রশিক্ষণ",
+        market: "বাজার মূল্য"
+      },
+      actions: {
+        book: "ग्रंथालय",
+        inquire: "অনুসন্ধান",
+        contact: "যোগাযোগকারী"
+      }
+    },
+    kn: {
+      title: "ಇತರ ಸೇವೆಗಳು",
+      services: {
+        insurance: "ವಿಮಾ ಸೇವೆಗಳು",
+        maintenance: "ದೋಣಿ ನಿರ್ವಹಣೆ",
+        training: "ಸುರಕ್ಷತಾ ತರಬೇತಿ",
+        market: "ಮಾರುಕಟ್ಟೆ ಬೆಲೆ"
+      },
+      actions: {
+        book: "ಗ್ರಂಥ ಸೇವೆ",
+        inquire: "ವಿಚಾರಣೆ",
+        contact: "ಸಂಪರ್ಕಿಸುವವ"
+      }
+    },
+    gu: {
+      title: "અન્ય સેવાઓ",
+      services: {
+        insurance: "बीमा सेवाएँ",
+        maintenance: "નૌકા-સંભાળ",
+        training: "सुरक्षा તાલીમ",
+        market: "બજાર કિંમત"
+      },
+      actions: {
+        book: "ग्रंथ સેવા",
+        inquire: "પૂછપરછ",
+        contact: "પ્રદાતાનો સંપર્ક"
+      }
+    },
+    mr: {
+      title: "इतर सेवा",
+      services: {
+        insurance: "विमा सेवा",
+        maintenance: "नौका देखभाल",
+        training: "सुरक्षा प्रशिक्षण",
+        market: "बाजारभाव"
+      },
+      actions: {
+        book: "ग्रंथालय",
+        inquire: "चौकशी",
+        contact: "संपर्क साधणारा"
+      }
+    },
+    or: {
+      title: "Other Services",
+      services: {
+        insurance: "Insurance Services",
+        maintenance: "Boat Maintenance",
+        training: "Safety Training",
+        market: "Market Prices"
+      },
+      actions: {
+        book: "Book Service",
+        inquire: "Make Inquiry",
+        contact: "Contact Provider"
+      }
+    },
+    as: {
+      title: "Other Services",
+      services: {
+        insurance: "Insurance Services",
+        maintenance: "Boat Maintenance",
+        training: "Safety Training",
+        market: "Market Prices"
+      },
+      actions: {
+        book: "Book Service",
+        inquire: "Make Inquiry",
+        contact: "Contact Provider"
+      }
+    },
+    pa: {
+      title: "ਹੋਰ ਸੇਵਾਵਾਂ",
+      services: {
+        insurance: "ਬੀਮਾ ਸੇਵਾਵਾਂ",
+        maintenance: "ਕਿਸ਼ਤੀ ਸਾਂਭਣ",
+        training: "ਸੁਰੱਖਿਆ ਸਿਖਲਾਈ",
+        market: "ਬਾਜ਼ਾਰ ਮੁੱਲ"
+      },
+      actions: {
+        book: "ਪਾਠ",
+        inquire: "ਪੁੱਛਗਿੱਛ",
+        contact: "ਸੰਪਰਕ ਕਰਨ ਵਾਲਾ"
+      }
+    },
+    sd: {
+      title: "Other Services",
+      services: {
+        insurance: "Insurance Services",
+        maintenance: "Boat Maintenance",
+        training: "Safety Training",
+        market: "Market Prices"
+      },
+      actions: {
+        book: "Book Service",
+        inquire: "Make Inquiry",
+        contact: "Contact Provider"
+      }
+    },
+    kok: {
+      title: "Other Services",
+      services: {
+        insurance: "Insurance Services",
+        maintenance: "Boat Maintenance",
+        training: "Safety Training",
+        market: "Market Prices"
+      },
+      actions: {
+        book: "Book Service",
+        inquire: "Make Inquiry",
+        contact: "Contact Provider"
+      }
+    },
+    doi: {
+      title: "Other Services",
+      services: {
+        insurance: "Insurance Services",
+        maintenance: "Boat Maintenance",
+        training: "Safety Training",
+        market: "Market Prices"
+      },
+      actions: {
+        book: "Book Service",
+        inquire: "Make Inquiry",
+        contact: "Contact Provider"
+      }
+    },
+    fr: {
+      title: "Other Services",
+      services: {
+        insurance: "Insurance Services",
+        maintenance: "Boat Maintenance",
+        training: "Safety Training",
+        market: "Market Prices"
+      },
+      actions: {
+        book: "Book Service",
+        inquire: "Make Inquiry",
+        contact: "Contact Provider"
+      }
+    },
+    es: {
+      title: "Other Services",
+      services: {
+        insurance: "Insurance Services",
+        maintenance: "Boat Maintenance",
+        training: "Safety Training",
+        market: "Market Prices"
+      },
+      actions: {
+        book: "Book Service",
+        inquire: "Make Inquiry",
+        contact: "Contact Provider"
+      }
+    }
+  },
+  PotentialFishingZoneScreen: {
+    en: {
+      title: "Potential Fishing Zones",
+      indicators: {
+        high: "High Potential",
+        medium: "Medium Potential",
+        low: "Low Potential"
+      },
+      data: {
+        temperature: "Water Temperature",
+        chlorophyll: "Chlorophyll Levels",
+        currentSpeed: "Current Speed"
+      },
+      updates: {
+        latest: "Latest Update",
+        next: "Next Update"
+      }
+    },
+    hi: {
+      title: "संभावित मछली पकड़ने वाले क्षेत्र",
+      indicators: {
+        high: "उभरता",
+        medium: "मध्यम क्षमता",
+        low: "निम्न क्षमता"
+      },
+      data: {
+        temperature: "जल तापमान",
+        chlorophyll: "क्लोरोफिल",
+        currentSpeed: "गति"
+      },
+      updates: {
+        latest: "नवीनतम अद्यतन",
+        next: "अगला अद्यतन"
+      }
+    },
+    ta: {
+      title: "மீன்பிடி மண்டலங்கள்",
+      indicators: {
+        high: "உயர் திறன்",
+        medium: "குறைந்த வாய்ப்புள்ள",
+        low: "குறைந்த ஆற்றல்"
+      },
+      data: {
+        temperature: "நீர் வெப்பநிலை",
+        chlorophyll: "பச்சை நிறமி",
+        currentSpeed: "தற்போதைய வேகம்"
+      },
+      updates: {
+        latest: "புதிய பதிப்பு",
+        next: "அடுத்த புதுப்பித்தல்"
+      }
+    },
+    te: {
+      title: "చేపల వేట ప్రాంతాలు",
+      indicators: {
+        high: "ప్రతిభావంతులైన",
+        medium: "తక్కువ సామర్థ్యం గల",
+        low: "తక్కువ సామర్థ్యం"
+      },
+      data: {
+        temperature: "నీటి ఉష్ణోగ్రత",
+        chlorophyll: "ఆకుపచ్చ వర్ణద్రవ్యం",
+        currentSpeed: "ప్రస్తుత వేగం"
+      },
+      updates: {
+        latest: "తాజా సమాచారం",
+        next: "తదుపరి నవీకరణ"
+      }
+    },
+    ml: {
+      title: "മത്സ്യബന്ധന മേഖലകള്‍",
+      indicators: {
+        high: "കഴിവുറ്റ",
+        medium: "മിതമായ സാധ്യതയുള്ള",
+        low: "കുറഞ്ഞ സാധ്യതയുള്ള"
+      },
+      data: {
+        temperature: "ജലതാപം",
+        chlorophyll: "പച്ചക്കറിയിലെ ക്ലോറോഫിൽ",
+        currentSpeed: "വേഗത"
+      },
+      updates: {
+        latest: "ഏറ്റവും പുതിയ വിവരണം",
+        next: "അടുത്ത അപ്ഡേറ്റ്"
+      }
+    },
+    bn: {
+      title: "সম্ভাব্য মাছ ধরার অঞ্চল",
+      indicators: {
+        high: "উচ্চ সম্ভাবনা",
+        medium: "মধ্যম সম্ভাবনা",
+        low: "নিকৃষ্ট সম্ভাবনা"
+      },
+      data: {
+        temperature: "জল তাপমাত্রা",
+        chlorophyll: "ক্লোরোফিল",
+        currentSpeed: "গতি"
+      },
+      updates: {
+        latest: "সর্বশেষ তথ্য",
+        next: "পরবর্তী তথ্য"
+      }
+    },
+    kn: {
+      title: "ಮೀನು ಹಿಡಿಯುವ ಸಾಧ್ಯತೆ ಇರುವ ವಲಯಗಳು",
+      indicators: {
+        high: "ಪ್ರತಿಭಾವಂತ",
+        medium: "ಮಧ್ಯಮ ಸಾಮರ್ಥ್ಯದ",
+        low: "ಕಡಿಮೆ ಸಾಮರ್ಥ್ಯದ"
+      },
+      data: {
+        temperature: "ನೀರಿನ ಉಷ್ಣತೆ",
+        chlorophyll: "ಹಸಿರು ಬಣ್ಣ",
+        currentSpeed: "ವೇಗ"
+      },
+      updates: {
+        latest: "ಇತ್ತೀಚಿನ ಮಾಹಿತಿ",
+        next: "ಮುಂದಿನ ನವೀಕರಣ"
+      }
+    },
+    gu: {
+      title: "સંભવિત માછીમારી ક્ષેત્ર",
+      indicators: {
+        high: "ઉજ્જવળ",
+        medium: "મધ્યમ સંભવિત",
+        low: "નબળી"
+      },
+      data: {
+        temperature: "પાણીનું તાપમાન",
+        chlorophyll: "ક્લોરોફિલ",
+        currentSpeed: "ગતિ"
+      },
+      updates: {
+        latest: "નવીનતમ માહિતી",
+        next: "આગામી અપડેટ"
+      }
+    },
+    mr: {
+      title: "संभाव्य मासेमारी क्षेत्र",
+      indicators: {
+        high: "उच्च क्षमता",
+        medium: "मध्यम क्षमता",
+        low: "कमी क्षमता"
+      },
+      data: {
+        temperature: "पाण्याचे तापमान",
+        chlorophyll: "क्लोरोफिल स्तर",
+        currentSpeed: "गती"
+      },
+      updates: {
+        latest: "नवीनतम अद्यतन",
+        next: "पुढील अद्यतन"
+      }
+    },
+    or: {
+      title: "Potential Fishing Zones",
+      indicators: {
+        high: "High Potential",
+        medium: "Medium Potential",
+        low: "Low Potential"
+      },
+      data: {
+        temperature: "Water Temperature",
+        chlorophyll: "Chlorophyll Levels",
+        currentSpeed: "Current Speed"
+      },
+      updates: {
+        latest: "Latest Update",
+        next: "Next Update"
+      }
+    },
+    as: {
+      title: "Potential Fishing Zones",
+      indicators: {
+        high: "High Potential",
+        medium: "Medium Potential",
+        low: "Low Potential"
+      },
+      data: {
+        temperature: "Water Temperature",
+        chlorophyll: "Chlorophyll Levels",
+        currentSpeed: "Current Speed"
+      },
+      updates: {
+        latest: "Latest Update",
+        next: "Next Update"
+      }
+    },
+    pa: {
+      title: "ਸੰਭਾਵੀ ਮੱਛੀ ਫੜਨ ਵਾਲੇ ਖੇਤਰ",
+      indicators: {
+        high: "ਪ੍ਰਤਿਭਾਸ਼ਾਲੀ",
+        medium: "ਮੱਧਮ ਸਮਰੱਥਾ",
+        low: "ਘੱਟ ਸੰਭਾਵਨਾ"
+      },
+      data: {
+        temperature: "ਪਾਣੀ ਦਾ ਤਾਪਮਾਨ",
+        chlorophyll: "ਕਲੋਰੋਫਿਲ ਪੱਧਰ",
+        currentSpeed: "ਗਤੀ"
+      },
+      updates: {
+        latest: "ਨਵੀਨਤਮ ਜਾਣਕਾਰੀ",
+        next: "ਅਗਲਾ ਅਪਡੇਟ"
+      }
+    },
+    sd: {
+      title: "Potential Fishing Zones",
+      indicators: {
+        high: "High Potential",
+        medium: "Medium Potential",
+        low: "Low Potential"
+      },
+      data: {
+        temperature: "Water Temperature",
+        chlorophyll: "Chlorophyll Levels",
+        currentSpeed: "Current Speed"
+      },
+      updates: {
+        latest: "Latest Update",
+        next: "Next Update"
+      }
+    },
+    kok: {
+      title: "Potential Fishing Zones",
+      indicators: {
+        high: "High Potential",
+        medium: "Medium Potential",
+        low: "Low Potential"
+      },
+      data: {
+        temperature: "Water Temperature",
+        chlorophyll: "Chlorophyll Levels",
+        currentSpeed: "Current Speed"
+      },
+      updates: {
+        latest: "Latest Update",
+        next: "Next Update"
+      }
+    },
+    doi: {
+      title: "Potential Fishing Zones",
+      indicators: {
+        high: "High Potential",
+        medium: "Medium Potential",
+        low: "Low Potential"
+      },
+      data: {
+        temperature: "Water Temperature",
+        chlorophyll: "Chlorophyll Levels",
+        currentSpeed: "Current Speed"
+      },
+      updates: {
+        latest: "Latest Update",
+        next: "Next Update"
+      }
+    },
+    fr: {
+      title: "Potential Fishing Zones",
+      indicators: {
+        high: "High Potential",
+        medium: "Medium Potential",
+        low: "Low Potential"
+      },
+      data: {
+        temperature: "Water Temperature",
+        chlorophyll: "Chlorophyll Levels",
+        currentSpeed: "Current Speed"
+      },
+      updates: {
+        latest: "Latest Update",
+        next: "Next Update"
+      }
+    },
+    es: {
+      title: "Potential Fishing Zones",
+      indicators: {
+        high: "High Potential",
+        medium: "Medium Potential",
+        low: "Low Potential"
+      },
+      data: {
+        temperature: "Water Temperature",
+        chlorophyll: "Chlorophyll Levels",
+        currentSpeed: "Current Speed"
+      },
+      updates: {
+        latest: "Latest Update",
+        next: "Next Update"
+      }
+    }
+  },
+  PurposeOnboardingScreen: {
+    en: {
+      title: "Select Your Purpose",
+      options: {
+        fishing: "Commercial Fishing",
+        recreational: "Recreational Fishing",
+        research: "Marine Research",
+        transport: "Maritime Transport"
+      },
+      prompts: {
+        select: "Select your primary activity",
+        customize: "We'll customize your experience"
+      },
+      buttons: {
+        confirm: "Confirm Selection",
+        back: "Go Back"
+      }
+    },
+    hi: {
+      title: "अपना उद्देश्य चुनें।",
+      options: {
+        fishing: "व्यावसायिक मछली पकड़ना",
+        recreational: "मनोरंजक मछली पकड़ने",
+        research: "समुद्री अनुसंधान",
+        transport: "समुद्री परिवहन"
+      },
+      prompts: {
+        select: "आप अपनी मुख्य गतिविधि चुनें।",
+        customize: "आपकी अनुभव-शैली को अनुकूलित किया जाएगा।"
+      },
+      buttons: {
+        confirm: "चयन की पुष्टि करें",
+        back: "वापस जाइए।"
+      }
+    },
+    ta: {
+      title: "உங்கள் நோக்கத்தைத் தெரிவு செய்யுங்கள்.",
+      options: {
+        fishing: "வணிக மீன்பிடித்தல்",
+        recreational: "பொழுதுபோக்கு மீன்பிடித்தல்",
+        research: "கடல்சார் ஆய்வு",
+        transport: "கடல்சார் போக்குவரத்து"
+      },
+      prompts: {
+        select: "உங்களுக்கு முக்கியமான செயல்பாட்டைக் தேர்ந்தெடுக்கவும்.",
+        customize: "உங்களுடைய அனுபவத்தை நாங்கள் தனிப்பயனாக்குவோம்."
+      },
+      buttons: {
+        confirm: "தேர்வு செய்யவும்",
+        back: "திரும்பிச் செல்லுங்கள்"
+      }
+    },
+    te: {
+      title: "మీ ఉద్దేశ్యాన్ని ఎంచుకోండి.",
+      options: {
+        fishing: "వాణిజ్య మత్స్యకారం",
+        recreational: "వినోద చేపల వేట",
+        research: "సముద్ర పరిశోధన",
+        transport: "సముద్ర రవాణా"
+      },
+      prompts: {
+        select: "మీరు చేసే ప్రధానమైన పనిని ఎంచుకోండి.",
+        customize: "మీ అనుభవమును మేము అనుకూలపరుస్తాము."
+      },
+      buttons: {
+        confirm: "ఎంపికను నిర్ధారించండి",
+        back: "తిరిగి వెళ్ళు"
+      }
+    },
+    ml: {
+      title: "താങ്കളുടെ ലക്ഷ്യം തിരഞ്ഞെടുക്കുക.",
+      options: {
+        fishing: "വാണിജ്യ മത്സ്യബന്ധനം",
+        recreational: "വിനോദ മത്സ്യബന്ധനം",
+        research: "സമുദ്രശാസ്ത്രം",
+        transport: "നാവികഗതാഗതം"
+      },
+      prompts: {
+        select: "താങ്കളുടെ പ്രധാന പ്രവർത്തനം തിരഞ്ഞെടുക്കുക.",
+        customize: "താങ്കളുടെ അനുഭവം ഞങ്ങള്‍ പ്രത്യേകമായി രൂപപ്പെടുത്തുന്നതാണ്"
+      },
+      buttons: {
+        confirm: "തെരഞ്ഞെടുപ്പ് സ്ഥിരീകരിക്കുക",
+        back: "മടങ്ങുക"
+      }
+    },
+    bn: {
+      title: "আপনার উদ্দেশ্য নির্বাচন করুন।",
+      options: {
+        fishing: "বাণিজ্যিক মৎস্য চাষ",
+        recreational: "বিনোদনমূলক মাছ ধরা",
+        research: "সামুদ্রিক গবেষণা",
+        transport: "সামুদ্রিক পরিবহন"
+      },
+      prompts: {
+        select: "আপনার প্রাথমিক কার্যকলাপ নির্বাচন করুন।",
+        customize: "আপনার অভিজ্ঞতাকে আমরা  অনুকূল করব।"
+      },
+      buttons: {
+        confirm: "নির্বাচন নিশ্চিত করুন।",
+        back: "ফেরত"
+      }
+    },
+    kn: {
+      title: "ನಿಮ್ಮ ಉದ್ದೇಶವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.",
+      options: {
+        fishing: "ವಾಣಿಜ್ಯ ಮೀನುಗಾರಿಕೆ",
+        recreational: "ಮನರಂಜನಾ ಮೀನುಗಾರಿಕೆ",
+        research: "ಸಾಗರ ವಿಜ್ಞಾನ",
+        transport: "ಸಾಗರ ಸಾರಿಗೆ"
+      },
+      prompts: {
+        select: "ನಿಮ್ಮ ಪ್ರಧಾನ ಚಟುವಟಿಕೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.",
+        customize: "ನಿಮ್ಮ ಅನುಭವವನ್ನು ನಾವು ಅನನ್ಯವಾಗಿ ರೂಪಿಸುತ್ತೇವೆ."
+      },
+      buttons: {
+        confirm: "ಆಯ್ಕೆಯನ್ನು ದೃಢೀಕರಿಸಿ",
+        back: "ಹಿಂತಿರುಗಿ"
+      }
+    },
+    gu: {
+      title: "તમારો હેતુ પસંદ કરો.",
+      options: {
+        fishing: "વ્યાપારી मछली पालन",
+        recreational: "મનોરંજન માટે માછીમારી",
+        research: "સમુદ્રી સંશોધન",
+        transport: "નૌકા પરિવહન"
+      },
+      prompts: {
+        select: "તમારી મુખ્ય પ્રવૃત્તિ પસંદ કરો.",
+        customize: "આપનો અનુભવ અમે અનુકૂળ કરીશું."
+      },
+      buttons: {
+        confirm: "પસંદગીની પુષ્ટિ કરો",
+        back: "પાછા ફરો"
+      }
+    },
+    mr: {
+      title: "तुमचा उद्देश निवडा.",
+      options: {
+        fishing: "व्यावसायिक मासेमारी",
+        recreational: "मनोरंजक मासेमारी",
+        research: "सागरी संशोधन",
+        transport: "सागरी वाहतूक"
+      },
+      prompts: {
+        select: "तुमची मुख्य क्रिया निवडा.",
+        customize: "आपल्या अनुभवाला अनुरूप बनविले जाईल."
+      },
+      buttons: {
+        confirm: "निवड निश्चित करा",
+        back: "परत जा"
+      }
+    },
+    or: {
+      title: "Select Your Purpose",
+      options: {
+        fishing: "Commercial Fishing",
+        recreational: "Recreational Fishing",
+        research: "Marine Research",
+        transport: "Maritime Transport"
+      },
+      prompts: {
+        select: "Select your primary activity",
+        customize: "We'll customize your experience"
+      },
+      buttons: {
+        confirm: "Confirm Selection",
+        back: "Go Back"
+      }
+    },
+    as: {
+      title: "Select Your Purpose",
+      options: {
+        fishing: "Commercial Fishing",
+        recreational: "Recreational Fishing",
+        research: "Marine Research",
+        transport: "Maritime Transport"
+      },
+      prompts: {
+        select: "Select your primary activity",
+        customize: "We'll customize your experience"
+      },
+      buttons: {
+        confirm: "Confirm Selection",
+        back: "Go Back"
+      }
+    },
+    pa: {
+      title: "ਆਪਣਾ ਉਦੇਸ਼ ਚੁਣੋ।",
+      options: {
+        fishing: "ਵਪਾਰਕ ਮੱਛੀ ਫੜਨ",
+        recreational: "ਮਨੋਰੰਜਨ ਵਾਲੀ ਮੱਛੀ ਫੜਨ",
+        research: "ਸਮੁੰਦਰੀ ਵਿਗਿਆਨ",
+        transport: "ਸਮੁੰਦਰੀ ਆਵਾਜਾਈ"
+      },
+      prompts: {
+        select: "ਤੁਸੀਂ ਆਪਣੀ ਪ੍ਰਮੁੱਖ ਕਿਰਿਆ ਚੁਣੋ।",
+        customize: "ਤੁਹਾਡੀ ਅਨੁਭਵ ਨੂੰ ਢਾਲਿਆ ਜਾਵੇਗਾ।"
+      },
+      buttons: {
+        confirm: "ਚੋਣ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ।",
+        back: "ਵਾਪਸ ਜਾਣਾ"
+      }
+    },
+    sd: {
+      title: "Select Your Purpose",
+      options: {
+        fishing: "Commercial Fishing",
+        recreational: "Recreational Fishing",
+        research: "Marine Research",
+        transport: "Maritime Transport"
+      },
+      prompts: {
+        select: "Select your primary activity",
+        customize: "We'll customize your experience"
+      },
+      buttons: {
+        confirm: "Confirm Selection",
+        back: "Go Back"
+      }
+    },
+    kok: {
+      title: "Select Your Purpose",
+      options: {
+        fishing: "Commercial Fishing",
+        recreational: "Recreational Fishing",
+        research: "Marine Research",
+        transport: "Maritime Transport"
+      },
+      prompts: {
+        select: "Select your primary activity",
+        customize: "We'll customize your experience"
+      },
+      buttons: {
+        confirm: "Confirm Selection",
+        back: "Go Back"
+      }
+    },
+    doi: {
+      title: "Select Your Purpose",
+      options: {
+        fishing: "Commercial Fishing",
+        recreational: "Recreational Fishing",
+        research: "Marine Research",
+        transport: "Maritime Transport"
+      },
+      prompts: {
+        select: "Select your primary activity",
+        customize: "We'll customize your experience"
+      },
+      buttons: {
+        confirm: "Confirm Selection",
+        back: "Go Back"
+      }
+    },
+    fr: {
+      title: "Select Your Purpose",
+      options: {
+        fishing: "Commercial Fishing",
+        recreational: "Recreational Fishing",
+        research: "Marine Research",
+        transport: "Maritime Transport"
+      },
+      prompts: {
+        select: "Select your primary activity",
+        customize: "We'll customize your experience"
+      },
+      buttons: {
+        confirm: "Confirm Selection",
+        back: "Go Back"
+      }
+    },
+    es: {
+      title: "Select Your Purpose",
+      options: {
+        fishing: "Commercial Fishing",
+        recreational: "Recreational Fishing",
+        research: "Marine Research",
+        transport: "Maritime Transport"
+      },
+      prompts: {
+        select: "Select your primary activity",
+        customize: "We'll customize your experience"
+      },
+      buttons: {
+        confirm: "Confirm Selection",
+        back: "Go Back"
+      }
+    }
+  },
+  SeaSafetyLivelihoodScreen: {
+    en: {
+      title: "Sea Safety & Livelihood",
+      sections: {
+        safety: {
+          title: "Safety Guidelines",
+          equipment: "Safety Equipment",
+          procedures: "Emergency Procedures"
+        },
+        livelihood: {
+          title: "Livelihood Resources",
+          schemes: "Government Schemes",
+          training: "Skill Development"
+        }
+      },
+      resources: {
+        download: "Download Guide",
+        helpline: "Safety Helpline",
+        register: "Register for Training"
+      }
+    },
+    hi: {
+      title: "समुद्री सुरक्षा और आजीविका",
+      sections: {
+        safety: {
+          title: "सुरक्षा निर्देश",
+          equipment: "सुरक्षा उपकरण",
+          procedures: "आपातकालीन प्रक्रिया"
+        },
+        livelihood: {
+          title: "आजीविका संसाधन",
+          schemes: "योजनाएँ",
+          training: "कौशल विकास"
+        }
+      },
+      resources: {
+        download: "गाइड डाउनलोड करें",
+        helpline: "सुरक्षा हेल्पलाइन",
+        register: "प्रशिक्षण के लिए पंजीकरण करें"
+      }
+    },
+    ta: {
+      title: "கடல் பாதுகாப்பு மற்றும் வாழ்வாதாரம்",
+      sections: {
+        safety: {
+          title: "பாதுகாப்பு வழிமுறைகள்",
+          equipment: "பாதுகாப்பு உபகரணங்கள்",
+          procedures: "அவசரநிலைமை"
+        },
+        livelihood: {
+          title: "வாழ்வாதார வளங்கள்",
+          schemes: "திட்டங்கள்",
+          training: "திறன் மேம்பாடு"
+        }
+      },
+      resources: {
+        download: "வழிகாட்டிப் பதிவிறக்கம்",
+        helpline: "பாதுகாப்புத் தகவல் மையம்",
+        register: "பயிற்சிக்கு பதிவு செய்யுங்கள்."
+      }
+    },
+    te: {
+      title: "సముద్ర భద్రత మరియు జీవనోపాధి",
+      sections: {
+        safety: {
+          title: "భద్రతా నియమాలు",
+          equipment: "రక్షణ సామగ్రి",
+          procedures: "అత్యవసర ప్రక్రియలు"
+        },
+        livelihood: {
+          title: "జీవనోపాధి వనరులు",
+          schemes: "పథకాలు",
+          training: "నైపుణ్య వికాసం"
+        }
+      },
+      resources: {
+        download: "మార్గదర్శిని డౌన్‌లోడ్ చేసుకోండి",
+        helpline: "భద్రతా హెల్ప్‌లైన్",
+        register: "శిక్షణకు నమోదు చేస్కోండి."
+      }
+    },
+    ml: {
+      title: "സമുദ്രസുരക്ഷയും ഉപജീവനവും",
+      sections: {
+        safety: {
+          title: "സുരക്ഷാ നിര്ദ്ദേശങ്ങള്‍",
+          equipment: "സുരക്ഷാ ഉപകരണങ്ങൾ",
+          procedures: "അടിയന്തര നടപടിക്രമങ്ങൾ"
+        },
+        livelihood: {
+          title: "ഉപജീവന വിഭവങ്ങൾ",
+          schemes: "പദ്ധതികള്‍",
+          training: "നൈപുണ്യ വികസനം"
+        }
+      },
+      resources: {
+        download: "ഗൈഡ് ഡൌൺലോഡ് ചെയ്യുക",
+        helpline: "സുരക്ഷാ ഹെൽപ്പ് ലൈൻ",
+        register: "പരിശീലനത്തിൽ രജിസ്റ്റർ ചെയ്യുക"
+      }
+    },
+    bn: {
+      title: "সামুদ্রিক নিরাপত্তা ও জীবিকা",
+      sections: {
+        safety: {
+          title: "নিরাপত্তা নির্দেশিকা",
+          equipment: "সুরক্ষা সরঞ্জাম",
+          procedures: "জরুরী পদ্ধতি"
+        },
+        livelihood: {
+          title: "জীবিকা",
+          schemes: "সরকারি প্রকল্প",
+          training: "দক্ষতা উন্নয়ন"
+        }
+      },
+      resources: {
+        download: "গাইড ডাউনলোড করুন।",
+        helpline: "নিরাপত্তা হেল্পলাইন",
+        register: "প্রশিক্ষণে নথিভুক্ত হোন।"
+      }
+    },
+    kn: {
+      title: "ಸಾಗರ ಸುರಕ್ಷತೆ ಮತ್ತು ಜೀವನೋಪಾಯ",
+      sections: {
+        safety: {
+          title: "ಸುರಕ್ಷತಾ ಮಾರ್ಗಸೂಚಿಗಳು",
+          equipment: "ಸುರಕ್ಷತಾ ಸಲಕರಣೆ",
+          procedures: "ತುರ್ತು ಕಾರ್ಯವಿಧಾನ"
+        },
+        livelihood: {
+          title: "ಜೀವನೋಪಾಯದ ಸಂಪನ್ಮೂಲಗಳು",
+          schemes: "ಯೋಜನೆಗಳು",
+          training: "ಕೌಶಲ್ಯ ವಿಕಾಸ"
+        }
+      },
+      resources: {
+        download: "ಮಾರ್ಗದರ್ಶಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿಕೊಳ್ಳಿ.",
+        helpline: "ಸುರಕ್ಷಾ ಸಹಾಯವಾಣಿ",
+        register: "ತರಬೇತಿಗೆ ನೋಂದಣಿ ಮಾಡಿ."
+      }
+    },
+    gu: {
+      title: "દરિયાઈ સલામતી અને આજીવિકા",
+      sections: {
+        safety: {
+          title: "સલામતી નિયમો",
+          equipment: "સુરક્ષા સાધન",
+          procedures: "આપાતકાલીન પ્રક્રિયા"
+        },
+        livelihood: {
+          title: "આજીવિકા સંસાધનો",
+          schemes: "યોજના",
+          training: "કૌશલ્ય વિકાસ"
+        }
+      },
+      resources: {
+        download: "માર્ગદર્શિકા ડાઉનલોડ કરો.",
+        helpline: "सुरक्षा હેલ્પલાઈન",
+        register: "તાલીમ માટે નોંધણી કરાવો."
+      }
+    },
+    mr: {
+      title: "सागरी सुरक्षा आणि उपजीविका",
+      sections: {
+        safety: {
+          title: "सुरक्षा नियम",
+          equipment: "सुरक्षा साधन",
+          procedures: "आपत्कालीन प्रक्रिया"
+        },
+        livelihood: {
+          title: "उपजीविका",
+          schemes: "योजना",
+          training: "कौशल्य विकास"
+        }
+      },
+      resources: {
+        download: "मार्गदर्शक डाउनलोड करा",
+        helpline: "सुरक्षा मदतलाइन",
+        register: "प्रशिक्षणासाठी नोंदणी करा."
+      }
+    },
+    or: {
+      title: "Sea Safety & Livelihood",
+      sections: {
+        safety: {
+          title: "Safety Guidelines",
+          equipment: "Safety Equipment",
+          procedures: "Emergency Procedures"
+        },
+        livelihood: {
+          title: "Livelihood Resources",
+          schemes: "Government Schemes",
+          training: "Skill Development"
+        }
+      },
+      resources: {
+        download: "Download Guide",
+        helpline: "Safety Helpline",
+        register: "Register for Training"
+      }
+    },
+    as: {
+      title: "Sea Safety & Livelihood",
+      sections: {
+        safety: {
+          title: "Safety Guidelines",
+          equipment: "Safety Equipment",
+          procedures: "Emergency Procedures"
+        },
+        livelihood: {
+          title: "Livelihood Resources",
+          schemes: "Government Schemes",
+          training: "Skill Development"
+        }
+      },
+      resources: {
+        download: "Download Guide",
+        helpline: "Safety Helpline",
+        register: "Register for Training"
+      }
+    },
+    pa: {
+      title: "ਸਮੁੰਦਰੀ ਸੁਰੱਖਿਆ ਅਤੇ ਰੋਜ਼ੀ-ਰੋਟੀ",
+      sections: {
+        safety: {
+          title: "ਸੁਰੱਖਿਆ ਨਿਯਮ",
+          equipment: "ਸੁਰੱਖਿਆ ਸਾਧਨ",
+          procedures: "ਐਮਰਜੈਂਸੀ ਪ੍ਰਕਿਰਿਆਵਾਂ"
+        },
+        livelihood: {
+          title: "ਰੋਜ਼ੀ-ਰੋਟੀ ਦੇ ਸਾਧਨ",
+          schemes: "ਸਰਕਾਰੀ ਸਕੀਮਾਂ",
+          training: "ਕੌਸ਼ਲ ਵਿਕਾਸ"
+        }
+      },
+      resources: {
+        download: "ਮਾਰਗ-ਦਰਸ਼ਨ ਡਾਊਨਲੋਡ ਕਰੋ।",
+        helpline: "सुरक्षा ਹੈਲਪਲਾਈਨ",
+        register: "ਸਿਖਲਾਈ ਲਈ ਰਜਿਸਟਰ ਕਰੋ।"
+      }
+    },
+    sd: {
+      title: "Sea Safety & Livelihood",
+      sections: {
+        safety: {
+          title: "Safety Guidelines",
+          equipment: "Safety Equipment",
+          procedures: "Emergency Procedures"
+        },
+        livelihood: {
+          title: "Livelihood Resources",
+          schemes: "Government Schemes",
+          training: "Skill Development"
+        }
+      },
+      resources: {
+        download: "Download Guide",
+        helpline: "Safety Helpline",
+        register: "Register for Training"
+      }
+    },
+    kok: {
+      title: "Sea Safety & Livelihood",
+      sections: {
+        safety: {
+          title: "Safety Guidelines",
+          equipment: "Safety Equipment",
+          procedures: "Emergency Procedures"
+        },
+        livelihood: {
+          title: "Livelihood Resources",
+          schemes: "Government Schemes",
+          training: "Skill Development"
+        }
+      },
+      resources: {
+        download: "Download Guide",
+        helpline: "Safety Helpline",
+        register: "Register for Training"
+      }
+    },
+    doi: {
+      title: "Sea Safety & Livelihood",
+      sections: {
+        safety: {
+          title: "Safety Guidelines",
+          equipment: "Safety Equipment",
+          procedures: "Emergency Procedures"
+        },
+        livelihood: {
+          title: "Livelihood Resources",
+          schemes: "Government Schemes",
+          training: "Skill Development"
+        }
+      },
+      resources: {
+        download: "Download Guide",
+        helpline: "Safety Helpline",
+        register: "Register for Training"
+      }
+    },
+    fr: {
+      title: "Sea Safety & Livelihood",
+      sections: {
+        safety: {
+          title: "Safety Guidelines",
+          equipment: "Safety Equipment",
+          procedures: "Emergency Procedures"
+        },
+        livelihood: {
+          title: "Livelihood Resources",
+          schemes: "Government Schemes",
+          training: "Skill Development"
+        }
+      },
+      resources: {
+        download: "Download Guide",
+        helpline: "Safety Helpline",
+        register: "Register for Training"
+      }
+    },
+    es: {
+      title: "Sea Safety & Livelihood",
+      sections: {
+        safety: {
+          title: "Safety Guidelines",
+          equipment: "Safety Equipment",
+          procedures: "Emergency Procedures"
+        },
+        livelihood: {
+          title: "Livelihood Resources",
+          schemes: "Government Schemes",
+          training: "Skill Development"
+        }
+      },
+      resources: {
+        download: "Download Guide",
+        helpline: "Safety Helpline",
+        register: "Register for Training"
+      }
+    }
+  },
+  TrackerScreen: {
+    en: {
+      title: "Vessel Tracker",
+      status: {
+        active: "Active Tracking",
+        paused: "Tracking Paused",
+        offline: "Offline"
+      },
+      data: {
+        speed: "Current Speed",
+        heading: "Heading",
+        distance: "Distance Traveled"
+      },
+      controls: {
+        start: "Start Tracking",
+        pause: "Pause Tracking",
+        stop: "Stop Tracking",
+        share: "Share Location"
+      }
+    },
+    hi: {
+      title: "जहाड़ाँ-सूची",
+      status: {
+        active: "सक्रिय ट्रैकिंग",
+        paused: "ट्रैक न किया गया",
+        offline: "ऑफलाइन"
+      },
+      data: {
+        speed: "गति",
+        heading: "शीर्षक",
+        distance: "दूरी"
+      },
+      controls: {
+        start: "ट्रैकिंग आरंभ करें",
+        pause: "विराम-सूचक चिह्न",
+        stop: "ट्रैकिंग बंद",
+        share: "स्थान साझा करें"
+      }
+    },
+    ta: {
+      title: "கப்பல் கண்காணிப்பகம்",
+      status: {
+        active: "செயல்நிலை கண்காணிப்பு",
+        paused: "கண்காணிப்பு இடைநிறுத்தப்பட்டது",
+        offline: "ஆஃப்லைன்"
+      },
+      data: {
+        speed: "தற்போதைய வேகம்",
+        heading: "தலைப்புக் குறிப்பு",
+        distance: "தூரம்"
+      },
+      controls: {
+        start: "கண்காணிப்பைத் தொடங்கு",
+        pause: "இடைநிறுத்தப் புள்ளி",
+        stop: "கண்காணிப்பு நிறுத்து",
+        share: "இருப்பிடத்தைப் பகிருங்கள்"
+      }
+    },
+    te: {
+      title: "నౌకల ట్రాకర్",
+      status: {
+        active: "క్రియాశీలక పర్యవేక్షణ",
+        paused: "ట్రాక్ చేయలేని",
+        offline: "ఆఫ్‌లైన్"
+      },
+      data: {
+        speed: "ప్రస్తుత వేగం",
+        heading: "శీర్షిక",
+        distance: "దూరం"
+      },
+      controls: {
+        start: "ట్రాకింగ్ ప్రారంభం",
+        pause: "విరామ సూచిక",
+        stop: "ట్రాక్ చేయకుండా నిలిపివేయడం",
+        share: "స్థానం పంచుకోండి"
+      }
+    },
+    ml: {
+      title: "കപ്പല് ട്രാക്കിങ്",
+      status: {
+        active: "സജീവ ട്രാക്കിങ്",
+        paused: "പിന്തുടരൽ നിര്ത്തിവച്ച",
+        offline: "ഓഫ്‌ലൈൻ"
+      },
+      data: {
+        speed: "വേഗത",
+        heading: "തലക്കെട്ട്",
+        distance: "സഞ്ചരിച്ച ദൂരം"
+      },
+      controls: {
+        start: "ട്രാക്ക് ചെയ്യൽ ആരംഭിക്കുക",
+        pause: "ഇടവേള",
+        stop: "പിന്തുടരൽ നിർത്തുക",
+        share: "സ്ഥലം പങ്കിടുക"
+      }
+    },
+    bn: {
+      title: "জাহাজ-পর্যবেক্ষণ",
+      status: {
+        active: "সক্রিয় ট্র্যাকিং",
+        paused: "ট্র্যাকিং পড়া",
+        offline: "অফলাইন"
+      },
+      data: {
+        speed: "গতি",
+        heading: "শিরোনাম",
+        distance: "দূরত্ব"
+      },
+      controls: {
+        start: "ট্র্যাকিং শুরু করো।",
+        pause: "বিরতি",
+        stop: "ট্র্যাকিং বন্ধ করা হচ্ছে।",
+        share: "অবস্থান ভাগ করে নেওয়া"
+      }
+    },
+    kn: {
+      title: "ಹಡಗು ಟ್ರ್ಯಾಕರ್",
+      status: {
+        active: "ಸಕ್ರಿಯ ಪತ್ತೆ",
+        paused: "ಟ್ರ್ಯಾಕ್ ಮಾಡಲಾಗುತ್ತಿರುವ",
+        offline: "ಆಫ್‌ಲೈನ್"
+      },
+      data: {
+        speed: "ವೇಗ",
+        heading: "ಶೀರ್ಷಿಕೆ",
+        distance: "ದೂರ"
+      },
+      controls: {
+        start: "ಟ್ರ್ಯಾಕಿಂಗ್ ಆರಂಭಿಸಿ",
+        pause: "ವಿರಾಮ ಸೂಚಕ",
+        stop: "ಟ್ರ್ಯಾಕ್ ಮಾಡದಿರುವುದು",
+        share: "ಸ್ಥಳ ಹಂಚಿಕೊಳ್ಳಿ"
+      }
+    },
+    gu: {
+      title: "જહાજ ટ્રેકર",
+      status: {
+        active: "સક્રિય અનુસરણ",
+        paused: "ટ્રેકિંગ Paused",
+        offline: "ઓફલાઈન"
+      },
+      data: {
+        speed: "ગતિ",
+        heading: "શીર્ષક",
+        distance: "અંતર"
+      },
+      controls: {
+        start: "ટ્રેકિંગ શરૂ કરો.",
+        pause: "વિરામ-નિરીક્ષણ",
+        stop: "ટ્રેકિંગ બંધ કરો",
+        share: "સ્થાન શેર કરો"
+      }
+    },
+    mr: {
+      title: "जहाज ट्रॅकर",
+      status: {
+        active: "सक्रिय अनुगमन",
+        paused: "पाठवणी थांबवलेली",
+        offline: "ऑफलाइन"
+      },
+      data: {
+        speed: "गती",
+        heading: "शीर्षक",
+        distance: "अंतर"
+      },
+      controls: {
+        start: "पाठवणी सुरू करा",
+        pause: "विराम-निदर्श",
+        stop: "पाठपुरावा थांबवा",
+        share: "स्थान सामायिक करा"
+      }
+    },
+    or: {
+      title: "Vessel Tracker",
+      status: {
+        active: "Active Tracking",
+        paused: "Tracking Paused",
+        offline: "Offline"
+      },
+      data: {
+        speed: "Current Speed",
+        heading: "Heading",
+        distance: "Distance Traveled"
+      },
+      controls: {
+        start: "Start Tracking",
+        pause: "Pause Tracking",
+        stop: "Stop Tracking",
+        share: "Share Location"
+      }
+    },
+    as: {
+      title: "Vessel Tracker",
+      status: {
+        active: "Active Tracking",
+        paused: "Tracking Paused",
+        offline: "Offline"
+      },
+      data: {
+        speed: "Current Speed",
+        heading: "Heading",
+        distance: "Distance Traveled"
+      },
+      controls: {
+        start: "Start Tracking",
+        pause: "Pause Tracking",
+        stop: "Stop Tracking",
+        share: "Share Location"
+      }
+    },
+    pa: {
+      title: "ਜਹਾਜ਼ ਟਰੈਕer",
+      status: {
+        active: "ਸਰਗਰਮ ਟਰੈਕਿੰਗ",
+        paused: "ਟਰੈਕਿੰਗ Paused",
+        offline: "ਆਫਲਾਈਨ"
+      },
+      data: {
+        speed: "ਗਤੀ",
+        heading: "ਸਿਰਲੇਖ",
+        distance: "ਦੂਰੀ"
+      },
+      controls: {
+        start: "ਟਰੈਕਿੰਗ ਸ਼ੁਰੂ ਕਰੋ।",
+        pause: "ਵਿਰਾਮ-ਟਰੈਕਿੰਗ",
+        stop: "ਟਰੈਕਿੰਗ ਬੰਦ ਕਰਨਾ",
+        share: "ਸਥਾਨ ਸਾਂਝਾ"
+      }
+    },
+    sd: {
+      title: "Vessel Tracker",
+      status: {
+        active: "Active Tracking",
+        paused: "Tracking Paused",
+        offline: "Offline"
+      },
+      data: {
+        speed: "Current Speed",
+        heading: "Heading",
+        distance: "Distance Traveled"
+      },
+      controls: {
+        start: "Start Tracking",
+        pause: "Pause Tracking",
+        stop: "Stop Tracking",
+        share: "Share Location"
+      }
+    },
+    kok: {
+      title: "Vessel Tracker",
+      status: {
+        active: "Active Tracking",
+        paused: "Tracking Paused",
+        offline: "Offline"
+      },
+      data: {
+        speed: "Current Speed",
+        heading: "Heading",
+        distance: "Distance Traveled"
+      },
+      controls: {
+        start: "Start Tracking",
+        pause: "Pause Tracking",
+        stop: "Stop Tracking",
+        share: "Share Location"
+      }
+    },
+    doi: {
+      title: "Vessel Tracker",
+      status: {
+        active: "Active Tracking",
+        paused: "Tracking Paused",
+        offline: "Offline"
+      },
+      data: {
+        speed: "Current Speed",
+        heading: "Heading",
+        distance: "Distance Traveled"
+      },
+      controls: {
+        start: "Start Tracking",
+        pause: "Pause Tracking",
+        stop: "Stop Tracking",
+        share: "Share Location"
+      }
+    },
+    fr: {
+      title: "Vessel Tracker",
+      status: {
+        active: "Active Tracking",
+        paused: "Tracking Paused",
+        offline: "Offline"
+      },
+      data: {
+        speed: "Current Speed",
+        heading: "Heading",
+        distance: "Distance Traveled"
+      },
+      controls: {
+        start: "Start Tracking",
+        pause: "Pause Tracking",
+        stop: "Stop Tracking",
+        share: "Share Location"
+      }
+    },
+    es: {
+      title: "Vessel Tracker",
+      status: {
+        active: "Active Tracking",
+        paused: "Tracking Paused",
+        offline: "Offline"
+      },
+      data: {
+        speed: "Current Speed",
+        heading: "Heading",
+        distance: "Distance Traveled"
+      },
+      controls: {
+        start: "Start Tracking",
+        pause: "Pause Tracking",
+        stop: "Stop Tracking",
+        share: "Share Location"
+      }
+    }
+  },
+  TripPlanningScreen: {
+    en: {
+      title: "Trip Planning",
+      form: {
+        departure: "Departure Point",
+        destination: "Destination",
+        date: "Departure Date",
+        duration: "Trip Duration",
+        crew: "Crew Size"
+      },
+      weather: {
+        forecast: "Weather Forecast",
+        tides: "Tide Schedule",
+        warnings: "Weather Warnings"
+      },
+      checklist: {
+        safety: "Safety Equipment",
+        supplies: "Supplies",
+        documents: "Required Documents"
+      },
+      buttons: {
+        plan: "Create Plan",
+        save: "Save Plan",
+        share: "Share Plan"
+      }
+    },
+    hi: {
+      title: "यात्रा-योजना",
+      form: {
+        departure: "प्रस्थान स्थान",
+        destination: "गंतव्य",
+        date: "प्रस्थान तिथि",
+        duration: "यात्रा अवधि",
+        crew: "दल"
+      },
+      weather: {
+        forecast: "मौसम पूर्वानुमान",
+        tides: "ज्वार-ताल",
+        warnings: "मौसम की चेतावनी"
+      },
+      checklist: {
+        safety: "सुरक्षा उपकरण",
+        supplies: "सामग्री",
+        documents: "आवश्यक दस्तावेज़"
+      },
+      buttons: {
+        plan: "योजना बनाएँ",
+        save: "सहेजें योजना",
+        share: "साझा योजना"
+      }
+    },
+    ta: {
+      title: "பயணத் திட்டமிடல்",
+      form: {
+        departure: "புறப்பாட்டு இடம்",
+        destination: "இலக்கு",
+        date: "புறப்படும் தேதி",
+        duration: "பயணம்",
+        crew: "குழுவினர்"
+      },
+      weather: {
+        forecast: "வானிலை முன்னறிவிப்பு",
+        tides: "அலை அட்டவணை",
+        warnings: "வானிலை அறிவிப்புகள்"
+      },
+      checklist: {
+        safety: "பாதுகாப்பு உபகரணங்கள்",
+        supplies: "பொருட்கள்",
+        documents: "அத்தியாவசிய ஆவணங்கள்"
+      },
+      buttons: {
+        plan: "திட்டம் உருவாக்குதல்",
+        save: "சேமிப்பு திட்டமிடுங்கள்",
+        share: "பகிர்ந்தளிப்புத் திட்டம்"
+      }
+    },
+    te: {
+      title: "ప్రయాణ ప్రణాళిక",
+      form: {
+        departure: "గమ్యస్థానం",
+        destination: "గమ్యస్థానం",
+        date: "నిష్క్రమణ తేదీ",
+        duration: "మూడురోజుల వ్యవధి",
+        crew: "సిబ్బంది"
+      },
+      weather: {
+        forecast: "వాతావరణ సూచన",
+        tides: "అలల షెడ్యూల్",
+        warnings: "వాతావరణ హెచ్చరికలు"
+      },
+      checklist: {
+        safety: "రక్షణ సామగ్రి",
+        supplies: "సామాగ్రి",
+        documents: "అవసరమైన పత్రాలు"
+      },
+      buttons: {
+        plan: "ప్రణాళిక రూపొందించండి",
+        save: "సేవ్ ప్లాన్",
+        share: "పంచుకునే ప్రణాళిక"
+      }
+    },
+    ml: {
+      title: "യാത്രാ ആസൂത്രണം",
+      form: {
+        departure: "യാത്രാസ്ഥലം",
+        destination: "ലക്ഷ്യസ്ഥാനം",
+        date: "പുറപ്പെടൽ തീയതി",
+        duration: "യാത്രാ സമയം",
+        crew: "ജീവനക്കാരുടെ എണ്ണം"
+      },
+      weather: {
+        forecast: "കാലാവസ്ഥാ പ്രവചനം",
+        tides: "വേലിയേറ്റ സമയക്രമം",
+        warnings: "കാലാവസ്ഥാ മുന്നറിയിപ്പുകൾ"
+      },
+      checklist: {
+        safety: "സുരക്ഷാ ഉപകരണങ്ങൾ",
+        supplies: "സാധനങ്ങൾ",
+        documents: "ആവശ്യമായ രേഖകള്‍"
+      },
+      buttons: {
+        plan: "പദ്ധതി തയ്യാറാക്കുക",
+        save: "പ്ലാൻ സംരക്ഷിക്കുക",
+        share: "പങ്കിടൽ പദ്ധതി"
+      }
+    },
+    bn: {
+      title: "ভ্রমণের পরিকল্পনা",
+      form: {
+        departure: "গমনস্থল",
+        destination: "গন্তব্য",
+        date: "প্রস্থান তারিখ",
+        duration: "তিনদিনের যাত্রা",
+        crew: "নাবিকদল"
+      },
+      weather: {
+        forecast: "আবহাওয়া পূর্বাভাস",
+        tides: "জোড়",
+        warnings: "আবহাওয়া সতর্কতা"
+      },
+      checklist: {
+        safety: "সুরক্ষা সরঞ্জাম",
+        supplies: "উপকরণ",
+        documents: "প্রয়োজনীয় কাগজপত্র"
+      },
+      buttons: {
+        plan: "পরিকল্পনা তৈরি করা",
+        save: "সংরক্ষণ করুন",
+        share: "ভাগাভাগি পরিকল্পনা"
+      }
+    },
+    kn: {
+      title: "ಪ್ರವಾಸ ಯೋಜನೆ",
+      form: {
+        departure: "ನಿರ್ಗಮನ ಸ್ಥಳ",
+        destination: "ಗಮ್ಯಸ್ಥಳ",
+        date: "ನಿರ್ಗಮನ ದಿನಾಂಕ",
+        duration: "ಪ್ರವಾಸದ ಅವಧಿ",
+        crew: "ಸಿಬ್ಬಂದಿ"
+      },
+      weather: {
+        forecast: "ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ",
+        tides: "ಉಬ್ಬರವಿಳಿತದ ವೇಳಾಪಟ್ಟಿ",
+        warnings: "ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ"
+      },
+      checklist: {
+        safety: "ಸುರಕ್ಷತಾ ಸಲಕರಣೆ",
+        supplies: "ಸರಬರಾಜು",
+        documents: "ಅಗತ್ಯ ದಾಖಲೆಗಳು"
+      },
+      buttons: {
+        plan: "ಯೋಜನೆ ರಚಿಸಿ",
+        save: "ಯೋಜನೆ ಉಳಿಸಿ.",
+        share: "ಹಂಚಿಕೆ ಯೋಜನೆ"
+      }
+    },
+    gu: {
+      title: "પ્રવાસ આયોજન",
+      form: {
+        departure: "પ્રસ્થાન સ્થળ",
+        destination: "ગંતવ્ય",
+        date: "પ્રસ્થાન તારીખ",
+        duration: "યાત્રાનો સમયગાળો",
+        crew: "નાવિકા સંખ્યા"
+      },
+      weather: {
+        forecast: "હવામાનની આગાહી",
+        tides: "સમયપત્રક",
+        warnings: "હવામાનની ચેતવણી"
+      },
+      checklist: {
+        safety: "સુરક્ષા સાધન",
+        supplies: "સામગ્રી",
+        documents: "આવશ્યક દસ્તાવેજો"
+      },
+      buttons: {
+        plan: "યોજના બનાવો",
+        save: "યોજના સાચવો.",
+        share: "વહેંચણી યોજના"
+      }
+    },
+    mr: {
+      title: "प्रवास नियोजन",
+      form: {
+        departure: "प्रस्थान स्थान",
+        destination: "गंतव्यस्थान",
+        date: "प्रस्थान तारीख",
+        duration: "प्रवासकाल",
+        crew: "कर्मचारी संख्या"
+      },
+      weather: {
+        forecast: "हवामान अंदाज",
+        tides: "लाटांचे वेळापत्रक",
+        warnings: "हवामानविषयक चेतावणी"
+      },
+      checklist: {
+        safety: "सुरक्षा साधन",
+        supplies: "पुरवठा",
+        documents: "आवश्यक कागदपत्रे"
+      },
+      buttons: {
+        plan: "योजना तयार करा",
+        save: "योजना जतन करा",
+        share: "सामायिक योजना"
+      }
+    },
+    or: {
+      title: "Trip Planning",
+      form: {
+        departure: "Departure Point",
+        destination: "Destination",
+        date: "Departure Date",
+        duration: "Trip Duration",
+        crew: "Crew Size"
+      },
+      weather: {
+        forecast: "Weather Forecast",
+        tides: "Tide Schedule",
+        warnings: "Weather Warnings"
+      },
+      checklist: {
+        safety: "Safety Equipment",
+        supplies: "Supplies",
+        documents: "Required Documents"
+      },
+      buttons: {
+        plan: "Create Plan",
+        save: "Save Plan",
+        share: "Share Plan"
+      }
+    },
+    as: {
+      title: "Trip Planning",
+      form: {
+        departure: "Departure Point",
+        destination: "Destination",
+        date: "Departure Date",
+        duration: "Trip Duration",
+        crew: "Crew Size"
+      },
+      weather: {
+        forecast: "Weather Forecast",
+        tides: "Tide Schedule",
+        warnings: "Weather Warnings"
+      },
+      checklist: {
+        safety: "Safety Equipment",
+        supplies: "Supplies",
+        documents: "Required Documents"
+      },
+      buttons: {
+        plan: "Create Plan",
+        save: "Save Plan",
+        share: "Share Plan"
+      }
+    },
+    pa: {
+      title: "ਯਾਤਰਾ ਦੀ ਯੋਜਨਾਬੰਦੀ",
+      form: {
+        departure: "ਰਵਾਨਗੀ ਬਿੰਦੂ",
+        destination: "ਮੰਜ਼ਿਲ",
+        date: "ਰਵਾਨਗੀ ਤਾਰੀਖ",
+        duration: "ਯਾਤਰਾ ਦਾ ਸਮਾਂ",
+        crew: "ਚਾਲਕ ਦਲ"
+      },
+      weather: {
+        forecast: "ਮੌਸਮ ਦੀ ਭਵਿੱਖਬਾਣੀ",
+        tides: "ਲਹਿਰਾਂ ਦਾ ਸਮਾਂ-ਸਾਰਣੀ",
+        warnings: "ਮੌਸਮ ਸੰਬੰਧੀ ਚੇਤਾਵਨੀ"
+      },
+      checklist: {
+        safety: "ਸੁਰੱਖਿਆ ਸਾਧਨ",
+        supplies: "ਸਮੱਗਰੀ",
+        documents: "ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ਼"
+      },
+      buttons: {
+        plan: "ਯੋਜਨਾ ਤਿਆਰ ਕਰਨਾ",
+        save: "ਸੰਭਾਲੋ ਯੋਜਨਾ",
+        share: "ਸਾਂਝਾ ਯੋਜਨਾ"
+      }
+    },
+    sd: {
+      title: "Trip Planning",
+      form: {
+        departure: "Departure Point",
+        destination: "Destination",
+        date: "Departure Date",
+        duration: "Trip Duration",
+        crew: "Crew Size"
+      },
+      weather: {
+        forecast: "Weather Forecast",
+        tides: "Tide Schedule",
+        warnings: "Weather Warnings"
+      },
+      checklist: {
+        safety: "Safety Equipment",
+        supplies: "Supplies",
+        documents: "Required Documents"
+      },
+      buttons: {
+        plan: "Create Plan",
+        save: "Save Plan",
+        share: "Share Plan"
+      }
+    },
+    kok: {
+      title: "Trip Planning",
+      form: {
+        departure: "Departure Point",
+        destination: "Destination",
+        date: "Departure Date",
+        duration: "Trip Duration",
+        crew: "Crew Size"
+      },
+      weather: {
+        forecast: "Weather Forecast",
+        tides: "Tide Schedule",
+        warnings: "Weather Warnings"
+      },
+      checklist: {
+        safety: "Safety Equipment",
+        supplies: "Supplies",
+        documents: "Required Documents"
+      },
+      buttons: {
+        plan: "Create Plan",
+        save: "Save Plan",
+        share: "Share Plan"
+      }
+    },
+    doi: {
+      title: "Trip Planning",
+      form: {
+        departure: "Departure Point",
+        destination: "Destination",
+        date: "Departure Date",
+        duration: "Trip Duration",
+        crew: "Crew Size"
+      },
+      weather: {
+        forecast: "Weather Forecast",
+        tides: "Tide Schedule",
+        warnings: "Weather Warnings"
+      },
+      checklist: {
+        safety: "Safety Equipment",
+        supplies: "Supplies",
+        documents: "Required Documents"
+      },
+      buttons: {
+        plan: "Create Plan",
+        save: "Save Plan",
+        share: "Share Plan"
+      }
+    },
+    fr: {
+      title: "Trip Planning",
+      form: {
+        departure: "Departure Point",
+        destination: "Destination",
+        date: "Departure Date",
+        duration: "Trip Duration",
+        crew: "Crew Size"
+      },
+      weather: {
+        forecast: "Weather Forecast",
+        tides: "Tide Schedule",
+        warnings: "Weather Warnings"
+      },
+      checklist: {
+        safety: "Safety Equipment",
+        supplies: "Supplies",
+        documents: "Required Documents"
+      },
+      buttons: {
+        plan: "Create Plan",
+        save: "Save Plan",
+        share: "Share Plan"
+      }
+    },
+    es: {
+      title: "Trip Planning",
+      form: {
+        departure: "Departure Point",
+        destination: "Destination",
+        date: "Departure Date",
+        duration: "Trip Duration",
+        crew: "Crew Size"
+      },
+      weather: {
+        forecast: "Weather Forecast",
+        tides: "Tide Schedule",
+        warnings: "Weather Warnings"
+      },
+      checklist: {
+        safety: "Safety Equipment",
+        supplies: "Supplies",
+        documents: "Required Documents"
+      },
+      buttons: {
+        plan: "Create Plan",
+        save: "Save Plan",
+        share: "Share Plan"
+      }
+    }
+  }
+};
+
+
+
+// Helper function to get text based on language preference
+// Helper function to get text based on language preference
+export const getText = (screen, key, lang = 'en') => {
+  try {
+    // Handle nested keys (e.g., 'weather.descriptions.0' or 'otp.sendButton')
+    const keys = key.split('.');
+    let value = screenTexts[screen][lang];
+    for (const k of keys) {
+      value = value[k];
+    }
+    return value;
+  } catch (error) {
+    console.warn(`Missing translation for ${screen}.${key} in language ${lang}`);
+    // Try to get English translation using the same path
+    try {
+      const keys = key.split('.');
+      let value = screenTexts[screen]['en'];
+      for (const k of keys) {
+        value = value[k];
+      }
+      return value;
+    } catch {
+      return key;
+    }
+  }
+};
+
+// Example usage:
+// import { getText, getAvailableLanguages, getLanguageNames } from '../constants/screenTexts';
+// 
+// // Get text in default language (English)
+// const title = getText('HomeScreen', 'title');
+// 
+// // Get text in specific language
+// const welcomeHindi = getText('HomeScreen', 'welcome', 'hi');
+// 
+// // Get nested text
+// const weatherDesc = getText('HomeScreen', 'weather.descriptions.0', 'ta');
+// 
+// // Get available languages
+// const languages = getAvailableLanguages();
+// 
+// // Get language names for display
+// const languageNames = getLanguageNames();
+// Or using helper:
+// const text = getText('ChatScreen', 'send', userLang);

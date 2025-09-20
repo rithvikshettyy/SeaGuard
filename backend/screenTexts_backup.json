@@ -1,0 +1,261 @@
+{
+  "HomeScreen": {
+    "en": {
+      "title": "Home",
+      "welcome": "Welcome to SeaGuard!",
+      "location": {
+        "permissionDenied": "Permission to access location was denied",
+        "loading": "Loading location...",
+        "coordinateFormat": "°N, °E"
+      }
+    },
+    "hi": {
+      "title": "मूल",
+      "welcome": "सीगार्ड में आपका स्वागत है!",
+      "location": {
+        "permissionDenied": "स्थान तक पहुँचने की अनुमति अस्वीकार कर दी गई थी।",
+        "loading": "स्थान लोड कर रहा है...",
+        "coordinateFormat": "एन, ई"
+      }
+    },
+    "ta": {
+      "title": "முகப்பு பக்கம்",
+      "welcome": "சீகார்டில் அனைவரையும் வரவேற்கிறேன்!",
+      "location": {
+        "permissionDenied": "இடத்திற்குச் செல்ல அனுமதி மறுக்கப்பட்டது.",
+        "loading": "இருப்பிடத்தை ஏற்றிக் கொண்டிருக்கிறேன்...",
+        "coordinateFormat": "வடக்கு"
+      }
+    },
+    "te": {
+      "title": "స్వదేశం",
+      "welcome": "సీగార్డ్ కి స్వాగతం!",
+      "location": {
+        "permissionDenied": "స్థానానికి ప్రవేశించడానికి అనుమతి నిరాకరించబడింది",
+        "loading": "స్థానం లోడ్ అవుతోంది...",
+        "coordinateFormat": "ఉత్తరాభిముఖంగా"
+      }
+    },
+    "ml": {
+      "title": "ആസ്ഥാനം",
+      "welcome": "സീഗാർഡിൽ സ്വാഗതം!",
+      "location": {
+        "permissionDenied": "സ്ഥലം ആക്സസ് ചെയ്യാൻ അനുമതി നിഷേധിക്കപ്പെട്ടു.",
+        "loading": "ലൊക്കേഷന്‍ ലോഡ് ചെയ്യുന്നു...",
+        "coordinateFormat": "ഈശ്വരഭൂമി"
+      }
+    },
+    "bn": {
+      "title": "গৃহ",
+      "welcome": "সিগার্ড-এ আপনাকে স্বাগত।",
+      "location": {
+        "permissionDenied": "অবস্থান অ্যাক্সেস করার অনুমতি প্রত্যাখ্যান করা হয়েছিল।",
+        "loading": "অবস্থান লোড করা...",
+        "coordinateFormat": "এন, ই"
+      }
+    },
+    "kn": {
+      "title": "ಮುಖಪುటం",
+      "welcome": "ಸೀಗಾರ್ಡ್‌ಗೆ ಸ್ವಾಗತ!",
+      "location": {
+        "permissionDenied": "ಸ್ಥಳಕ್ಕೆ ಪ್ರವೇಶಿಸಲು ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ.",
+        "loading": "ಸ್ಥಳ ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+        "coordinateFormat": "ಪೂರ್ವ"
+      }
+    },
+    "gu": {
+      "title": "ગૃહ",
+      "welcome": "સીગાર્ડમાં આપનું સ્વાગત છે!",
+      "location": {
+        "permissionDenied": "સ્થાન પર પહોંચવાની પરવાનગી નકારી દેવામાં આવી હતી.",
+        "loading": "સ્થાન લોડિંગ...",
+        "coordinateFormat": "એન. , ઇ."
+      }
+    },
+    "mr": {
+      "title": "मुखपृष्ठ",
+      "welcome": "सीगार्डमध्ये आपले स्वागत आहे!",
+      "location": {
+        "permissionDenied": "स्थानापर्यंत पोहोचण्याची परवानगी नाकारण्यात आली.",
+        "loading": "स्थान लोड करत आहे...",
+        "coordinateFormat": "एन, ई"
+      }
+    },
+    "or": {
+      "title": "Home",
+      "welcome": "Welcome to SeaGuard!",
+      "location": {
+        "permissionDenied": "Permission to access location was denied",
+        "loading": "Loading location...",
+        "coordinateFormat": "°N, °E"
+      }
+    },
+    "as": {
+      "title": "Home",
+      "welcome": "Welcome to SeaGuard!",
+      "location": {
+        "permissionDenied": "Permission to access location was denied",
+        "loading": "Loading location...",
+        "coordinateFormat": "°N, °E"
+      }
+    },
+    "pa": {
+      "title": "ਘਰੇਲੂ",
+      "welcome": "ਸੀਗਾਰਡ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ।",
+      "location": {
+        "permissionDenied": "ਸਥਾਨ ਤੱਕ ਪਹੁੰਚ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਰੱਦ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ।",
+        "loading": "ਸਥਾਨ लोड कर रहा...",
+        "coordinateFormat": "ਉੱਤਰ, ਪੂਰਬ"
+      }
+    },
+    "sd": {
+      "title": "Home",
+      "welcome": "Welcome to SeaGuard!",
+      "location": {
+        "permissionDenied": "Permission to access location was denied",
+        "loading": "Loading location...",
+        "coordinateFormat": "°N, °E"
+      }
+    },
+    "kok": {
+      "title": "Home",
+      "welcome": "Welcome to SeaGuard!",
+      "location": {
+        "permissionDenied": "Permission to access location was denied",
+        "loading": "Loading location...",
+        "coordinateFormat": "°N, °E"
+      }
+    },
+    "doi": {
+      "title": "Home",
+      "welcome": "Welcome to SeaGuard!",
+      "location": {
+        "permissionDenied": "Permission to access location was denied",
+        "loading": "Loading location...",
+        "coordinateFormat": "°N, °E"
+      }
+    },
+    "fr": {
+      "title": "Home",
+      "welcome": "Welcome to SeaGuard!",
+      "location": {
+        "permissionDenied": "Permission to access location was denied",
+        "loading": "Loading location...",
+        "coordinateFormat": "°N, °E"
+      }
+    },
+    "es": {
+      "title": "Home",
+      "welcome": "Welcome to SeaGuard!",
+      "location": {
+        "permissionDenied": "Permission to access location was denied",
+        "loading": "Loading location...",
+        "coordinateFormat": "°N, °E"
+      }
+    }
+  },
+  "ChatScreen": {
+    "en": {
+      "title": "Chat",
+      "send": "Send",
+      "placeholder": "Type your message...",
+      "initialBotMessage": "Hello! I am SeaBot, your AI assistant. How can I help you today?"
+    },
+    "hi": {
+      "title": "चैट",
+      "send": "भेजना",
+      "placeholder": "आप अपना संदेश लिखिए।...",
+      "initialBotMessage": "नमस्कार! मैं SeaBot हूँ, आपका AI सहायक। आज मैं आपकी किस प्रकार सहायता कर सकती हूँ?"
+    },
+    "ta": {
+      "title": "உரையாடல்",
+      "send": "அனுப்ப",
+      "placeholder": "உங்கள் செய்தியைத் தட்டச்சு செய்யுங்கள்....",
+      "initialBotMessage": "வணக்கம்! நான் SeaBot, உங்கள் செயற்கை நுண்ணறிவு உதவியாளர். இன்று நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?"
+    },
+    "te": {
+      "title": "చాట్",
+      "send": "పంపడం",
+      "placeholder": "మీ సందేశాన్ని టైప్ చేయండి....",
+      "initialBotMessage": "నమస్కారం! నేను SeaBot, మీ AI సహాయకురాలిని. ఈ రోజు నేను మీకు ఏ విధంగా సహాయపడగలను?"
+    },
+    "ml": {
+      "title": "ചാറ്റ്",
+      "send": "അയയ്ക്കുക",
+      "placeholder": "താങ്കൾക്ക് സന്ദേശം ടൈപ്പ് ചെയ്യുക....",
+      "initialBotMessage": "നമസ്കാരം! ഞാൻ SeaBot ആണ്, താങ്കളുടെ AI സഹായി.  ഇന്ന് ഞാൻ എങ്ങനെ സഹായിക്കട്ടെ?"
+    },
+    "bn": {
+      "title": "কথোপকথন",
+      "send": "প্রেরণ",
+      "placeholder": "আপনার বার্তা টাইপ করুন।...",
+      "initialBotMessage": "নমস্কার! আমি SeaBot, আপনার AI সহকারী। আজকে আমি আপনাকে কিভাবে সাহায্য করতে পারি?"
+    },
+    "kn": {
+      "title": "ಚಾಟ್",
+      "send": "ಕಳಿಸು",
+      "placeholder": "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ಬರೆಯಿರಿ....",
+      "initialBotMessage": "ನಮಸ್ಕಾರ! ನಾನು SeaBot, ನಿಮ್ಮ AI ಸಹಾಯಕ. ಇಂದು ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"
+    },
+    "gu": {
+      "title": "ચેટ",
+      "send": "મોકલો",
+      "placeholder": "તમારો સંદેશ લખો....",
+      "initialBotMessage": "નમસ્તે! હું SeaBot છું, આપનો AI સહાયક. આજે હું આપને કઈ રીતે મદદ કરી શકું?"
+    },
+    "mr": {
+      "title": "चॅट",
+      "send": "पाठवा",
+      "placeholder": "तुमचा संदेश टाइप करा....",
+      "initialBotMessage": "नमस्कार! मी SeaBot आहे, तुमचा AI सहाय्यक. मी आज कशी मदत करू शकते?"
+    },
+    "or": {
+      "title": "Chat",
+      "send": "Send",
+      "placeholder": "Type your message...",
+      "initialBotMessage": "Hello! I am SeaBot, your AI assistant. How can I help you today?"
+    },
+    "as": {
+      "title": "Chat",
+      "send": "Send",
+      "placeholder": "Type your message...",
+      "initialBotMessage": "Hello! I am SeaBot, your AI assistant. How can I help you today?"
+    },
+    "pa": {
+      "title": "ਗੱਲਬਾਤ",
+      "send": "ਭੇਜਣਾ",
+      "placeholder": "ਆਪਣਾ ਸੁਨੇਹਾ ਟਾਈਪ ਕਰੋ।...",
+      "initialBotMessage": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ SeaBot ਹਾਂ, ਤੁਹਾਡੀ AI ਸਹਾਇਕ। ਅੱਜ ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਸਹਾਇਤਾ ਕਰ ਸਕਦੀ ਹਾਂ?"
+    },
+    "sd": {
+      "title": "Chat",
+      "send": "Send",
+      "placeholder": "Type your message...",
+      "initialBotMessage": "Hello! I am SeaBot, your AI assistant. How can I help you today?"
+    },
+    "kok": {
+      "title": "Chat",
+      "send": "Send",
+      "placeholder": "Type your message...",
+      "initialBotMessage": "Hello! I am SeaBot, your AI assistant. How can I help you today?"
+    },
+    "doi": {
+      "title": "Chat",
+      "send": "Send",
+      "placeholder": "Type your message...",
+      "initialBotMessage": "Hello! I am SeaBot, your AI assistant. How can I help you today?"
+    },
+    "fr": {
+      "title": "Chat",
+      "send": "Send",
+      "placeholder": "Type your message...",
+      "initialBotMessage": "Hello! I am SeaBot, your AI assistant. How can I help you today?"
+    },
+    "es": {
+      "title": "Chat",
+      "send": "Send",
+      "placeholder": "Type your message...",
+      "initialBotMessage": "Hello! I am SeaBot, your AI assistant. How can I help you today?"
+    }
+  }
+}
