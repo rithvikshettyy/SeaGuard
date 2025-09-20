@@ -79,15 +79,16 @@ const AnimatedTabBar = ({ state, descriptors, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  
   container: {
     flexDirection: 'row',
     position: 'absolute',
     bottom: 25,
-    left: 20,
-    right: 20,
-    backgroundColor: '#1C1C1E',
+    left: 10,
+    right: 10,
+    backgroundColor: '#1a1919ff',
     borderRadius: 35,
-    height: 70,
+    height: 65,
     elevation: 10,
     shadowColor: '#000',
     shadowOpacity: 0.15,
@@ -101,10 +102,10 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     position: 'absolute',
-    top: 13,
-    height: 45,
-    width: TAB_WIDTH - 10, // Adjust width for padding
-    marginHorizontal: 10,
+    top: 12,
+    height: 40,
+    width: TAB_WIDTH, // Adjust width for padding
+    marginHorizontal: 12,
     backgroundColor: 'white',
     borderRadius: 50,
   },

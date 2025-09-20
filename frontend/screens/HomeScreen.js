@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     paddingBottom: 100, // Extra padding for tab bar
   },
   sosButton: {
-    backgroundColor: '#FF3B30',
+    backgroundColor: '#b70000',
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   sosText: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   weatherContainer: {
     alignItems: 'center',
@@ -231,6 +231,7 @@ const styles = StyleSheet.create({
   dateText: {
     color: '#E0E0E0',
     fontSize: 16,
+    fontWeight: '600',
   },
   refreshIcon: {
     fontSize: 24,
@@ -241,6 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: 'flex-start',
     marginTop: 4,
+    fontWeight: '600',
   },
   locationContainer: {
     marginTop: 16,
@@ -248,24 +250,27 @@ const styles = StyleSheet.create({
   },
   locationText: {
     color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: '700',
   },
   lastUpdateText: {
-    color: '#A0A0A0',
+    color: '#ffffff',
     fontSize: 12,
     marginTop: 4,
+    fontWeight: '600',
   },
   temperature: {
     color: '#FFFFFF',
     fontSize: 120,
-    fontWeight: '200',
+    fontWeight: '700',
     marginTop: 8,
+    marginLeft: 40,
   },
   weatherDescription: {
     color: '#E0E0E0',
     fontSize: 18,
     marginTop: -10,
+    fontWeight: '700',
   },
   windSpeed: {
     color: '#A0A0A0',
@@ -292,18 +297,20 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   oceanContainer: {
-    borderRadius: 16,
+    borderRadius: 10,
     padding: 16,
     overflow: 'hidden',
-    backgroundColor: '#1C1C1E',
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    borderWidth: 1,
+    borderColor: 'rgba(217, 217, 217, 0.75)',
   },
   oceanBg: {
     opacity: 0.2,
   },
   oceanTitle: {
     color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: '700',
     marginBottom: 16,
   },
   oceanStats: {
