@@ -6,14 +6,11 @@ import * as Location from 'expo-location';
 import * as ImagePicker from 'expo-image-picker';
 import { COLORS } from '../constants/colors';
 import { Env } from '../constants/env';
-<<<<<<< Updated upstream
 import { useLanguage } from '../contexts/LanguageContext';
 import { screenTexts, getLanguageNames } from '../constants/screenTexts';
-=======
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import catchLogsData from '../constants/catchLogsData.json';
->>>>>>> Stashed changes
 
 const BASE_URL = Env.BASE_URL;
 
@@ -30,7 +27,6 @@ const FeaturesScreen = ({ navigation }) => {
   const [showCursor, setShowCursor] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const newsListRef = useRef(null);
-<<<<<<< Updated upstream
   const { language, changeLanguage } = useLanguage();
 
   const LANGUAGES = Object.entries(getLanguageNames()).map(([code, name]) => ({
@@ -42,10 +38,8 @@ const FeaturesScreen = ({ navigation }) => {
     changeLanguage(languageCode);
     setModalVisible(false);
   };
-=======
   const [catchLogs, setCatchLogs] = useState([]);
   const isFocused = useIsFocused();
->>>>>>> Stashed changes
 
   const handleUploadPress = async () => {
     // Request permission
@@ -288,13 +282,8 @@ const FeaturesScreen = ({ navigation }) => {
         <TouchableOpacity style={[styles.card, styles.halfCard]} onPress={() => navigation.navigate('CatchRecord')}>
           <Text style={styles.cardTitle}>{screenTexts.FeaturesScreen[language].catchMonitor.title}</Text>
           <View style={styles.catchVolumeContainer}>
-<<<<<<< Updated upstream
-            <Text style={styles.catchVolume}>{screenTexts.FeaturesScreen[language].catchMonitor.volume.replace('{volume}', '59.1')}</Text>
-            <Text style={styles.catchSubText}>{screenTexts.FeaturesScreen[language].catchMonitor.average.replace('{average}', '8.6')}</Text>
-=======
-            <Text style={styles.catchVolume}>{totalCatch}kg</Text>
-            <Text style={styles.catchSubText}>Most common: {mostCommonFish}</Text>
->>>>>>> Stashed changes
+            <Text style={styles.catchVolume}>{screenTexts.FeaturesScreen[language].catchMonitor.volume.replace('{volume}', totalCatch)}</Text>
+            <Text style={styles.catchSubText}>{screenTexts.FeaturesScreen[language].catchMonitor.mostCommon.replace('{fish}', mostCommonFish)}</Text>
           </View>
           <View style={styles.catchLogButton}>
             <Text style={styles.catchLogButtonText}>{screenTexts.FeaturesScreen[language].catchMonitor.button}</Text>

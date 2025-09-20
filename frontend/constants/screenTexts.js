@@ -91,7 +91,7 @@ export const screenTexts = {
       catchMonitor: {
         title: "Monitor catch volumes",
         volume: "{volume}kg",
-        average: "{average}kg avg/outing",
+        mostCommon: "Most common: {fish}",
         button: "View Catch Log"
       },
       news: {
@@ -125,7 +125,7 @@ export const screenTexts = {
       catchMonitor: {
         title: "पकड़ की मात्रा की निगरानी करें",
         volume: "{volume}किग्रा",
-        average: "{average}किग्रा औसत/प्रति ट्रिप",
+        mostCommon: "सबसे आम: {fish}",
         button: "पकड़ लॉग देखें"
       },
       news: {
@@ -159,7 +159,7 @@ export const screenTexts = {
       catchMonitor: {
         title: "பிடிப்பு அளவுகளை கண்காணி",
         volume: "{volume}கிகி",
-        average: "{average}கிகி சராசரி/வெளியேற்றம்",
+        mostCommon: "மிகவும் பொதுவானது: {fish}",
         button: "பிடிப்பு பதிவைக் காண்க"
       },
       news: {
@@ -193,7 +193,7 @@ export const screenTexts = {
       catchMonitor: {
         title: "పట్టు పరిమాణాలను పర్యవేక్షించండి",
         volume: "{volume}కేజీ",
-        average: "{average}కేజీ సగటు/ట్రిప్",
+        mostCommon: "అత్యంత సాధారణమైనది: {fish}",
         button: "క్యాచ్ లాగ్ చూడండి"
       },
       news: {
@@ -227,7 +227,7 @@ export const screenTexts = {
       catchMonitor: {
         title: "പിടിത്ത അളവുകൾ നിരീക്ഷിക്കുക",
         volume: "{volume}കിഗ്രാം",
-        average: "{average}കിഗ്രാം ശരാശരി/ട്രിപ്പ്",
+        mostCommon: "ഏറ്റവും സാധാരണമായത്: {fish}",
         button: "പിടിത്ത ലോഗ് കാണുക"
       },
       news: {
