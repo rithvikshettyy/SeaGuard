@@ -3,6 +3,45 @@ import { View, Text, StyleSheet, Image, ActivityIndicator, FlatList, SafeAreaVie
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
 import { Env } from '../constants/env';
+import { marketData } from '../assets/fishMarketData.js';
+
+// Map classified fish names to JSON data keys
+
+
+const FishDetailsTable = ({ fishName }) => {
+    let fishDetails = null;
+    
+    // Find matching fish in market data
+    fishDetails = marketData.find((fish) => 
+        fish.fn.toLowerCase() === fishName.toLowerCase()
+    );
+
+    console.log(fishName, fishDetails);
+
+    if (!fishDetails) return null;
+
+    const tableData = [
+        { label: 'Common Name', value: fishDetails.cn },
+        { label: 'Scientific Name', value: fishDetails.sn },
+        { label: 'Primary Market', value: fishDetails.pm },
+        { label: 'Market Availability', value: fishDetails.ma },
+        { label: 'Wholesale Price', value: fishDetails.wp },
+        { label: 'Retail Price', value: fishDetails.rp },
+        { label: 'Additional Notes', value: fishDetails.kn }
+    ];
+
+    return (
+        <View style={styles.tableContainer}>
+            <Text style={styles.tableTitle}>Market Details</Text>
+            {tableData.map((item, index) => (
+                <View key={index} style={[styles.tableRow, index % 2 === 0 ? styles.evenRow : styles.oddRow]}>
+                    <Text style={styles.tableLabel}>{item.label}</Text>
+                    <Text style={styles.tableValue}>{item.value}</Text>
+                </View>
+            ))}
+        </View>
+    );
+};
 
 const BASE_URL = Env.BASE_URL;
 
@@ -69,11 +108,14 @@ const GetPredictionsScreen = ({ route }) => {
     }, [imageUri]);
 
     const renderTopPrediction = (item) => (
-        <View style={styles.topPredictionCard}>
-            <Text style={styles.topPredictionLabel}>Top Match</Text>
-            <Text style={styles.topSpeciesText}>{item.species}</Text>
-            <Text style={styles.topConfidenceText}>{item.confidence}</Text>
-            <ConfidenceBar value={item.confidence} />
+        <View>
+            <View style={styles.topPredictionCard}>
+                <Text style={styles.topPredictionLabel}>Top Match</Text>
+                <Text style={styles.topSpeciesText}>{item.species}</Text>
+                <Text style={styles.topConfidenceText}>{item.confidence}</Text>
+                <ConfidenceBar value={item.confidence} />
+            </View>
+            <FishDetailsTable fishName={item.species} />
         </View>
     );
 
@@ -140,6 +182,46 @@ const GetPredictionsScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+    tableContainer: {
+        backgroundColor: COLORS.card,
+        borderRadius: 12,
+        marginTop: 20,
+        padding: 15,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    tableTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: COLORS.text,
+        marginBottom: 15,
+    },
+    tableRow: {
+        flexDirection: 'row',
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderRadius: 6,
+    },
+    evenRow: {
+        backgroundColor: '#f8f9fa',
+    },
+    oddRow: {
+        backgroundColor: '#ffffff',
+    },
+    tableLabel: {
+        flex: 2,
+        fontSize: 14,
+        fontWeight: '600',
+        color: COLORS.text,
+    },
+    tableValue: {
+        flex: 3,
+        fontSize: 14,
+        color: COLORS.text,
+    },
     container: {
         flex: 1,
         backgroundColor: '#F0F4F7', // Lighter background

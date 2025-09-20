@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, TextInput, Alert, } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
 import { Picker } from '@react-native-picker/picker';
+import catchLogsData from '../constants/catchLogsData.json'; // Import the JSON file
+
+const fishTypeImages = {
+  'Pomfret': require('../assets/pomfretbg.png'),
+  'Mackerel': require('../assets/mackerelbg.png'),
+  'Prawns': require('../assets/prawnbg.png'),
+  'Sardine': require('../assets/sardinebg.png'),
+};
 
 const LogNewCatchScreen = ({ navigation }) => {
   const [selectedFish, setSelectedFish] = useState(null);
@@ -10,6 +18,10 @@ const LogNewCatchScreen = ({ navigation }) => {
   const [minute, setMinute] = useState('00');
   const [ampm, setAmpm] = useState('AM');
   const [selectedUnit, setSelectedUnit] = useState('kgs');
+  const [date, setDate] = useState('');
+  const [volume, setVolume] = useState('');
+  const [location, setLocation] = useState('');
+  const [notes, setNotes] = useState('');
 
   const fishTypes = ['Pomfret', 'Mackerel', 'Prawns', 'Sardine'];
 
@@ -26,9 +38,49 @@ const LogNewCatchScreen = ({ navigation }) => {
     const numericValue = parseInt(text, 10);
     if (isNaN(numericValue) || numericValue < 0 || numericValue > 59) {
       setMinute('00');
-    } else {
+    }
+    else {
       setMinute(text.padStart(2, '0'));
     }
+  };
+
+  const handleSaveCatchLog = () => {
+    if (!date || !volume || !selectedFish || !location) {
+      Alert.alert('Error', 'Please fill all required fields (Date, Volume, Type of Fish, Location).');
+      return;
+    }
+
+    const newLog = {
+      id: Date.now().toString(), // Unique ID
+      date: date, // Use the date from state
+      time: `${hour}:${minute} ${ampm}`,
+      weight: `${volume} ${selectedUnit}`,
+      fishType: selectedFish,
+      location: location,
+      notes: notes,
+      image: fishTypeImages[selectedFish], // Get image based on fish type
+    };
+
+    // In a real app, you would send this to a backend or save to AsyncStorage
+    // For this exercise, we'll simulate saving to the JSON file.
+    // This direct modification of imported JSON is for demonstration purposes only.
+    // In a real React Native app, you'd typically use AsyncStorage or a database.
+    const updatedLogs = [...catchLogsData, newLog];
+    // This part would typically involve writing to a file system or database
+    // For now, we'll just log it and navigate.
+    console.log('New Catch Log:', newLog);
+    console.log('Updated Catch Logs:', updatedLogs);
+
+    // Simulate saving to JSON file (this won't persist across app restarts without native module)
+    // For persistent storage, use AsyncStorage or a database.
+    // Example of how you might write to a file (requires native modules or specific libraries):
+    // import * as FileSystem from 'expo-file-system';
+    // FileSystem.writeAsStringAsync(
+    //   FileSystem.documentDirectory + 'catchLogsData.json',
+    //   JSON.stringify(updatedLogs)
+    // );
+
+    navigation.navigate('CatchRecord', { newLog: newLog }); // Pass new log to CatchRecordScreen
   };
 
   return (
@@ -51,6 +103,8 @@ const LogNewCatchScreen = ({ navigation }) => {
               style={styles.dateInput}
               placeholder="DD/MM/YY"
               placeholderTextColor={COLORS.lightText}
+              value={date}
+              onChangeText={setDate}
             />
             <Ionicons name="calendar-outline" size={24} color={COLORS.lightText} style={styles.inputIcon} />
           </View>
@@ -97,6 +151,8 @@ const LogNewCatchScreen = ({ navigation }) => {
             placeholder="Total Volume"
             placeholderTextColor={COLORS.lightText}
             keyboardType="numeric"
+            value={volume}
+            onChangeText={setVolume}
           />
           <View style={styles.unitDropdownContainer}>
             <Picker
@@ -139,17 +195,21 @@ const LogNewCatchScreen = ({ navigation }) => {
           style={styles.locationInput}
           placeholder="Location"
           placeholderTextColor={COLORS.lightText}
+          value={location}
+          onChangeText={setLocation}
         />
         <TextInput
           style={styles.notesInput}
           placeholder="Notes"
           placeholderTextColor={COLORS.lightText}
           multiline
+          value={notes}
+          onChangeText={setNotes}
         />
       </ScrollView>
 
       {/* Save Button */}
-      <TouchableOpacity style={styles.saveButton}>
+      <TouchableOpacity style={styles.saveButton} onPress={handleSaveCatchLog}>
         <Text style={styles.saveButtonText}>Save Catch Log</Text>
       </TouchableOpacity>
     </SafeAreaView>

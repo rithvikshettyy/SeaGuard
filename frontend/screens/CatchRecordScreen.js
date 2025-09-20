@@ -1,53 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { COLORS } from '../constants/colors';
+import catchLogsData from '../constants/catchLogsData.json'; // Import the JSON file
+import { useIsFocused } from '@react-navigation/native';
 
-const catchLogs = [
-  {
-    id: '1',
-    date: 'Sep 8, 2025',
-    time: '8:30 AM',
-    weight: '45.1 kg',
-    fishType: 'Pomfret',
-    location: '12.2502° N, 64.3372° E',
-    image: require('../assets/pomfretbg.png'), // New image for Pomfret
-    bgColor: '#E67E22', // Orange
-  },
-  {
-    id: '2',
-    date: 'Sep 8, 2025',
-    time: '8:30 AM',
-    weight: '34.5 kg',
-    fishType: 'Mackerel',
-    location: '12.2502° N, 64.3372° E',
-    image: require('../assets/mackerelbg.png'), // New image for Mackerel
-    bgColor: '#3498DB', // Blue
-  },
-  {
-    id: '3',
-    date: 'Sep 8, 2025',
-    time: '8:30 AM',
-    weight: '34.5 kg',
-    fishType: 'Prawns',
-    location: '12.2502° N, 64.3372° E',
-    image: require('../assets/prawnbg.png'), // New image for Prawns
-    bgColor: '#E67E22', // Orange
-  },
-  {
-    id: '4',
-    date: 'Sep 8, 2025',
-    time: '8:30 AM',
-    weight: '45.1 kg',
-    fishType: 'Sardine',
-    location: '12.2502° N, 64.3372° E',
-    image: require('../assets/sardinebg.png'), // New image for Sardine
-    bgColor: '#3498DB', // Blue
-  },
-];
+const CatchRecordScreen = ({ navigation, route }) => {
+  const [catchLogs, setCatchLogs] = useState(catchLogsData);
+  const isFocused = useIsFocused();
 
-const CatchRecordScreen = ({ navigation }) => {
+  useEffect(() => {
+    if (isFocused && route.params?.newLog) {
+      const newLog = route.params.newLog;
+      setCatchLogs((prevLogs) => {
+        const updatedLogs = [...prevLogs, newLog];
+        // In a real app, you would save updatedLogs to persistent storage here
+        // For this exercise, we'll just update the state.
+        return updatedLogs;
+      });
+      // Clear the param so it doesn't add the same log again on re-focus
+      navigation.setParams({ newLog: undefined });
+    }
+  }, [isFocused, route.params?.newLog]);
+
   const renderCatchItem = ({ item }) => (
     <TouchableOpacity style={styles.catchItem}>
       <ImageBackground source={item.image} style={styles.catchItemImageBackground} imageStyle={styles.catchItemImageStyle}>
