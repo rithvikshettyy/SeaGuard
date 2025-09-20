@@ -25,7 +25,7 @@ SeaGuard is a comprehensive mobile assistant for fishermen, designed to promote 
 
 ## 🏛️ Architecture
 
-![Architecture Diagram](./assets/architecture.png)
+![Architecture Diagram](./frontend/assets/architecture.png)
 *(Note: Add your architecture diagram to the `./assets` folder for it to be displayed here.)*
 
 ## 📂 Project Structure
