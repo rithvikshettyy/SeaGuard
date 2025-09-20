@@ -1,19 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TextInput, 
-  TouchableOpacity, 
-  KeyboardAvoidingView, 
-  Platform, 
-  FlatList, 
-  ActivityIndicator 
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
-import { COLORS } from '../constants/colors';
 
 // IMPORTANT: Storing API keys in the frontend is a security risk.
 // This should be replaced with a backend call in a production environment.
@@ -29,7 +28,10 @@ const ChatScreen = ({ navigation }) => {
 
   useEffect(() => {
     setChatHistory([
-      { role: 'bot', content: 'Hello! I am SeaBot, your AI assistant. How can I help you today?' }
+      {
+        role: 'bot',
+        content: 'Hello! I am SeaBot, your AI assistant. How can I help you today?',
+      },
     ]);
   }, []);
 
@@ -46,17 +48,23 @@ const ChatScreen = ({ navigation }) => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            history: updatedChatHistory.map(msg => ({ role: msg.role, content: msg.content })),
+            history: updatedChatHistory.map((msg) => ({
+              role: msg.role,
+              content: msg.content,
+            })),
           }),
         });
 
         const data = await response.json();
         const botResponse = { role: 'bot', content: data.response };
-        setChatHistory(prevHistory => [...prevHistory, botResponse]);
+        setChatHistory((prevHistory) => [...prevHistory, botResponse]);
       } catch (error) {
         console.error('Error fetching chat response:', error);
-        const errorResponse = { role: 'bot', content: 'Sorry, I am having trouble connecting. Please try again later.' };
-        setChatHistory(prevHistory => [...prevHistory, errorResponse]);
+        const errorResponse = {
+          role: 'bot',
+          content: 'Sorry, I am having trouble connecting. Please try again later.',
+        };
+        setChatHistory((prevHistory) => [...prevHistory, errorResponse]);
       } finally {
         setLoading(false);
       }
@@ -106,7 +114,9 @@ const ChatScreen = ({ navigation }) => {
         playsInSilentModeIOS: true,
       });
 
-      const { recording } = await Audio.Recording.createAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+      const { recording } = await Audio.Recording.createAsync(
+        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+      );
       setRecording(recording);
       setIsRecording(true);
     } catch (err) {
@@ -126,8 +136,23 @@ const ChatScreen = ({ navigation }) => {
   };
 
   const renderChatItem = ({ item }) => (
-    <View style={[styles.messageContainer, item.role === 'user' ? styles.userMessageContainer : styles.botMessageContainer]}>
-      <Text style={styles.messageText}>{item.content}</Text>
+    <View
+      style={[
+        styles.messageContainer,
+        item.role === 'user'
+          ? styles.userMessageContainer
+          : styles.botMessageContainer,
+      ]}
+    >
+      <Text
+        style={
+          item.role === 'user'
+            ? styles.userMessageText
+            : styles.botMessageText
+        }
+      >
+        {item.content}
+      </Text>
     </View>
   );
 
@@ -135,11 +160,11 @@ const ChatScreen = ({ navigation }) => {
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
     >
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+          <Ionicons name="arrow-back" size={24} color="#007AFF" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>SeaBot - AI Assistant</Text>
         <View style={{ width: 24 }} />
@@ -147,7 +172,11 @@ const ChatScreen = ({ navigation }) => {
 
       <View style={styles.chatContainer}>
         {chatHistory.length === 1 && !loading ? (
-          <Image source={require('../assets/blob.gif')} style={styles.gif} contentFit="contain" />
+          <Image
+            source={require('../assets/blob.gif')}
+            style={styles.gif}
+            contentFit="contain"
+          />
         ) : (
           <FlatList
             ref={flatListRef}
@@ -155,10 +184,18 @@ const ChatScreen = ({ navigation }) => {
             renderItem={renderChatItem}
             keyExtractor={(item, index) => index.toString()}
             contentContainerStyle={styles.chatList}
-            onContentSizeChange={() => flatListRef.current.scrollToEnd({ animated: true })}
+            onContentSizeChange={() =>
+              flatListRef.current.scrollToEnd({ animated: true })
+            }
           />
         )}
-        {loading && <ActivityIndicator size="large" color={COLORS.primary} style={styles.loading} />}
+        {loading && (
+          <ActivityIndicator
+            size="large"
+            color="#007AFF"
+            style={styles.loading}
+          />
+        )}
       </View>
 
       <View style={styles.inputContainer}>
@@ -170,9 +207,17 @@ const ChatScreen = ({ navigation }) => {
           placeholderTextColor="#8E8E93"
         />
         <TouchableOpacity onPress={handleMicPress} style={styles.micButton}>
-          <Ionicons name={isRecording ? "stop-circle-outline" : "mic"} size={24} color={isRecording ? 'red' : COLORS.primary} />
+          <Ionicons
+            name={isRecording ? 'stop-circle-outline' : 'mic'}
+            size={24}
+            color={isRecording ? 'red' : '#007AFF'}
+          />
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleSend} style={styles.sendButton} disabled={loading}>
+        <TouchableOpacity
+          onPress={handleSend}
+          style={styles.sendButton}
+          disabled={loading}
+        >
           <Ionicons name="send" size={24} color="#FFF" />
         </TouchableOpacity>
       </View>
@@ -183,7 +228,7 @@ const ChatScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     flexDirection: 'row',
@@ -192,14 +237,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 50,
     paddingBottom: 20,
-    backgroundColor: '#1C1C1E',
+    backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
-    borderBottomColor: '#38383A',
+    borderBottomColor: '#E5E5EA',
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: '#000000',
   },
   chatContainer: {
     flex: 1,
@@ -215,21 +260,25 @@ const styles = StyleSheet.create({
     marginBottom: 'auto',
   },
   messageContainer: {
-    padding: 10,
-    borderRadius: 10,
+    padding: 12,
+    borderRadius: 18,
     marginBottom: 10,
     maxWidth: '80%',
   },
   userMessageContainer: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: '#007AFF',
     alignSelf: 'flex-end',
   },
   botMessageContainer: {
-    backgroundColor: '#2C2C2E',
+    backgroundColor: '#E5E5EA',
     alignSelf: 'flex-start',
   },
-  messageText: {
+  userMessageText: {
     color: '#FFFFFF',
+    fontSize: 16,
+  },
+  botMessageText: {
+    color: '#000000',
     fontSize: 16,
   },
   loading: {
@@ -240,25 +289,26 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#1C1C1E',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    backgroundColor: '#FFFFFF',
     borderTopWidth: 1,
-    borderTopColor: '#38383A',
+    borderTopColor: '#E5E5EA',
   },
   input: {
     flex: 1,
     height: 40,
-    backgroundColor: '#2C2C2E',
+    backgroundColor: '#F2F2F7',
     borderRadius: 20,
     paddingHorizontal: 15,
     fontSize: 16,
-    color: '#FFFFFF',
+    color: '#000000',
   },
   micButton: {
-    padding: 10,
+    paddingHorizontal: 10,
   },
   sendButton: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: '#007AFF',
     borderRadius: 20,
     padding: 10,
     marginLeft: 10,
