@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Dimensions, ActivityIndicator, Modal} from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import * as ImagePicker from 'expo-image-picker';
 import { COLORS } from '../constants/colors';
 import { Env } from '../constants/env';
+import { useLanguage } from '../contexts/LanguageContext';
+import { screenTexts, getLanguageNames } from '../constants/screenTexts';
 
 const BASE_URL = Env.BASE_URL;
 
@@ -20,7 +22,19 @@ const FeaturesScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showCursor, setShowCursor] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const newsListRef = useRef(null);
+  const { language, changeLanguage } = useLanguage();
+
+  const LANGUAGES = Object.entries(getLanguageNames()).map(([code, name]) => ({
+    code,
+    name
+  }));
+
+  const handleLanguageSelect = (languageCode) => {
+    changeLanguage(languageCode);
+    setModalVisible(false);
+  };
 
   const handleUploadPress = async () => {
     // Request permission
@@ -116,11 +130,13 @@ const FeaturesScreen = ({ navigation }) => {
     }
 
     if (error) {
-      return <Text style={styles.errorText}>Error: {error}</Text>;
+      return <Text style={styles.errorText}>
+        {screenTexts.FeaturesScreen[language].news.error.replace('{error}', error)}
+      </Text>;
     }
 
     if (news.length === 0) {
-      return <Text style={styles.errorText}>No news available at the moment.</Text>;
+      return <Text style={styles.errorText}>{screenTexts.FeaturesScreen[language].news.noNews}</Text>;
     }
 
     return (
@@ -155,8 +171,12 @@ const FeaturesScreen = ({ navigation }) => {
     >
       <View style={styles.header}>
         <Image source={require('../assets/icon_black.png')} style={styles.logo} contentFit="contain" />
-        <TouchableOpacity>
-          <Ionicons name="language-outline" size={32} color={COLORS.text} />
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <View style={styles.languageButton}>
+            <Text style={styles.languageButtonText}>
+              🌐 {getLanguageNames()[language]}
+            </Text>
+          </View>
         </TouchableOpacity>
       </View>
 
@@ -164,9 +184,9 @@ const FeaturesScreen = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.navigate('ChatScreen')}>
         <View style={[styles.card, styles.chatCard]}>
           <View style={styles.chatTextContainer}>
-            <Text style={styles.cardTitle}>Chat Assistant</Text>
-            <Text style={styles.chatTitle}>Ask Seabot{showCursor ? '|' : ' '}</Text>
-            <Text style={styles.chatSubtitle}>Our very own chatbot to help you with sea related queries.</Text>
+            <Text style={styles.cardTitle}>{screenTexts.FeaturesScreen[language].chatAssistant.title}</Text>
+            <Text style={styles.chatTitle}>{screenTexts.FeaturesScreen[language].chatAssistant.heading}{showCursor ? '|' : ' '}</Text>
+            <Text style={styles.chatSubtitle}>{screenTexts.FeaturesScreen[language].chatAssistant.subtitle}</Text>
           </View>
           <Image source={require('../assets/blob.gif')} style={[styles.gif, {}]} />
         </View>
@@ -176,9 +196,11 @@ const FeaturesScreen = ({ navigation }) => {
         <View style={styles.columnLeft}>
           {/* Geo-Fencing Status Card */}
           <View style={[styles.card, styles.geoCard, { marginHorizontal: 0, marginBottom: 10, }]}>
-            <Text style={[styles.cardTitle, { color: '#FFFFFF' }]}>Geo-Fencing Status</Text>
-            <Text style={styles.geoStatus}>SAFE</Text>
-            <Text style={styles.geoDistance}>Nearest Geo-Fence: 20.5km away</Text>
+            <Text style={[styles.cardTitle, { color: '#FFFFFF' }]}>{screenTexts.FeaturesScreen[language].geoFencing.title}</Text>
+            <Text style={styles.geoStatus}>{screenTexts.FeaturesScreen[language].geoFencing.status}</Text>
+            <Text style={styles.geoDistance}>
+              {screenTexts.FeaturesScreen[language].geoFencing.distance.replace('{distance}', '20.5')}
+            </Text>
           </View>
           <View style={[styles.card, { overflow: 'hidden', padding: 0, backgroundColor: 'black', height: 93, marginHorizontal: 0, marginBottom: 6, marginTop: -4}]}>
             <Image source={require('../assets/fish.gif')} style={{ height: '100%', width: '100%' }} />
@@ -187,11 +209,11 @@ const FeaturesScreen = ({ navigation }) => {
 
         {/* Fishing Hub Card */}
         <TouchableOpacity onPress={() => navigation.navigate('FishingOptimizationHub')} style={[styles.card, styles.fishingHubCard]}>
-          <Text style={styles.cardTitle}>Fishing Optimizer</Text>
+          <Text style={styles.cardTitle}>{screenTexts.FeaturesScreen[language].fishingOptimizer.title}</Text>
           <Image source={require('../assets/fishnet.png')} style={styles.fishingOptimizerImage} />
-          <Text style={styles.fishingHubText}>Get personalized strategies for a better catch.</Text>
+          <Text style={styles.fishingHubText}>{screenTexts.FeaturesScreen[language].fishingOptimizer.description}</Text>
           <TouchableOpacity style={styles.optimizeButton} onPress={() => navigation.navigate('FishingOptimizationHub')}>
-            <Text style={styles.optimizeButtonText}>Get Recommendations</Text>
+            <Text style={styles.optimizeButtonText}>{screenTexts.FeaturesScreen[language].fishingOptimizer.button}</Text>
           </TouchableOpacity>
         </TouchableOpacity>
       </View>
@@ -199,44 +221,127 @@ const FeaturesScreen = ({ navigation }) => {
       <View style={styles.twoCardRow}>
         {/* Identify Fish Species Card */}
         <View style={[styles.card, styles.halfCard]}>
-          <Text style={styles.cardTitle}>Identify Fish Species</Text>
+          <Text style={styles.cardTitle}>{screenTexts.FeaturesScreen[language].fishIdentifier.title}</Text>
           <View style={styles.identifyContent}>
             <View>
                 <Ionicons name="fish-outline" size={50} color="#333" />
                 <Text style={styles.identifyQuestionMark}>?</Text>
             </View>
             <Text style={styles.identifyDescription}>
-              Know your catch — identify species with a single tap.
+              {screenTexts.FeaturesScreen[language].fishIdentifier.description}
             </Text>
           </View>
           <TouchableOpacity style={styles.uploadButton} onPress={handleUploadPress}>
-            <Text style={styles.uploadButtonText}>Upload Image</Text>
+            <Text style={styles.uploadButtonText}>{screenTexts.FeaturesScreen[language].fishIdentifier.button}</Text>
           </TouchableOpacity>
         </View>
 
         {/* Catch Monitor Card */}
         <TouchableOpacity style={[styles.card, styles.halfCard]} onPress={() => navigation.navigate('CatchRecord')}>
-          <Text style={styles.cardTitle}>Monitor catch volumes</Text>
+          <Text style={styles.cardTitle}>{screenTexts.FeaturesScreen[language].catchMonitor.title}</Text>
           <View style={styles.catchVolumeContainer}>
-            <Text style={styles.catchVolume}>59.1kg</Text>
-            <Text style={styles.catchSubText}>8.6kg avg/outing</Text>
+            <Text style={styles.catchVolume}>{screenTexts.FeaturesScreen[language].catchMonitor.volume.replace('{volume}', '59.1')}</Text>
+            <Text style={styles.catchSubText}>{screenTexts.FeaturesScreen[language].catchMonitor.average.replace('{average}', '8.6')}</Text>
           </View>
           <View style={styles.catchLogButton}>
-            <Text style={styles.catchLogButtonText}>View Catch Log</Text>
+            <Text style={styles.catchLogButtonText}>{screenTexts.FeaturesScreen[language].catchMonitor.button}</Text>
           </View>
         </TouchableOpacity>
       </View>
 
       {/* Latest News Card */}
       <View style={[styles.card, styles.newsCard]}>
-        <Text style={styles.cardTitle}>Latest News</Text>
+        <Text style={styles.cardTitle}>{screenTexts.FeaturesScreen[language].news.title}</Text>
         {renderNewsContent()}
       </View>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <TouchableOpacity 
+          style={styles.modalOverlay}
+          activeOpacity={1}
+          onPressOut={() => setModalVisible(false)}
+        >
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>{screenTexts.FeaturesScreen[language].chooseLanguage}</Text>
+            <FlatList
+              data={LANGUAGES}
+              renderItem={({ item }) => (
+                <TouchableOpacity 
+                  style={styles.languageItem}
+                  onPress={() => handleLanguageSelect(item.code)}
+                >
+                  <Text style={styles.languageText}>{item.name}</Text>
+                  {language === item.code && (
+                    <Ionicons name="checkmark" size={24} color={COLORS.primary} />
+                  )}
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item.code}
+            />
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width: width * 0.8,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: COLORS.primary,
+  },
+  languageItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    width: '100%',
+  },
+  languageText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  languageButton: {
+    padding: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  languageButtonText: {
+    fontSize: 14,
+    color: COLORS.text,
+  },
   container: {
     flex: 1,
     backgroundColor: '#E9EFF1',

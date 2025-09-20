@@ -66,6 +66,178 @@ export const screenTexts = {
       chooseLanguage: "ഭാഷ തിരഞ്ഞെടുക്കുക (ഡിഫോൾട്ട്: മലയാളം)"
     }
   },
+  FeaturesScreen: {
+    en: {
+      chatAssistant: {
+        title: "Chat Assistant",
+        heading: "Ask Seabot",
+        subtitle: "Our very own chatbot to help you with sea related queries."
+      },
+      geoFencing: {
+        title: "Geo-Fencing Status",
+        status: "SAFE",
+        distance: "Nearest Geo-Fence: {distance}km away"
+      },
+      fishingOptimizer: {
+        title: "Fishing Optimizer",
+        description: "Get personalized strategies for a better catch.",
+        button: "Get Recommendations"
+      },
+      fishIdentifier: {
+        title: "Identify Fish Species",
+        description: "Know your catch — identify species with a single tap.",
+        button: "Upload Image"
+      },
+      catchMonitor: {
+        title: "Monitor catch volumes",
+        volume: "{volume}kg",
+        average: "{average}kg avg/outing",
+        button: "View Catch Log"
+      },
+      news: {
+        title: "Latest News",
+        noNews: "No news available at the moment.",
+        error: "Error: {error}"
+      },
+      chooseLanguage: "Choose Language"
+    },
+    hi: {
+      chatAssistant: {
+        title: "चैट सहायक",
+        heading: "सीबोट से पूछें",
+        subtitle: "समुद्र संबंधी प्रश्नों में आपकी मदद के लिए हमारा खुद का चैटबोट।"
+      },
+      geoFencing: {
+        title: "जियो-फेंसिंग स्थिति",
+        status: "सुरक्षित",
+        distance: "निकटतम जियो-फेंस: {distance}किमी दूर"
+      },
+      fishingOptimizer: {
+        title: "मछली पकड़ने का ऑप्टिमाइज़र",
+        description: "बेहतर पकड़ के लिए व्यक्तिगत रणनीतियाँ प्राप्त करें।",
+        button: "सिफारिशें प्राप्त करें"
+      },
+      fishIdentifier: {
+        title: "मछली की प्रजातियों की पहचान करें",
+        description: "एक टैप में अपनी पकड़ को पहचानें।",
+        button: "छवि अपलोड करें"
+      },
+      catchMonitor: {
+        title: "पकड़ की मात्रा की निगरानी करें",
+        volume: "{volume}किग्रा",
+        average: "{average}किग्रा औसत/प्रति ट्रिप",
+        button: "पकड़ लॉग देखें"
+      },
+      news: {
+        title: "ताज़ा खबरें",
+        noNews: "इस समय कोई समाचार उपलब्ध नहीं है।",
+        error: "त्रुटि: {error}"
+      },
+      chooseLanguage: "भाषा चुनें"
+    },
+    ta: {
+      chatAssistant: {
+        title: "அரட்டை உதவியாளர்",
+        heading: "சீபோட்டிடம் கேளுங்கள்",
+        subtitle: "கடல் தொடர்பான கேள்விகளுக்கு உதவ எங்கள் சொந்த சாட்போட்."
+      },
+      geoFencing: {
+        title: "புவி-வேலி நிலை",
+        status: "பாதுகாப்பானது",
+        distance: "அருகிலுள்ள புவி-வேலி: {distance}கிமீ தொலைவில்"
+      },
+      fishingOptimizer: {
+        title: "மீன்பிடி உகந்ததாக்கி",
+        description: "சிறந்த பிடிப்புக்கான தனிப்பயனாக்கப்பட்ட உத்திகளைப் பெறுங்கள்.",
+        button: "பரிந்துரைகளைப் பெறுக"
+      },
+      fishIdentifier: {
+        title: "மீன் இனங்களை அடையாளம் காணுங்கள்",
+        description: "ஒரே தட்டலில் உங்கள் பிடிப்பை அறியுங்கள்.",
+        button: "படத்தை பதிவேற்று"
+      },
+      catchMonitor: {
+        title: "பிடிப்பு அளவுகளை கண்காணி",
+        volume: "{volume}கிகி",
+        average: "{average}கிகி சராசரி/வெளியேற்றம்",
+        button: "பிடிப்பு பதிவைக் காண்க"
+      },
+      news: {
+        title: "சமீபத்திய செய்திகள்",
+        noNews: "தற்போது செய்திகள் எதுவும் இல்லை.",
+        error: "பிழை: {error}"
+      },
+      chooseLanguage: "மொழியை தேர்ந்தெடு"
+    },
+    te: {
+      chatAssistant: {
+        title: "చాట్ అసిస్టెంట్",
+        heading: "సీబోట్‌ని అడగండి",
+        subtitle: "సముద్ర సంబంధిత ప్రశ్నలకు సహాయపడటానికి మా స్వంత చాట్‌బాట్."
+      },
+      geoFencing: {
+        title: "జియో-ఫెన్సింగ్ స్థితి",
+        status: "సురక్షితం",
+        distance: "సమీప జియో-ఫెన్స్: {distance}కిమీ దూరంలో"
+      },
+      fishingOptimizer: {
+        title: "ఫిషింగ్ ఆప్టిమైజర్",
+        description: "మెరుగైన పట్టు కోసం వ్యక్తిగతీకరించిన వ్యూహాలను పొందండి.",
+        button: "సిఫార్సులు పొందండి"
+      },
+      fishIdentifier: {
+        title: "చేప జాతులను గుర్తించండి",
+        description: "ఒక్క నొక్కుతో మీ పట్టును తెలుసుకోండి.",
+        button: "చిత్రాన్ని అప్‌లోడ్ చేయండి"
+      },
+      catchMonitor: {
+        title: "పట్టు పరిమాణాలను పర్యవేక్షించండి",
+        volume: "{volume}కేజీ",
+        average: "{average}కేజీ సగటు/ట్రిప్",
+        button: "క్యాచ్ లాగ్ చూడండి"
+      },
+      news: {
+        title: "తాజా వార్తలు",
+        noNews: "ప్రస్తుతం వార్తలు అందుబాటులో లేవు.",
+        error: "లోపం: {error}"
+      },
+      chooseLanguage: "భాష ఎంచుకోండి"
+    },
+    ml: {
+      chatAssistant: {
+        title: "ചാറ്റ് അസിസ്റ്റന്റ്",
+        heading: "സീബോട്ടിനോട് ചോദിക്കൂ",
+        subtitle: "കടൽ അധിഷ്ഠിത ചോദ്യങ്ങൾക്ക് സഹായിക്കാൻ ഞങ്ങളുടെ സ്വന്തം ചാറ്റ്ബോട്ട്."
+      },
+      geoFencing: {
+        title: "ജിയോ-ഫെൻസിംഗ് സ്റ്റാറ്റസ്",
+        status: "സുരക്ഷിതം",
+        distance: "ഏറ്റവും അടുത്ത ജിയോ-ഫെൻസ്: {distance}കിമീ അകലെ"
+      },
+      fishingOptimizer: {
+        title: "ഫിഷിംഗ് ഓപ്റ്റിമൈസർ",
+        description: "മികച്ച പിടിത്തത്തിനായി വ്യക്തിഗത തന്ത്രങ്ങൾ നേടുക.",
+        button: "ശുപാർശകൾ നേടുക"
+      },
+      fishIdentifier: {
+        title: "മത്സ്യ ഇനങ്ങൾ തിരിച്ചറിയുക",
+        description: "ഒരു ടാപ്പിൽ നിങ്ങളുടെ പിടിത്തം അറിയുക.",
+        button: "ചിത്രം അപ്‌ലോഡ് ചെയ്യുക"
+      },
+      catchMonitor: {
+        title: "പിടിത്ത അളവുകൾ നിരീക്ഷിക്കുക",
+        volume: "{volume}കിഗ്രാം",
+        average: "{average}കിഗ്രാം ശരാശരി/ട്രിപ്പ്",
+        button: "പിടിത്ത ലോഗ് കാണുക"
+      },
+      news: {
+        title: "പുതിയ വാർത്തകൾ",
+        noNews: "നിലവിൽ വാർത്തകളൊന്നും ലഭ്യമല്ല.",
+        error: "പിശക്: {error}"
+      },
+      chooseLanguage: "ഭാഷ തിരഞ്ഞെടുക്കുക"
+    }
+  },
   LoginScreen: {
     en: {
       title: "Welcome user!\nGlad to see you again!",
