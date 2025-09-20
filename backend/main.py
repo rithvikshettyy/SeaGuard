@@ -64,8 +64,13 @@ app = FastAPI(
 
 alerts: IndiaFishingAlerts = None
 rss_service = RssService()
-# auth_service = AuthService()
+auth_service = AuthService()
 chat_service = ChatService()
+
+
+class Otp(BaseModel):
+    phone_number: str
+    otp: str
 
 @app.on_event("startup")
 async def startup_event():
@@ -149,24 +154,19 @@ async def rss_feed(lat: float, lon: float):
         logging.error(f"Error in rss_feed endpoint: {e}")
         raise HTTPException(status_code=500, detail="An internal error occurred while fetching the news feed.")
 
-# @app.post("/send-otp")
-# async def send_otp(request: Request):
-#     request = await request.json()
-#     phone = request["phoneNumber"]
-#     result = auth_service.send_otp(phone)
-#     if "error" in result:
-#         raise HTTPException(status_code=400, detail=result["error"])
-#     return result
+@app.post("/send-otp")
+async def send_otp(request: Phone):
+    result = auth_service.send_otp(request.phone_number)
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+    return result
 
-# @app.post("/verify-otp")
-# async def verify_otp(request: Request):
-#     request = await request.json()
-#     otp = request["otp"]
-#     phone = request["phoneNumber"]
-#     result = auth_service.verify_otp(phone, otp)
-#     if "error" in result:
-#         raise HTTPException(status_code=400, detail=result["error"])
-#     return result
+@app.post("/verify-otp")
+async def verify_otp(request: Otp):
+    result = auth_service.verify_otp(request.phone_number, request.otp)
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+    return result
 
 if __name__ == "__main__":
     import uvicorn

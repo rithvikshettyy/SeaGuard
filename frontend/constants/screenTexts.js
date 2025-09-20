@@ -81,7 +81,7 @@ export const screenTexts = {
       fishingOptimizer: {
         title: "Fishing Optimizer",
         description: "Get personalized strategies for a better catch.",
-        button: "Get Recommendations"
+        button: "Get Insights"
       },
       fishIdentifier: {
         title: "Identify Fish Species",

@@ -17,7 +17,7 @@ import { Audio } from 'expo-av';
 // IMPORTANT: Storing API keys in the frontend is a security risk.
 // This should be replaced with a backend call in a production environment.
 const SARVAM_API_KEY = "sk_f9x0xata_kc6bCG9hLzrmCXwx9lS83m30";
-
+import { Env } from '../constants/env';
 const ChatScreen = ({ navigation }) => {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
@@ -25,6 +25,7 @@ const ChatScreen = ({ navigation }) => {
   const [recording, setRecording] = useState();
   const [isRecording, setIsRecording] = useState(false);
   const flatListRef = useRef();
+  const BASE_URL = Env.BASE_URL;
 
   useEffect(() => {
     setChatHistory([
@@ -44,7 +45,7 @@ const ChatScreen = ({ navigation }) => {
       setLoading(true);
 
       try {
-        const response = await fetch('http://10.0.2.2:8000/chat', {
+        const response = await fetch(`${BASE_URL}/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

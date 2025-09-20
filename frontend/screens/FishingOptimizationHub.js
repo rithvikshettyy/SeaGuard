@@ -191,7 +191,7 @@ const FishingOptimizationHub = ({ navigation }) => {
             </View>
 
             <TouchableOpacity style={styles.button} onPress={getRecommendations}>
-                <Text style={styles.buttonText}>Get Recommendations</Text>
+                <Text style={styles.buttonText}>Get Insights</Text>
             </TouchableOpacity>
         </View>
 
