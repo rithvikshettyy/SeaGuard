@@ -23,6 +23,11 @@ SeaGuard is a comprehensive mobile assistant for fishermen, designed to promote 
 - **State Management:** React Context
 - **Styling:** Custom components and stylesheets
 
+## 🏛️ Architecture
+
+![Architecture Diagram](./assets/architecture.png)
+*(Note: Add your architecture diagram to the `./assets` folder for it to be displayed here.)*
+
 ## 📂 Project Structure
 
 ```
